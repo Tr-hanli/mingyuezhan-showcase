@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>猛玛 LARK MIX 无线麦克风</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; background: #f5f5f5; color: #333; line-height: 1.7; }
+.container { max-width: 960px; margin: 0 auto; padding: 20px; }
+.header { text-align: center; padding: 36px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; border-radius: 12px; margin-bottom: 30px; }
+.header h1 { font-size: 24px; margin-bottom: 8px; }
+.header .subtitle { font-size: 13px; color: #aaa; }
+.content { background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+h2 { font-size: 22px; margin: 28px 0 14px; padding-left: 12px; border-left: 4px solid #ea580c; color: #1a1a2e; }
+h3 { font-size: 17px; margin: 20px 0 10px; color: #333; }
+h4 { font-size: 15px; margin: 14px 0 8px; color: #555; }
+p { margin-bottom: 12px; }
+ul, ol { margin: 12px 0 12px 24px; }
+li { margin-bottom: 6px; }
+blockquote { background: #f0f4ff; border-left: 4px solid #0f3460; padding: 14px 18px; margin: 16px 0; border-radius: 0 8px 8px 0; color: #333; }
+blockquote p { margin: 0; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+th, td { border: 1px solid #e0e0e0; padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #f8f9fa; font-weight: 600; }
+tr:nth-child(even) td { background: #fafafa; }
+code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-family: Consolas, monospace; font-size: 13px; }
+a { color: #0f3460; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.back-link { display: inline-block; margin-bottom: 20px; color: #0f3460; font-weight: 600; font-size: 14px; }
+.footer { text-align: center; padding: 30px 20px; color: #999; font-size: 13px; margin-top: 20px; }
+@media (max-width: 768px) {
+  .container { padding: 12px; }
+  .content { padding: 20px; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+</style>
+
+
+
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:48px 40px; width:380px; max-width:90vw; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.4); }
+#pwd-gate .gate-icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:rgba(59,130,246,.15); display:flex; align-items:center; justify-content:center; font-size:28px; }
+#pwd-gate .gate-title { color:#e2e8f0; font-size:22px; font-weight:700; letter-spacing:2px; margin-bottom:8px; }
+#pwd-gate .gate-sub { color:#94a3b8; font-size:13px; margin-bottom:28px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); color:#f1f5f9; font-size:16px; outline:none; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+#pwd-gate .gate-input::placeholder { color:#64748b; }
+#pwd-gate .gate-input:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+#pwd-gate .gate-btn { width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none; background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; font-size:16px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:transform .15s,opacity .2s; }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); opacity:.92; }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#f87171; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#475569; font-size:11px; margin-top:24px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">访问验证</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+
+
+
+<div class="container">
+  <a class="back-link" href="../index.html">← 返回 明月策</a>
+  <div class="header">
+    <h1>猛玛 LARK MIX 无线麦克风</h1>
+    <div class="subtitle">猛犸 / 麦克风 · 产品资料与使用指南</div>
+  </div>
+  <div class="content">
+<h1>猛玛 LARK MIX 无线麦克风 — 产品资料文档</h1>
+<blockquote>
+<p><strong>资料来源</strong>：https://www.hollyland.com.cn/support/lark-mix/
+<strong>品牌</strong>：HOLLYLAND 猛玛
+<strong>整理日期</strong>：2026-08-12</p>
+</blockquote>
+<hr />
+<h2>一、产品概述</h2>
+<p>LARK MIX 是猛玛推出的无线麦克风系统，接收器分为<strong>相机版、安卓版（Type-C）、苹果版（Lightning）</strong>三种版本，分别适用于相机、安卓手机、iPhone 等不同设备。支持立体声/单声道双收音模式、降噪功能、边充电边收音，可通过 <strong>MOMA SOUND</strong> APP 进行参数调节。</p>
+<p><strong>系统组件</strong>：
+1. 发射器 TX（麦克风）
+2. 接收器 RX（相机版 / 安卓版 / 苹果版）
+3. 充电盒（相机版 / 手机版）</p>
+<hr />
+<h2>二、技术参数</h2>
+<h3>2.1 发射器（TX，麦克风）</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MIC 灵敏度</td>
+<td>-37 dBV ± 2 dB @ 1KHz, 94 dB SPL</td>
+</tr>
+<tr>
+<td>麦克风指向性</td>
+<td>全指向性</td>
+</tr>
+<tr>
+<td>无线调制模式</td>
+<td>GFSK 2 Mbps</td>
+</tr>
+<tr>
+<td>最大输入声压级</td>
+<td>115 dB SPL</td>
+</tr>
+<tr>
+<td>工作频率</td>
+<td>2400 MHz ~ 2483.5 MHz</td>
+</tr>
+<tr>
+<td>电池类型</td>
+<td>Li-ion</td>
+</tr>
+<tr>
+<td>电池容量</td>
+<td>97 mAh</td>
+</tr>
+<tr>
+<td>电池电压</td>
+<td>3.87 V</td>
+</tr>
+<tr>
+<td>电池能量</td>
+<td>0.376 Wh</td>
+</tr>
+<tr>
+<td>充电时间</td>
+<td>约 1.5 小时</td>
+</tr>
+<tr>
+<td>工作时间</td>
+<td>约 10 小时</td>
+</tr>
+<tr>
+<td>待机时间</td>
+<td>6 个月</td>
+</tr>
+<tr>
+<td>充电环境温度</td>
+<td>0 ~ 45 ℃</td>
+</tr>
+<tr>
+<td>工作环境温度</td>
+<td>-10 ~ 60 ℃</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>约 D26 × 9.9 mm</td>
+</tr>
+</tbody>
+</table>
+<h3>2.2 接收器（RX）</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>相机版</th>
+<th>安卓版（Type-C）</th>
+<th>苹果版（Lightning）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无线调制模式</td>
+<td>GFSK 2 Mbps</td>
+<td>GFSK 2 Mbps</td>
+<td>GFSK 2 Mbps</td>
+</tr>
+<tr>
+<td>工作频率</td>
+<td>2400 MHz ~ 2483.5 MHz</td>
+<td>2400 MHz ~ 2483.5 MHz</td>
+<td>2400 MHz ~ 2483.5 MHz</td>
+</tr>
+<tr>
+<td>工作距离</td>
+<td>40 米（转动），300 米（视距）</td>
+<td>60 米（转动），300 米（视距）</td>
+<td>60 米（转动），300 米（视距）</td>
+</tr>
+<tr>
+<td>最大输出电平</td>
+<td>-12 dBV（3.5mm；立体声）；0 dBFS（USB）</td>
+<td>0 dBFS</td>
+<td>0 dBFS</td>
+</tr>
+<tr>
+<td>电池类型</td>
+<td>Li-ion</td>
+<td>无电池</td>
+<td>无电池</td>
+</tr>
+<tr>
+<td>电池容量</td>
+<td>145 mAh</td>
+<td>无电池</td>
+<td>无电池</td>
+</tr>
+<tr>
+<td>电池电压</td>
+<td>3.87 V</td>
+<td>无电池</td>
+<td>无电池</td>
+</tr>
+<tr>
+<td>电池能量</td>
+<td>0.561 Wh</td>
+<td>无电池</td>
+<td>无电池</td>
+</tr>
+<tr>
+<td>充电时间</td>
+<td>&lt; 1.5 小时</td>
+<td>无需充电</td>
+<td>无需充电</td>
+</tr>
+<tr>
+<td>工作时间</td>
+<td>约 9 小时</td>
+<td>以手机供电时长为准</td>
+<td>以手机供电时长为准</td>
+</tr>
+<tr>
+<td>待机时间</td>
+<td>6 个月</td>
+<td>无需待机</td>
+<td>无需待机</td>
+</tr>
+<tr>
+<td>充电环境温度</td>
+<td>0 ~ 45 ℃</td>
+<td>无需充电</td>
+<td>无需充电</td>
+</tr>
+<tr>
+<td>工作环境温度</td>
+<td>-10 ~ 60 ℃</td>
+<td>-10 ~ 60 ℃</td>
+<td>-10 ~ 60 ℃</td>
+</tr>
+<tr>
+<td>对手机充电功率</td>
+<td>无此功能</td>
+<td>18 W</td>
+<td>&lt; 10 W</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>约 40 × 25.7 × 20.5 mm</td>
+<td>约 40 × 16.5 × 9 mm</td>
+<td>约 40 × 16.5 × 9 mm</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>约 14.8 g</td>
+<td>约 6 g</td>
+<td>约 6 g</td>
+</tr>
+</tbody>
+</table>
+<h3>2.3 充电盒</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>相机版</th>
+<th>手机版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电池类型</td>
+<td>Li-ion</td>
+<td>Li-ion</td>
+</tr>
+<tr>
+<td>电池容量</td>
+<td>1950 mAh</td>
+<td>750 mAh</td>
+</tr>
+<tr>
+<td>电池电压</td>
+<td>3.8 V</td>
+<td>3.8 V</td>
+</tr>
+<tr>
+<td>电池能量</td>
+<td>7.41 Wh</td>
+<td>2.85 Wh</td>
+</tr>
+<tr>
+<td>充电时间</td>
+<td>&lt; 2 小时</td>
+<td>&lt; 1.5 小时</td>
+</tr>
+<tr>
+<td>充电环境温度</td>
+<td>0 ~ 45 ℃</td>
+<td>0 ~ 45 ℃</td>
+</tr>
+<tr>
+<td>最大充电次数</td>
+<td>&gt; 3 次</td>
+<td>&gt; 2 次</td>
+</tr>
+<tr>
+<td>工作环境温度</td>
+<td>-10 ~ 60 ℃</td>
+<td>-10 ~ 60 ℃</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>约 86 × 54 × 39 mm</td>
+<td>约 75.8 × 49.8 × 35 mm</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>约 111 g</td>
+<td>约 65.6 g</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>三、视频教学</h2>
+<p>官方提供以下教学视频（详见官网支持页面）：</p>
+<table>
+<thead>
+<tr>
+<th>视频名称</th>
+<th>视频名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APP 连接</td>
+<td>iPhone 15 系列连接</td>
+</tr>
+<tr>
+<td>电脑连接</td>
+<td>相机连接</td>
+</tr>
+<tr>
+<td>手机连接</td>
+<td>全能版连接手机</td>
+</tr>
+<tr>
+<td>防风毛衣佩戴方式</td>
+<td>产品升级</td>
+</tr>
+<tr>
+<td>降噪功能</td>
+<td>配对操作</td>
+</tr>
+<tr>
+<td>指示灯状态</td>
+<td>上位机软件固件升级</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>四、常见问题（FAQ）</h2>
+<h3>4.1 降噪与收音模式</h3>
+<h4>Q1：LARK MIX 如何开启或者关闭降噪？</h4>
+<ul>
+<li><strong>手机版</strong>：点按发射器侧边黄色按键，或接收器底部的黄色按键，即可开启/关闭降噪；</li>
+<li><strong>相机版</strong>：点按发射器侧边的黄色按键，即可开启/关闭降噪。</li>
+</ul>
+<h4>Q2：LARK MIX 支持哪些收音模式，如何切换模式？</h4>
+<p>支持<strong>立体声</strong>和<strong>单声道</strong>两种收音模式。相机版可点按接收器侧边的 <strong>M 按键</strong>进行模式切换：</p>
+<table>
+<thead>
+<tr>
+<th>指示灯颜色</th>
+<th>模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蓝色</td>
+<td>立体声模式</td>
+</tr>
+<tr>
+<td>绿色</td>
+<td>单声道模式</td>
+</tr>
+</tbody>
+</table>
+<h3>4.2 配对操作</h3>
+<h4>Q3：LARK MIX 手机版如何进行配对？</h4>
+<ol>
+<li>TX 关机状态下，长按侧边黄色按键 <strong>6 秒钟</strong>进入配对状态（TX 指示灯蓝灯快速闪烁）；</li>
+<li>RX 长按底部黄色按键 <strong>3 秒钟</strong>进入配对状态（RX 指示灯蓝灯快闪）；</li>
+<li>TX、RX 需同时进入配对状态，指示灯均蓝色快速闪烁表示配对中，指示灯变为<strong>常亮</strong>即配对成功。</li>
+</ol>
+<h4>Q4：LARK MIX 相机版如何进行配对？</h4>
+<ol>
+<li>TX 关机状态下，长按侧边黄色按键 <strong>6 秒钟</strong>进入配对状态（TX 指示灯蓝灯快速闪烁）；</li>
+<li>RX 长按左侧下方的配对按键 <strong>3 秒钟</strong>进入配对状态；</li>
+<li>TX、RX 需同时进入配对状态，指示灯均蓝色快速闪烁表示配对中，指示灯变为<strong>常亮</strong>即配对成功。</li>
+</ol>
+<h3>4.3 连接设备</h3>
+<h4>Q5：LARK MIX 连接安卓手机收音</h4>
+<ol>
+<li>设备全部开机后，将 Type-C 接收器插入手机，等待发射器指示灯常亮便可正常收音；</li>
+<li>可在应用商店下载 <strong>MOMA SOUND</strong> APP 进行麦克风参数调节。</li>
+</ol>
+<h4>Q6：LARK MIX 连接 Lightning 接口的 iPhone 手机收音</h4>
+<ol>
+<li>设备全部开机后，使用 Lightning 版接收器插入手机，等待发射器指示灯常亮便可正常收音；</li>
+<li>可在手机 App Store 下载 <strong>MOMA SOUND</strong> APP 进行麦克风参数调节。</li>
+</ol>
+<h4>Q7：LARK MIX 连接 iPhone 15 手机收音</h4>
+<ol>
+<li>设备全部开机后，使用 Type-C 版接收器插入手机，指示灯常亮便可正常收音；</li>
+<li>可在手机 App Store 下载 <strong>MOMA SOUND</strong> APP 进行麦克风参数调节。</li>
+</ol>
+<h4>Q8：LARK MIX 连接手机注意事项</h4>
+<ol>
+<li>无线麦连接手机时，<strong>手机不要开蓝牙</strong>，否则可能影响无线麦的收音效果；</li>
+<li>部分 <strong>OPPO、VIVO</strong> 系列手机需在手机设置中打开【OTG】设置；并在设置中将【默认录音设备】更改为【外接设备】。</li>
+</ol>
+<h4>Q9：LARK MIX 连接相机收音</h4>
+<ol>
+<li>麦克风连接相机需使用标配 <strong>TRS 转 TRS 音频线</strong>，一端连接相机音频输入接口（mic），一端连接接收器 3.5mm 音频输出口；</li>
+<li>相机录音音量或录音电平需尽可能设置小一些，以防音量过大造成破音及底噪问题。</li>
+</ol>
+<h4>Q10：LARK MIX 相机版连接声卡直播，只有一个麦克风有声音？</h4>
+<p>需要通过 3.5mm TRS 转 TRS 转接线连接，再点按接收器侧边 <strong>M 按键切换到单声道模式</strong>收音，此时接收器音量调节旋钮下方指示灯应为<strong>绿灯常亮</strong>状态。</p>
+<h3>4.4 APP 与参数调节</h3>
+<h4>Q11：LARK MIX 是否支持 APP 调参？</h4>
+<p>支持。可在手机应用商店下载 <strong>MOMA SOUND</strong> APP 进行调参。</p>
+<h4>Q12：LARK MIX 如何调节输出音量？</h4>
+<ul>
+<li><strong>相机版</strong>：通过接收器上的<strong>旋钮</strong>调节输出音量，接收器下方 3 颗指示灯对应音量大小；</li>
+<li><strong>手机版</strong>：通过手机 <strong>MOMA SOUND</strong> APP 调节输出音量。</li>
+</ul>
+<h4>Q13：接收器通过 Type-C 转 Type-C / Type-C 转 Lightning 音频线连接手机，MOMA SOUND APP 无法识别？</h4>
+<p>可尝试以下方法排查：
+1. 插拔接收器；
+2. 卸载重装 APP；
+3. 更换手机或音频线；
+4. 仍未解决可微信搜索 <strong>"MOMA 猛玛服务"小程序</strong>联系客服进行专业指导。</p>
+<h4>Q14：LARK MIX 连接上手机 APP 之后，无法设置强弱降噪？</h4>
+<p>开启降噪功能后可设置强弱降噪等级，<strong>反之则无法设置</strong>。</p>
+<h3>4.5 充电与供电</h3>
+<h4>Q15：LARK MIX 接收器是否支持边充电边收音？</h4>
+<p>支持边充电边收音。<strong>建议使用充电宝供电</strong>，直连电脑或适配器可能导致电流干扰。</p>
+<h4>Q16：LARK MIX 相机版连接手机收音，边充电边用电路底噪变大？</h4>
+<p>建议使用<strong>充电宝</strong>给接收器供电，可以降低设备受到的共频干扰，降低电路底噪的影响。</p>
+<h4>Q17：LARK MIX 相机版接收器充电无法充满，充电指示灯一直显示橙色常亮状态？</h4>
+<p>可将无线麦克风<strong>版本升级至最新</strong>，新固件内容有针对充电问题做优化提升。</p>
+<hr />
+<h2>五、配套 APP 与服务</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MOMA SOUND</strong>（手机 APP）</td>
+<td>麦克风参数调节、调参（应用商店 / App Store 下载）</td>
+</tr>
+<tr>
+<td><strong>MOMA 猛玛服务</strong>（微信小程序）</td>
+<td>联系客服进行专业指导</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>免责声明</strong>：本文档内容整理自猛玛官方公开资料，仅供参考。如有参数更新或变更，以猛玛官方最新发布信息为准。</p>
+</blockquote>
+  </div>
+  <div class="footer">资料整理自猛玛官方公开文档，仅供参考。</div>
+</div>
+
+
+
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:#fff;border-right:1px solid #e8eaed;box-shadow:2px 0 12px rgba(0,0,0,.06);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#1f2937;}
+.wb-sidebar h2 a{color:#0f3460;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px;padding-left:8px;border-left:4px solid #9ca3af;}
+.wb-brand.ljn .wb-brand-title{border-color:#16a34a;}
+.wb-brand.ys .wb-brand-title{border-color:#2563eb;}
+.wb-brand.mm .wb-brand-title{border-color:#ea580c;}
+.wb-brand.da .wb-brand-title{border-color:#1a73e8;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:6px;color:#4b5563;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:#f3f4f6;color:#111827;}
+.wb-sidebar a.active{background:#eef2ff;color:#0f3460;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:8px 10px;background:#f3f4f6;border-radius:6px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;text-align:center;}
+.wb-sidebar .home-link:hover{background:#e5e7eb;}
+.wb-sidebar .note{padding:6px 10px;color:#9ca3af;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:36px;height:36px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);font-size:18px;line-height:34px;text-align:center;cursor:pointer;}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const current=location.pathname.split('/').pop();
+  const data=[
+    {brand:'绿巨能',cls:'ljn',color:'#16a34a',items:[{n:'单反相机三脚架',f:'ljn-tripod.html'},{n:'笔记本电池',f:'ljn-battery.html'},{n:'相机电池（汇总）',f:'camera-battery/index.html'},{n:'相机干电池',f:'camera-battery/相机干电池.html'},{n:'相机可直充电池',f:'camera-battery/相机可直充电池.html'},{n:'二合一读卡器',f:'ljn-reader-2in1.html'},{n:'多合一读卡器',f:'ljn-reader-multi.html'}]},
+    {brand:'影石',cls:'ys',color:'#2563eb',items:[{n:'迷你脚架自拍杆',f:'ys-mini-stand.html'},{n:'隐形自拍杆',f:'ys-invisible-rod.html'},{n:'自行车码表支架',f:'ys-bike-mount.html'}]},
+    {brand:'猛犸',cls:'mm',color:'#ea580c',items:[{n:'极影S 无线图传',f:'manta-jiyings.html'},{n:'LARK M3',f:'manta-lark-m3.html'},{n:'LARK MIX',f:'manta-lark-mix.html'},{n:'MELO P1',f:'manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'manta-melo-p1-faq.html'}]},
+    {brand:'数据分析',cls:'da',color:'#1a73e8',items:[{n:'绿巨能京东销售数据',f:'data-analysis/绿巨能京东销售数据分析.html'}]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="../index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+it.f+'" class="'+(it.f===current?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body>
+</html>

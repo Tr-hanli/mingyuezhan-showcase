@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>猛玛 MELO P1 问题总结</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; background: #f5f5f5; color: #333; line-height: 1.7; }
+.container { max-width: 960px; margin: 0 auto; padding: 20px; }
+.header { text-align: center; padding: 36px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; border-radius: 12px; margin-bottom: 30px; }
+.header h1 { font-size: 24px; margin-bottom: 8px; }
+.header .subtitle { font-size: 13px; color: #aaa; }
+.content { background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+h2 { font-size: 22px; margin: 28px 0 14px; padding-left: 12px; border-left: 4px solid #ea580c; color: #1a1a2e; }
+h3 { font-size: 17px; margin: 20px 0 10px; color: #333; }
+h4 { font-size: 15px; margin: 14px 0 8px; color: #555; }
+p { margin-bottom: 12px; }
+ul, ol { margin: 12px 0 12px 24px; }
+li { margin-bottom: 6px; }
+blockquote { background: #f0f4ff; border-left: 4px solid #0f3460; padding: 14px 18px; margin: 16px 0; border-radius: 0 8px 8px 0; color: #333; }
+blockquote p { margin: 0; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+th, td { border: 1px solid #e0e0e0; padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #f8f9fa; font-weight: 600; }
+tr:nth-child(even) td { background: #fafafa; }
+code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-family: Consolas, monospace; font-size: 13px; }
+a { color: #0f3460; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.back-link { display: inline-block; margin-bottom: 20px; color: #0f3460; font-weight: 600; font-size: 14px; }
+.footer { text-align: center; padding: 30px 20px; color: #999; font-size: 13px; margin-top: 20px; }
+@media (max-width: 768px) {
+  .container { padding: 12px; }
+  .content { padding: 20px; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+</style>
+
+
+
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:48px 40px; width:380px; max-width:90vw; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.4); }
+#pwd-gate .gate-icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:rgba(59,130,246,.15); display:flex; align-items:center; justify-content:center; font-size:28px; }
+#pwd-gate .gate-title { color:#e2e8f0; font-size:22px; font-weight:700; letter-spacing:2px; margin-bottom:8px; }
+#pwd-gate .gate-sub { color:#94a3b8; font-size:13px; margin-bottom:28px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); color:#f1f5f9; font-size:16px; outline:none; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+#pwd-gate .gate-input::placeholder { color:#64748b; }
+#pwd-gate .gate-input:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+#pwd-gate .gate-btn { width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none; background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; font-size:16px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:transform .15s,opacity .2s; }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); opacity:.92; }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#f87171; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#475569; font-size:11px; margin-top:24px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">访问验证</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+
+
+
+<div class="container">
+  <a class="back-link" href="../index.html">← 返回 明月策</a>
+  <div class="header">
+    <h1>猛玛 MELO P1 问题总结</h1>
+    <div class="subtitle">猛犸 / 麦克风/声卡 · 产品资料与使用指南</div>
+  </div>
+  <div class="content">
+<h1>MELO P1 问题总结文档</h1>
+<blockquote>
+<p><strong>用途</strong>：记录与猛玛技术支持沟通中确认的产品问题/限制，方便后续查阅与参考
+<strong>产品</strong>：猛玛 MELO P1 无线麦克风系统
+<strong>整理日期</strong>：2026-08-12</p>
+</blockquote>
+<hr />
+<h2>问题记录</h2>
+<h3>问题 1：MELO P1 手持麦克风能否连接其他品牌的声卡？</h3>
+<p><strong>提问时间</strong>：2026-08-12</p>
+<p><strong>问题描述</strong>：
+用户询问 MELO P1 是否可以使用其他品牌的声卡（通过 3.5mm 接口连接）。</p>
+<p><strong>与技术支持（Lance）的对话过程</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>提问方</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户</td>
+<td>P1 可以使用别的品牌的声卡吗？3.5mm 接口的</td>
+</tr>
+<tr>
+<td>客服</td>
+<td>您是指外接其他麦克风吗？</td>
+</tr>
+<tr>
+<td>用户</td>
+<td>是的</td>
+</tr>
+<tr>
+<td>客服</td>
+<td>这个 3.5 是可以外接的麦克风，您在咱们的 APP 把这接口设置成输入就好</td>
+</tr>
+<tr>
+<td>用户</td>
+<td>不是自带的声卡，链接别的声卡呢</td>
+</tr>
+<tr>
+<td>客服</td>
+<td>咱们的这个手持麦是只能连接自带的声卡了，老师</td>
+</tr>
+<tr>
+<td>用户</td>
+<td>就是说 咱们的这个麦克风 不支持链接别的声卡，只能链接自带的声卡，咱们的声卡可以外接其他的麦克风 对吗</td>
+</tr>
+<tr>
+<td>客服</td>
+<td>是的，老师</td>
+</tr>
+</tbody>
+</table>
+<p><strong>最终结论</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>是否支持</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MELO P1 手持麦克风 → 其他品牌声卡</td>
+<td><strong>不支持</strong></td>
+<td>手持麦只能连接自带的猛玛声卡</td>
+</tr>
+<tr>
+<td>MELO P1 声卡 → 其他品牌麦克风（3.5mm）</td>
+<td><strong>支持</strong></td>
+<td>通过 3.5mm 接口外接，需在 APP 中将该接口设置为输入</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>备注</h2>
+<ul>
+<li>此文档用于持续记录 MELO P1 在实际使用中遇到的各种问题、限制及官方技术支持确认的答案</li>
+<li>后续如有新的问题沟通，可继续追加到本文档中</li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>免责声明</strong>：本文档内容来源于与猛玛官方技术支持的沟通记录，仅供参考。如有产品功能更新或变更，以猛玛官方最新说明为准。</p>
+</blockquote>
+  </div>
+  <div class="footer">资料整理自猛玛官方公开文档，仅供参考。</div>
+</div>
+
+
+
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:#fff;border-right:1px solid #e8eaed;box-shadow:2px 0 12px rgba(0,0,0,.06);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#1f2937;}
+.wb-sidebar h2 a{color:#0f3460;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px;padding-left:8px;border-left:4px solid #9ca3af;}
+.wb-brand.ljn .wb-brand-title{border-color:#16a34a;}
+.wb-brand.ys .wb-brand-title{border-color:#2563eb;}
+.wb-brand.mm .wb-brand-title{border-color:#ea580c;}
+.wb-brand.da .wb-brand-title{border-color:#1a73e8;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:6px;color:#4b5563;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:#f3f4f6;color:#111827;}
+.wb-sidebar a.active{background:#eef2ff;color:#0f3460;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:8px 10px;background:#f3f4f6;border-radius:6px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;text-align:center;}
+.wb-sidebar .home-link:hover{background:#e5e7eb;}
+.wb-sidebar .note{padding:6px 10px;color:#9ca3af;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:36px;height:36px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);font-size:18px;line-height:34px;text-align:center;cursor:pointer;}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const current=location.pathname.split('/').pop();
+  const data=[
+    {brand:'绿巨能',cls:'ljn',color:'#16a34a',items:[{n:'单反相机三脚架',f:'ljn-tripod.html'},{n:'笔记本电池',f:'ljn-battery.html'},{n:'相机电池（汇总）',f:'camera-battery/index.html'},{n:'相机干电池',f:'camera-battery/相机干电池.html'},{n:'相机可直充电池',f:'camera-battery/相机可直充电池.html'},{n:'二合一读卡器',f:'ljn-reader-2in1.html'},{n:'多合一读卡器',f:'ljn-reader-multi.html'}]},
+    {brand:'影石',cls:'ys',color:'#2563eb',items:[{n:'迷你脚架自拍杆',f:'ys-mini-stand.html'},{n:'隐形自拍杆',f:'ys-invisible-rod.html'},{n:'自行车码表支架',f:'ys-bike-mount.html'}]},
+    {brand:'猛犸',cls:'mm',color:'#ea580c',items:[{n:'极影S 无线图传',f:'manta-jiyings.html'},{n:'LARK M3',f:'manta-lark-m3.html'},{n:'LARK MIX',f:'manta-lark-mix.html'},{n:'MELO P1',f:'manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'manta-melo-p1-faq.html'}]},
+    {brand:'数据分析',cls:'da',color:'#1a73e8',items:[{n:'绿巨能京东销售数据',f:'data-analysis/绿巨能京东销售数据分析.html'}]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="../index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+it.f+'" class="'+(it.f===current?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body>
+</html>

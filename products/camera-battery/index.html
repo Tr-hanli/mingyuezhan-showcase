@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>绿巨能相机电池整理</title>
+<style>body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;background:#eef1f5;margin:0;color:#1f2733;}
+.box{max-width:680px;margin:60px auto;background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:34px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+h1{color:#0f2557;} a.btn{display:block;text-decoration:none;background:#2563eb;color:#fff;padding:15px 18px;border-radius:11px;margin:14px 0;font-size:16px;font-weight:700;}
+a.btn:hover{background:#0f2557;} .note{background:#fff7ed;border:1px solid #fed7aa;border-radius:9px;padding:11px 15px;font-size:13px;color:#9a3412;}</style>
+
+
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:48px 40px; width:380px; max-width:90vw; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.4); }
+#pwd-gate .gate-icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:rgba(59,130,246,.15); display:flex; align-items:center; justify-content:center; font-size:28px; }
+#pwd-gate .gate-title { color:#e2e8f0; font-size:22px; font-weight:700; letter-spacing:2px; margin-bottom:8px; }
+#pwd-gate .gate-sub { color:#94a3b8; font-size:13px; margin-bottom:28px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); color:#f1f5f9; font-size:16px; outline:none; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+#pwd-gate .gate-input::placeholder { color:#64748b; }
+#pwd-gate .gate-input:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+#pwd-gate .gate-btn { width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none; background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; font-size:16px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:transform .15s,opacity .2s; }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); opacity:.92; }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#f87171; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#475569; font-size:11px; margin-top:24px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">访问验证</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+
+
+<div class="box"><h1>绿巨能 · 相机电池整理</h1>
+<p>本文件夹整理了绿巨能官方知识库中「相机干电池」与「相机可直充电池」的全部型号（共 83 个），支持顶部搜索与品牌筛选，图片本地化可离线查看。</p>
+<a class="btn" href="相机干电池.html">📦 相机干电池（53 个型号）</a>
+<a class="btn" href="相机可直充电池.html">🔌 相机可直充电池（30 个型号）</a>
+<div class="note">📹 <b>关于使用视频：</b>官方知识库按型号页面<b>未提供</b>使用视频，仅提供《相机电池通用说明书》PDF（已随本包下载至 pdf/）。如需视频教程请提供链接，可补充进对应型号。</div>
+</div>
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:#fff;border-right:1px solid #e8eaed;box-shadow:2px 0 12px rgba(0,0,0,.06);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#1f2937;}
+.wb-sidebar h2 a{color:#0f3460;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px;padding-left:8px;border-left:4px solid #9ca3af;}
+.wb-brand.ljn .wb-brand-title{border-color:#16a34a;}
+.wb-brand.ys .wb-brand-title{border-color:#2563eb;}
+.wb-brand.mm .wb-brand-title{border-color:#ea580c;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:6px;color:#4b5563;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:#f3f4f6;color:#111827;}
+.wb-sidebar a.active{background:#eef2ff;color:#0f3460;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:8px 10px;background:#f3f4f6;border-radius:6px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;text-align:center;}
+.wb-sidebar .home-link:hover{background:#e5e7eb;}
+.wb-sidebar .note{padding:6px 10px;color:#9ca3af;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:36px;height:36px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);font-size:18px;line-height:34px;text-align:center;cursor:pointer;}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const cur=location.pathname.split('/').pop();
+  const data=[
+    {brand:'绿巨能',cls:'ljn',color:'#16a34a',items:[
+      {n:'单反相机三脚架',f:'../ljn-tripod.html'},{n:'笔记本电池',f:'../ljn-battery.html'},
+      {n:'二合一读卡器',f:'../ljn-reader-2in1.html'},{n:'多合一读卡器',f:'../ljn-reader-multi.html'},
+      {n:'相机电池（汇总）',f:'index.html'},{n:'相机干电池',f:'相机干电池.html'},{n:'相机可直充电池',f:'相机可直充电池.html'}
+    ]},
+    {brand:'影石',cls:'ys',color:'#2563eb',items:[
+      {n:'迷你脚架自拍杆',f:'../ys-mini-stand.html'},{n:'隐形自拍杆',f:'../ys-invisible-rod.html'},{n:'自行车码表支架',f:'../ys-bike-mount.html'}
+    ]},
+    {brand:'猛犸',cls:'mm',color:'#ea580c',items:[
+      {n:'极影S 无线图传',f:'../manta-jiyings.html'},{n:'LARK M3',f:'../manta-lark-m3.html'},{n:'LARK MIX',f:'../manta-lark-mix.html'},
+      {n:'MELO P1',f:'../manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'../manta-melo-p1-faq.html'}
+    ]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="../index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+it.f+'" class="'+(it.f.split('/').pop()===cur?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body></html>

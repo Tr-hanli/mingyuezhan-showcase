@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>绿巨能京东旗舰店 · 销售数据分析</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:#f0f2f5;color:#333;line-height:1.6}
+  .header{background:linear-gradient(135deg,#1a73e8,#0d47a1);color:#fff;padding:28px 40px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .header h1{font-size:24px;margin-bottom:4px}
+  .header .meta{font-size:13px;opacity:.85}
+  .header .meta a{color:#bbdefb}
+  .container{max-width:1200px;margin:0 auto;padding:24px}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+  .kpi{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:center;transition:transform .2s}
+  .kpi:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+  .kpi .val{font-size:28px;font-weight:700;color:#1a73e8}
+  .kpi .lbl{font-size:13px;color:#666;margin-top:4px}
+  .kpi.green .val{color:#0d8a4f}
+  .kpi.orange .val{color:#e8740d}
+  .kpi.purple .val{color:#7b1fa2}
+  .card{background:#fff;border-radius:12px;padding:24px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .card h2{font-size:18px;margin-bottom:16px;color:#1a73e8;border-bottom:2px solid #e8f0fe;padding-bottom:8px}
+  .card.note{text-align:center;color:#888}
+  .chart-box{position:relative;width:100%}
+  .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:800px){.chart-row{grid-template-columns:1fr}.container{padding:12px}}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{background:#f5f7fa;text-align:left;padding:10px 12px;font-weight:600;color:#555;border-bottom:2px solid #e0e0e0;white-space:nowrap}
+  td{padding:9px 12px;border-bottom:1px solid #f0f0f0}
+  tr:hover td{background:#f8faff}
+  .pname{max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .price{color:#e53935;font-weight:600}
+  .sales{color:#0d8a4f;font-weight:600}
+  .revenue{color:#7b1fa2;font-weight:600}
+  .sku{color:#3949ab;font-weight:600}
+  .rank-badge{display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;font-size:12px;font-weight:700;color:#fff}
+  .rank-1{background:#ff6b6b}.rank-2{background:#ffa726}.rank-3{background:#66bb6a}
+  .rank-other{background:#bdbdbd}
+  .footer{text-align:center;padding:24px;color:#999;font-size:12px}
+  .refresh-info{background:#fff3cd;border:1px solid #ffe08a;border-radius:8px;padding:12px 16px;margin-bottom:24px;font-size:13px;color:#856404}
+  #backTop{position:fixed;right:24px;bottom:60px;width:44px;height:44px;border-radius:50%;background:#1a73e8;color:#fff;border:none;font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);display:none;z-index:999;transition:opacity .3s}
+  #backTop:hover{background:#0d47a1}
+  /* 更新倒计时 */
+  .countdown{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#0d47a1,#1a73e8);color:#fff;border-radius:12px;padding:16px 22px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .countdown .cd-icon{font-size:26px}
+  .countdown .cd-text{font-size:14px;opacity:.9;line-height:1.4}
+  .countdown .cd-timer{margin-left:auto;font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:1px}
+  .countdown .cd-timer small{font-size:13px;font-weight:600;opacity:.85;margin-right:6px}
+  @media(max-width:600px){.countdown{flex-wrap:wrap}.countdown .cd-timer{margin-left:0;width:100%}}
+</style>
+
+
+
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:48px 40px; width:380px; max-width:90vw; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.4); }
+#pwd-gate .gate-icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:rgba(59,130,246,.15); display:flex; align-items:center; justify-content:center; font-size:28px; }
+#pwd-gate .gate-title { color:#e2e8f0; font-size:22px; font-weight:700; letter-spacing:2px; margin-bottom:8px; }
+#pwd-gate .gate-sub { color:#94a3b8; font-size:13px; margin-bottom:28px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); color:#f1f5f9; font-size:16px; outline:none; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+#pwd-gate .gate-input::placeholder { color:#64748b; }
+#pwd-gate .gate-input:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+#pwd-gate .gate-btn { width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none; background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; font-size:16px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:transform .15s,opacity .2s; }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); opacity:.92; }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#f87171; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#475569; font-size:11px; margin-top:24px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">访问验证</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+
+
+
+
+<div class="header">
+  <h1>🔋 绿巨能京东旗舰店 · 销售数据分析</h1>
+  <div class="meta">
+    数据来源：<a href="https://mall.jd.com/index-13790262.html?from=pc" target="_blank">京东店铺热销榜</a> ｜
+    最后更新：<span id="mUpdate">—</span> ｜
+    自动更新：每日 12:00 ｜
+    商品数：<span id="mCount">—</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="refresh-info">
+    ⏰ 本报告每日 12:00 自动更新。数据采集自京东店铺公开热销榜单（"X万人买过"作为销量近似值），非京东商家后台真实订单数据。
+  </div>
+
+  <!-- 更新倒计时 -->
+  <div class="countdown">
+    <div class="cd-icon">⏳</div>
+    <div class="cd-text">距下次自动更新（每日 12:00）<br>数据刷新后本页将自动反映最新销量 / 价格</div>
+    <div class="cd-timer"><small>剩余</small><span id="cd">--:--:--</span></div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-row" id="kpiRow">
+    <div class="kpi"><div class="val" id="kpiCount">—</div><div class="lbl">热销商品数</div></div>
+    <div class="kpi green"><div class="val" id="kpiSales">—</div><div class="lbl">总销量（件）</div></div>
+    <div class="kpi orange"><div class="val" id="kpiRevenue">—</div><div class="lbl">预估总销售额</div></div>
+    <div class="kpi purple"><div class="val" id="kpiAvg">—</div><div class="lbl">件均价</div></div>
+    <div class="kpi"><div class="val" id="kpiRange">—</div><div class="lbl">价格区间</div></div>
+  </div>
+
+  <!-- 热销排行 -->
+  <div class="card">
+    <h2>🏆 热销排行榜（按销量）</h2>
+    <div class="chart-box"><canvas id="rankChart" height="216"></canvas></div>
+  </div>
+
+  <div class="chart-row">
+    <!-- 品类销量分布 -->
+    <div class="card">
+      <h2>🥧 品类销量分布</h2>
+      <div class="chart-box"><canvas id="catPieChart"></canvas></div>
+    </div>
+    <!-- 价格区间分布 -->
+    <div class="card">
+      <h2>💰 价格区间分布</h2>
+      <div class="chart-box"><canvas id="priceBinChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-row">
+    <!-- 品类销售额对比 -->
+    <div class="card">
+      <h2>📊 品类销售额对比</h2>
+      <div class="chart-box"><canvas id="catRevenueChart" height="140"></canvas></div>
+    </div>
+    <!-- 价格 vs 销量散点 -->
+    <div class="card">
+      <h2>🔍 价格 vs 销量</h2>
+      <div class="chart-box"><canvas id="scatterChart" height="140"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 历史趋势 -->
+  <div class="card" id="trendCard">
+    <h2>📈 历史趋势（总销量）</h2>
+    <div class="chart-box"><canvas id="trendChart" height="120"></canvas></div>
+  </div>
+
+  <!-- 品类汇总表 -->
+  <div class="card">
+    <h2>📋 品类汇总</h2>
+    <table>
+      <thead><tr><th>品类</th><th>商品数</th><th>销量</th><th>预估销售额</th><th>平均价格</th></tr></thead>
+      <tbody id="catBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 商品明细表（每个 SKU 的型号 / 销量 / 价格） -->
+  <div class="card">
+    <h2>📑 商品明细 · 每个 SKU 的型号 / 销量 / 价格（按销量降序）</h2>
+    <table>
+      <thead><tr><th>#</th><th>商品名称</th><th>SKU</th><th>型号</th><th>品类</th><th>价格</th><th>销量</th><th>预估销售额</th></tr></thead>
+      <tbody id="detailBody"></tbody>
+    </table>
+    <p style="margin-top:12px;font-size:12px;color:#888;">注：SKU 为京东商品纯数字编号。若显示“—”，表示当前数据源 history.json 中该商品缺少 <code>sku</code> 字段，补充后将自动显示。</p>
+  </div>
+
+</div>
+
+<button id="backTop" onclick="scrollTo(0,0)">↑</button>
+<div class="footer">
+  绿巨能京东旗舰店销售数据分析 · 自动生成<br>
+  数据来源：京东公开热销榜单（https://mall.jd.com/index-13790262.html?from=pc）
+</div>
+
+<script>
+// ===== 兜底数据（fetch 失败时仍可用）=====
+const EMBEDDED_DATA = [
+  {
+    "date":"2026-08-17","timestamp":"2026-08-17 23:13","product_count":12,"total_sales":167000,"avg_price":196.2,
+    "products":[
+      {"name":"【3C认证】适用佳能E17相机电池","sku":"","price":129.0,"sales":50000,"category":"相机电池","model":"E17"},
+      {"name":"【3C认证】适用富士W126S电池","sku":"","price":89.0,"sales":12000,"category":"相机电池","model":"W126S"},
+      {"name":"【品类热卖】索尼FZ100相机电池","sku":"","price":310.0,"sales":20000,"category":"相机电池","model":"FZ100"},
+      {"name":"【3C认证】适用佳能E6NH相机电池","sku":"","price":149.0,"sales":20000,"category":"相机电池","model":"E6NH"},
+      {"name":"【3C认证】适用尼康EL25相机电池","sku":"","price":199.0,"sales":10000,"category":"相机电池","model":"EL25"},
+      {"name":"【3C认证】尼康EL15C相机电池","sku":"","price":159.0,"sales":10000,"category":"相机电池","model":"EL15C"},
+      {"name":"绿巨能V12压风式散热器","sku":"","price":369.0,"sales":5000,"category":"散热器","model":"V12"},
+      {"name":"【3C认证】松下BLG10相机电池","sku":"","price":109.0,"sales":10000,"category":"相机电池","model":"BLG10"},
+      {"name":"惠普暗影精灵SR03XL电池","sku":"","price":209.0,"sales":10000,"category":"笔记本电池","model":"SR03XL"},
+      {"name":"绿巨能轻翼V球形云台三脚架","sku":"","price":229.0,"sales":5000,"category":"摄影配件","model":"轻翼V球形云台三脚架"},
+      {"name":"联想拯救者Y7000P笔记本电池","sku":"","price":264.0,"sales":10000,"category":"笔记本电池","model":"Y7000P"},
+      {"name":"【3C认证】适用松下BLK22电池","sku":"","price":139.0,"sales":5000,"category":"相机电池","model":"BLK22"}
+    ]
+  }
+];
+
+const C = {blue:'#1a73e8',green:'#0d8a4f',orange:'#e8740d',purple:'#7b1fa2',red:'#e53935',teal:'#00897b',amber:'#f9a825',indigo:'#3949ab',pink:'#d81b60',cyan:'#00acc1',lime:'#7cb342',brown:'#6d4c41'};
+const palette = [C.blue,C.green,C.orange,C.purple,C.red,C.teal,C.amber,C.indigo,C.pink,C.cyan];
+const charts = {};
+
+function fmt(n){return n.toLocaleString('en-US');}
+function fmtMoney(n){return '¥'+Math.round(n).toLocaleString('en-US');}
+
+function renderEntry(entry){
+  const products = entry.products.slice().sort((a,b)=>b.sales-a.sales);
+  const totalSales = products.reduce((s,p)=>s+p.sales,0);
+  const totalRevenue = products.reduce((s,p)=>s+p.price*p.sales,0);
+  const avgPrice = totalSales? totalRevenue/totalSales : 0;
+  const prices = products.map(p=>p.price);
+  const minP = Math.min(...prices), maxP = Math.max(...prices);
+
+  document.getElementById('mUpdate').textContent = entry.timestamp || entry.date || '—';
+  document.getElementById('mCount').textContent = products.length;
+  document.getElementById('kpiCount').textContent = products.length;
+  document.getElementById('kpiSales').textContent = fmt(totalSales);
+  document.getElementById('kpiRevenue').textContent = fmtMoney(totalRevenue);
+  document.getElementById('kpiAvg').textContent = '¥'+avgPrice.toFixed(1);
+  document.getElementById('kpiRange').textContent = '¥'+minP+'~'+maxP;
+
+  // 销毁旧图
+  Object.keys(charts).forEach(k=>{ if(charts[k]) charts[k].destroy(); });
+
+  // 1. 热销排行
+  charts.rank = new Chart(document.getElementById('rankChart'),{
+    type:'bar',
+    data:{
+      labels: products.map(p=>p.name),
+      datasets:[{label:'销量(件)',data:products.map(p=>p.sales),backgroundColor:C.blue,borderRadius:4}]
+    },
+    options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'销量(件)'}}}}
+  });
+
+  // 2. 品类销量饼图
+  const catMap = {};
+  products.forEach(p=>{ catMap[p.category]=(catMap[p.category]||0)+p.sales; });
+  const catNames = Object.keys(catMap);
+  charts.catPie = new Chart(document.getElementById('catPieChart'),{
+    type:'doughnut',
+    data:{labels:catNames,datasets:[{data:catNames.map(c=>catMap[c]),backgroundColor:palette}]},
+    options:{plugins:{legend:{position:'bottom'}}}
+  });
+
+  // 3. 价格区间
+  const bins = {'0-50元':0,'50-100元':0,'100-150元':0,'150-200元':0,'200-250元':0,'250-300元':0,'300-500元':0};
+  products.forEach(p=>{
+    const v=p.price;
+    if(v<50)bins['0-50元']++;else if(v<100)bins['50-100元']++;
+    else if(v<150)bins['100-150元']++;else if(v<200)bins['150-200元']++;
+    else if(v<250)bins['200-250元']++;else if(v<300)bins['250-300元']++;
+    else bins['300-500元']++;
+  });
+  charts.priceBin = new Chart(document.getElementById('priceBinChart'),{
+    type:'bar',
+    data:{labels:Object.keys(bins),datasets:[{label:'商品数',data:Object.values(bins),backgroundColor:C.teal,borderRadius:4}]},
+    options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}
+  });
+
+  // 4. 品类销售额对比
+  const revMap={};
+  products.forEach(p=>{ revMap[p.category]=(revMap[p.category]||0)+p.price*p.sales; });
+  charts.catRev = new Chart(document.getElementById('catRevenueChart'),{
+    type:'bar',
+    data:{labels:catNames,datasets:[{label:'预估销售额(元)',data:catNames.map(c=>revMap[c]),backgroundColor:palette,borderRadius:4}]},
+    options:{plugins:{legend:{display:false}},scales:{y:{title:{display:true,text:'元'}}}}
+  });
+
+  // 5. 价格 vs 销量散点
+  charts.scatter = new Chart(document.getElementById('scatterChart'),{
+    type:'scatter',
+    data:{datasets:[{label:'商品',data:products.map(p=>({x:p.price,y:p.sales})),backgroundColor:C.purple,pointRadius:6,pointHoverRadius:9}]},
+    options:{plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'价格(元)'}},y:{title:{display:true,text:'销量(件)'}}}}
+  });
+
+  // 6. 历史趋势（多日）
+  if(window.HISTORY && window.HISTORY.length>1){
+    const dh = window.HISTORY.slice().sort((a,b)=>a.date<b.date?-1:1);
+    document.getElementById('trendCard').querySelector('h2').textContent='📈 历史趋势（每日总销量）';
+    charts.trend = new Chart(document.getElementById('trendChart'),{
+      type:'line',
+      data:{labels:dh.map(e=>e.date),datasets:[{label:'总销量',data:dh.map(e=>e.total_sales||e.products.reduce((s,p)=>s+p.sales,0)),borderColor:C.blue,backgroundColor:'rgba(26,115,232,.12)',fill:true,tension:.3,pointRadius:4}]},
+      options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+    });
+  } else {
+    document.getElementById('trendCard').querySelector('h2').textContent='📈 历史趋势';
+    document.getElementById('trendChart').parentElement.innerHTML='<p class="card note" style="margin:0">首次生成，暂无历史对比。每日自动更新后将出现趋势曲线。</p><canvas id="trendChart" height="120"></canvas>';
+  }
+
+  // 品类汇总表
+  const catBody = document.getElementById('catBody'); catBody.innerHTML='';
+  catNames.sort((a,b)=>catMap[b]-catMap[a]).forEach(c=>{
+    const cnt = products.filter(p=>p.category===c).length;
+    const rev = revMap[c];
+    const avg = rev/ (products.filter(p=>p.category===c).reduce((s,p)=>s+p.sales,0)||1);
+    catBody.innerHTML += '<tr><td>'+c+'</td><td>'+cnt+'</td><td>'+fmt(catMap[c])+'</td><td>'+fmtMoney(rev)+'</td><td>¥'+avg.toFixed(1)+'</td></tr>';
+  });
+
+  // 商品明细表（每个 SKU 的型号/销量/价格）
+  const detailBody = document.getElementById('detailBody'); detailBody.innerHTML='';
+  products.forEach((p,i)=>{
+    const rank = i+1;
+    const rcls = rank===1?'rank-1':rank===2?'rank-2':rank===3?'rank-3':'rank-other';
+    const sku = (p.sku && String(p.sku).trim()) || '—';
+    const model = (p.model && String(p.model).trim()) || '—';
+    detailBody.innerHTML += '<tr>'+
+      '<td><span class="rank-badge '+rcls+'">'+(rank<=3?rank:'·')+'</span></td>'+
+      '<td class="pname" title="'+p.name+'">'+p.name+'</td>'+
+      '<td class="sku">'+ sku +'</td>'+
+      '<td>'+ model +'</td>'+
+      '<td>'+p.category+'</td>'+
+      '<td class="price">'+fmtMoney(p.price)+'</td>'+
+      '<td class="sales">'+fmt(p.sales)+'</td>'+
+      '<td class="revenue">'+fmtMoney(p.price*p.sales)+'</td>'+
+    '</tr>';
+  });
+}
+
+// ===== 数据加载：优先读 history.json（每日自动更新），失败用内嵌兜底 =====
+function boot(){
+  fetch('history.json',{cache:'no-store'}).then(r=>{ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
+    .then(j=>{
+      if(Array.isArray(j) && j.length){
+        window.HISTORY = j.slice().sort((a,b)=>a.date<b.date?-1:1);
+        renderEntry(window.HISTORY[window.HISTORY.length-1]);
+      } else { throw new Error('empty'); }
+    })
+    .catch(err=>{
+      console.warn('读取 history.json 失败，使用内置兜底数据：', err);
+      window.HISTORY = EMBEDDED_DATA;
+      renderEntry(EMBEDDED_DATA[EMBEDDED_DATA.length-1]);
+    });
+}
+if(document.readyState!=='loading') boot(); else document.addEventListener('DOMContentLoaded', boot);
+
+// ===== 更新倒计时（每日 12:00）=====
+function nextUpdate(){
+  const now = new Date();
+  const t = new Date(now);
+  t.setHours(12,0,0,0);
+  if(now >= t) t.setDate(t.getDate()+1);
+  return t;
+}
+function tick(){
+  const diff = nextUpdate() - new Date();
+  const s = Math.floor(diff/1000);
+  const d = Math.floor(s/86400);
+  const h = Math.floor((s%86400)/3600);
+  const m = Math.floor((s%3600)/60);
+  const sec = s%60;
+  const pad = n=>String(n).padStart(2,'0');
+  document.getElementById('cd').textContent =
+    (d>0 ? d+'天 ' : '') + pad(h)+':'+pad(m)+':'+pad(sec);
+}
+tick(); setInterval(tick,1000);
+
+// 回到顶部
+window.onscroll = function(){
+  var b = document.getElementById('backTop');
+  b.style.display = window.scrollY > 400 ? 'block' : 'none';
+};
+</script>
+
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:#fff;border-right:1px solid #e8eaed;box-shadow:2px 0 12px rgba(0,0,0,.06);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#1f2937;}
+.wb-sidebar h2 a{color:#0f3460;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px;padding-left:8px;border-left:4px solid #9ca3af;}
+.wb-brand.ljn .wb-brand-title{border-color:#16a34a;}
+.wb-brand.ys .wb-brand-title{border-color:#2563eb;}
+.wb-brand.mm .wb-brand-title{border-color:#ea580c;}
+.wb-brand.da .wb-brand-title{border-color:#1a73e8;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:6px;color:#4b5563;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:#f3f4f6;color:#111827;}
+.wb-sidebar a.active{background:#eef2ff;color:#0f3460;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:8px 10px;background:#f3f4f6;border-radius:6px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;text-align:center;}
+.wb-sidebar .home-link:hover{background:#e5e7eb;}
+.wb-sidebar .note{padding:6px 10px;color:#9ca3af;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:36px;height:36px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);font-size:18px;line-height:34px;text-align:center;cursor:pointer;}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const cur=location.pathname.split('/').pop();
+  const data=[
+    {brand:'数据分析',cls:'da',color:'#1a73e8',items:[
+      {n:'绿巨能京东销售数据',f:'绿巨能京东销售数据分析.html'}
+    ]},
+    {brand:'绿巨能',cls:'ljn',color:'#16a34a',items:[
+      {n:'单反相机三脚架',f:'../ljn-tripod.html'},{n:'笔记本电池',f:'../ljn-battery.html'},
+      {n:'二合一读卡器',f:'../ljn-reader-2in1.html'},{n:'多合一读卡器',f:'../ljn-reader-multi.html'},
+      {n:'相机电池（汇总）',f:'../camera-battery/index.html'},{n:'相机干电池',f:'../camera-battery/相机干电池.html'},{n:'相机可直充电池',f:'../camera-battery/相机可直充电池.html'}
+    ]},
+    {brand:'影石',cls:'ys',color:'#2563eb',items:[
+      {n:'迷你脚架自拍杆',f:'../ys-mini-stand.html'},{n:'隐形自拍杆',f:'../ys-invisible-rod.html'},{n:'自行车码表支架',f:'../ys-bike-mount.html'}
+    ]},
+    {brand:'猛犸',cls:'mm',color:'#ea580c',items:[
+      {n:'极影S 无线图传',f:'../manta-jiyings.html'},{n:'LARK M3',f:'../manta-lark-m3.html'},{n:'LARK MIX',f:'../manta-lark-mix.html'},
+      {n:'MELO P1',f:'../manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'../manta-melo-p1-faq.html'}
+    ]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="../index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+it.f+'" class="'+(it.f.split('/').pop()===cur?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body>
+</html>

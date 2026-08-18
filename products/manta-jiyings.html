@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>猛玛 极影S — 4K 双频无线图传</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; background: #f5f5f5; color: #333; line-height: 1.7; }
+.container { max-width: 960px; margin: 0 auto; padding: 20px; }
+.header { text-align: center; padding: 36px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; border-radius: 12px; margin-bottom: 30px; }
+.header h1 { font-size: 24px; margin-bottom: 8px; }
+.header .subtitle { font-size: 13px; color: #aaa; }
+.content { background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+h2 { font-size: 22px; margin: 28px 0 14px; padding-left: 12px; border-left: 4px solid #ea580c; color: #1a1a2e; }
+h3 { font-size: 17px; margin: 20px 0 10px; color: #333; }
+h4 { font-size: 15px; margin: 14px 0 8px; color: #555; }
+p { margin-bottom: 12px; }
+ul, ol { margin: 12px 0 12px 24px; }
+li { margin-bottom: 6px; }
+blockquote { background: #f0f4ff; border-left: 4px solid #0f3460; padding: 14px 18px; margin: 16px 0; border-radius: 0 8px 8px 0; color: #333; }
+blockquote p { margin: 0; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+th, td { border: 1px solid #e0e0e0; padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #f8f9fa; font-weight: 600; }
+tr:nth-child(even) td { background: #fafafa; }
+code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-family: Consolas, monospace; font-size: 13px; }
+a { color: #0f3460; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.back-link { display: inline-block; margin-bottom: 20px; color: #0f3460; font-weight: 600; font-size: 14px; }
+.footer { text-align: center; padding: 30px 20px; color: #999; font-size: 13px; margin-top: 20px; }
+@media (max-width: 768px) {
+  .container { padding: 12px; }
+  .content { padding: 20px; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+</style>
+
+
+
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:48px 40px; width:380px; max-width:90vw; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.4); }
+#pwd-gate .gate-icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:rgba(59,130,246,.15); display:flex; align-items:center; justify-content:center; font-size:28px; }
+#pwd-gate .gate-title { color:#e2e8f0; font-size:22px; font-weight:700; letter-spacing:2px; margin-bottom:8px; }
+#pwd-gate .gate-sub { color:#94a3b8; font-size:13px; margin-bottom:28px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); color:#f1f5f9; font-size:16px; outline:none; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+#pwd-gate .gate-input::placeholder { color:#64748b; }
+#pwd-gate .gate-input:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+#pwd-gate .gate-btn { width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none; background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; font-size:16px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:transform .15s,opacity .2s; }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); opacity:.92; }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#f87171; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#475569; font-size:11px; margin-top:24px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">访问验证</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+
+
+
+<div class="container">
+  <a class="back-link" href="../index.html">← 返回 明月策</a>
+  <div class="header">
+    <h1>猛玛 极影S — 4K 双频无线图传</h1>
+    <div class="subtitle">猛犸 / 无线图传 · 产品资料与使用指南</div>
+  </div>
+  <div class="content">
+<h1>猛玛 极影S — 4K 双频无线图传 产品资料汇总</h1>
+<blockquote>
+<p><strong>来源</strong>：HOLLYLAND 猛玛官网支持页 (https://www.hollyland.com.cn/support/jiying-s/) 及猛玛官方产品知识库 (https://moma-faq.com/)
+<strong>整理日期</strong>：2026-08-13
+<strong>产品定位</strong>：MOMA 极影 4K 图传生态 · 4K 双频无线图传</p>
+</blockquote>
+<hr />
+<h2>目录</h2>
+<ol>
+<li><a href="#1-产品概述">产品概述</a></li>
+<li><a href="#2-技术参数">技术参数</a></li>
+<li><a href="#3-支持分辨率">支持分辨率</a></li>
+<li><a href="#4-核心功能">核心功能</a></li>
+<li><a href="#5-使用教程">使用教程</a></li>
+<li><a href="#6-常见问题-faq">常见问题 FAQ</a></li>
+<li><a href="#7-固件升级">固件升级</a></li>
+<li><a href="#8-售后维修参考价格">售后维修参考价格</a></li>
+<li><a href="#9-官方支持链接">官方支持链接</a></li>
+</ol>
+<hr />
+<h2>1. 产品概述</h2>
+<p>极影S 是猛玛（HOLLYLAND）旗下极影系列的一款 <strong>4K 双频无线图传</strong>产品，属于 MOMA 极影 4K 图传生态。支持 HDMI 和 SDI 双接口输入/输出，覆盖 2.4G 与 5G 双频段，传输延时最低 60ms，支持 4K（3840×2160）分辨率传输。</p>
+<p>极影S 与极影H、极影7 同属极影系列，三者可以互相配对使用。</p>
+<hr />
+<h2>2. 技术参数</h2>
+<h3>2.1 发射器（TX）</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>规格详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>接口</strong></td>
+<td>DC IN: 2.0mm 芯插座；HDMI IN: HDMI 1.4b；SDI IN: 3G SDI；Type-C: USB 2.0 OTG；天线: SMA 公头</td>
+</tr>
+<tr>
+<td><strong>供电电压范围</strong></td>
+<td>DC 供电: 6–16V；电池供电: 6.8–8.4V</td>
+</tr>
+<tr>
+<td><strong>功耗</strong></td>
+<td>&lt; 11W</td>
+</tr>
+<tr>
+<td><strong>净重</strong></td>
+<td>207g（不含天线）</td>
+</tr>
+<tr>
+<td><strong>尺寸 (L×W×H)</strong></td>
+<td>112 × 71.2 × 34.1 mm</td>
+</tr>
+<tr>
+<td><strong>工作频段</strong></td>
+<td><strong>5G 频带</strong>: 5.150–5.250 / 5.250–5.350 / 5.470–5.725 / 5.725–5.850 GHz；<strong>2.4G 频带</strong>: 2.412–2.484 GHz</td>
+</tr>
+<tr>
+<td><strong>发射功率</strong></td>
+<td>&lt; 23 dBm</td>
+</tr>
+<tr>
+<td><strong>传输延时</strong></td>
+<td>最低 60ms</td>
+</tr>
+<tr>
+<td><strong>带宽</strong></td>
+<td>单播模式: 20MHz；广播模式: 40MHz</td>
+</tr>
+<tr>
+<td><strong>温度范围</strong></td>
+<td>工作: -10℃ ~ +45℃；储存: -40℃ ~ +60℃</td>
+</tr>
+</tbody>
+</table>
+<h3>2.2 接收器（RX）</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>规格详情</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>接口</strong></td>
+<td>DC IN: 2.0mm 芯插座；HDMI OUT: HDMI 1.4b；SDI OUT: 3G SDI；Type-C: USB 2.0 OTG；天线: SMA 公头</td>
+</tr>
+<tr>
+<td><strong>供电电压范围</strong></td>
+<td>DC 供电: 6–16V；电池供电: 6.8–8.4V</td>
+</tr>
+<tr>
+<td><strong>功耗</strong></td>
+<td>&lt; 8W</td>
+</tr>
+<tr>
+<td><strong>净重</strong></td>
+<td>207g（不含天线）</td>
+</tr>
+<tr>
+<td><strong>尺寸 (L×W×H)</strong></td>
+<td>112 × 71.2 × 34.1 mm</td>
+</tr>
+<tr>
+<td><strong>工作频段</strong></td>
+<td><strong>5G 频带</strong>: 5.150–5.250 / 5.250–5.350 / 5.470–5.725 / 5.725–5.850 GHz；<strong>2.4G 频带</strong>: 2.412–2.484 GHz</td>
+</tr>
+<tr>
+<td><strong>接收灵敏度</strong></td>
+<td>单播模式: -85dBm；广播模式: -80dBm</td>
+</tr>
+<tr>
+<td><strong>传输延迟</strong></td>
+<td>最低 60ms</td>
+</tr>
+<tr>
+<td><strong>带宽</strong></td>
+<td>单播模式: 20MHz；广播模式: 40MHz</td>
+</tr>
+<tr>
+<td><strong>温度范围</strong></td>
+<td>工作: -10℃ ~ +45℃；储存: -40℃ ~ +60℃</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. 支持分辨率</h2>
+<h3>3.1 SDI 输入分辨率</h3>
+<ul>
+<li>720p 50 / 59.94 / 60</li>
+<li>1080i 50 / 59.94 / 60</li>
+<li>1080p 23.98 / 24 / 25 / 29.97 / 30</li>
+<li>1080psf 23.98 / 24 / 25 / 29.97 / 30</li>
+<li>1080p 50 / 59.94 / 60</li>
+</ul>
+<h3>3.2 SDI 输出分辨率</h3>
+<ul>
+<li>720p 50 / 59.94 / 60</li>
+<li>1080i 50 / 59.94 / 60</li>
+<li>1080p 23.98 / 24 / 25 / 29.97 / 30</li>
+<li>1080p 50 / 59.94 / 60</li>
+</ul>
+<h3>3.3 HDMI 输入分辨率</h3>
+<ul>
+<li>720p 50 / 59.94 / 60</li>
+<li>1080i 50 / 59.94 / 60</li>
+<li>1080p 23.98 / 24 / 25 / 29.97 / 30</li>
+<li>1080p 50 / 59.94 / 60</li>
+<li><strong>3840×2160</strong> (4K) 30 / 25 / 24 / 29.97 / 23.98</li>
+</ul>
+<h3>3.4 HDMI 输出分辨率</h3>
+<ul>
+<li>720p 50 / 59.94 / 60</li>
+<li>1080i 50 / 59.94 / 60</li>
+<li>1080p 23.98 / 24 / 25 / 29.97 / 30</li>
+<li>1080p 50 / 59.94 / 60</li>
+<li><strong>3840×2160</strong> (4K) 30 / 25 / 24 / 29.97 / 23.98</li>
+</ul>
+<h3>3.5 UVC 功能</h3>
+<p>极影S 接收器支持 UVC（USB Video Class）功能，可通过 Type-C 接口连接电脑进行推流。</p>
+<hr />
+<h2>4. 核心功能</h2>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>分组配对</strong></td>
+<td>发射器与接收器设置在同一分组即可自动配对，极影H/S/7 可互相配对</td>
+</tr>
+<tr>
+<td><strong>扫频</strong></td>
+<td>在接收器菜单中进行频点扫描，红色表示干扰频点，绿色表示干净频点</td>
+</tr>
+<tr>
+<td><strong>频点切换 &amp; 自动跳频</strong></td>
+<td>通过【频点+】/【频点-】按钮手动切换频点，或切换至 Auto 自动调频</td>
+</tr>
+<tr>
+<td><strong>UVC 推流</strong></td>
+<td>接收器通过 USB 连接电脑，在 OBS 中作为视频采集设备使用</td>
+</tr>
+<tr>
+<td><strong>广播模式</strong></td>
+<td>一台发射器最多可同时连接 4 台接收器</td>
+</tr>
+<tr>
+<td><strong>静帧功能</strong></td>
+<td>信号源中断时保持最后一帧画面，不会黑屏</td>
+</tr>
+<tr>
+<td><strong>发射器联网推流</strong></td>
+<td>通过 OTG 转接头连接无线网卡，经"猛玛图传"App 输入推流地址进行直播</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. 使用教程</h2>
+<h3>5.1 安装使用注意事项</h3>
+<ol>
+<li><strong>发射器竖装</strong>在相机上效果最好</li>
+<li><strong>接收器使用三脚架架高 1.7 米以上</strong>，避免人群遮挡</li>
+<li>接收器和发射器之间<strong>不能穿墙</strong>，特别是混凝土墙、玻璃墙</li>
+</ol>
+<h3>5.2 多套图传使用注意事项</h3>
+<ol>
+<li>接收器之间间隔 <strong>0.5 米</strong></li>
+<li>先用其中一套图传接收器<strong>扫频</strong>查看现场干扰情况</li>
+<li><strong>2 套图传之间间隔 2 个频点</strong>，避免互相干扰</li>
+<li>同一场景最多使用套数：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>国内</th>
+<th>海外</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单播模式</td>
+<td>最多 5 套</td>
+<td>最多 4 套</td>
+</tr>
+<tr>
+<td>广播模式</td>
+<td>最多 4 套</td>
+<td>最多 2 套</td>
+</tr>
+</tbody>
+</table>
+<h3>5.3 供电方式</h3>
+<p>极影S 支持以下供电方式：</p>
+<ul>
+<li><strong>DC 电源</strong>（6~16V）</li>
+<li><strong>NP-F 系列电池</strong>（如 NPF970，满电续航约 4 小时）</li>
+<li><strong>Type-C 供电</strong>（5V 2A 以上）</li>
+<li><strong>V-mount / G-mount</strong> 搭配 D-TAP 转 DC 线供电</li>
+</ul>
+<h3>5.4 分组配对操作</h3>
+<ol>
+<li>发射器与接收器都需要<strong>长按中间菜单按钮</strong>进入菜单</li>
+<li>发射器与接收器都选择 <strong>【分组配对】</strong> → <strong>【选择同一个分组】</strong>，自动进入配对状态（处于同一分组的发射器和接收器自动进行配对）</li>
+<li>等待 <strong>10 秒左右</strong>，完成配对</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：极影H、极影S、极影7 可以互相配对使用，出厂默认在 A 组。</p>
+</blockquote>
+<h3>5.5 扫频操作</h3>
+<ol>
+<li>在<strong>接收器</strong>上<strong>长按中间按钮</strong>进入菜单</li>
+<li>找到<strong>【频点扫描】</strong>，按一下中间按钮确定进行扫频</li>
+<li><strong>红色</strong>表示频点存在干扰，<strong>绿色</strong>表示干净无干扰频点</li>
+<li>选择绿色（干净）的频点使用</li>
+</ol>
+<h3>5.6 频点切换 &amp; 自动跳频</h3>
+<ol>
+<li>通过图传上的<strong>【频点+】</strong>和<strong>【频点-】</strong>按钮切换频点</li>
+<li>切换到相应的频点后，<strong>中间短按确认</strong>切换频点</li>
+<li>通过【频点+】或【频点-】按钮可切换到 <strong>Auto</strong>（自动调频），设备将自动选择最优频点</li>
+</ol>
+<h3>5.7 打开广播模式</h3>
+<ol>
+<li><strong>长按发射器中间按钮</strong>进入主菜单</li>
+<li>通过向上按钮或向下按钮找到<strong>【广播模式】</strong>，点击进入</li>
+<li>选择 <strong>ON</strong>，打开广播模式</li>
+</ol>
+<blockquote>
+<p>广播模式下，一台发射器最多可同时连接 4 台接收器（但不支持 APP 监看）。</p>
+</blockquote>
+<h3>5.8 开启静帧功能</h3>
+<ol>
+<li><strong>长按发射器中间按钮</strong>进入主菜单</li>
+<li>使用向下按键找到<strong>【系统设置】</strong>，点击进入</li>
+<li>选择<strong>【静帧】</strong>，点击进入</li>
+<li>选择<strong>【打开】</strong>，确认即可开启静帧功能</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：开启静帧功能后，信号源突然中断不会黑屏，而是停留在信号源的最后一帧画面。</p>
+</blockquote>
+<h3>5.9 UVC 推流操作</h3>
+<ol>
+<li>使用标准的 <strong>USB-A 转 Type-C 数据线</strong>将接收器连接到电脑</li>
+<li>打开 <strong>OBS</strong>，添加一个<strong>视频采集设备</strong></li>
+<li>驱动选择：<strong>Hollyland</strong> 或 <strong>USB2 Video</strong></li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：极影S UVC 推流建议使用 <strong>1080P30</strong>，视频格式为 <strong>MJPEG</strong>。</p>
+</blockquote>
+<h3>5.10 发射器联网推流功能</h3>
+<ol>
+<li>将已有流量套餐的<strong>无线网卡</strong>通过 <strong>OTG 转接头</strong>连接至图传发射器</li>
+<li>观察对应 <strong>Type-C 图标处</strong>是否存在变化（确认网卡被识别）</li>
+<li>将准备的推流地址通过<strong>"猛玛图传"App</strong> 进行输入后，启动推流</li>
+</ol>
+<h3>5.11 APP 监看</h3>
+<ul>
+<li><strong>单播模式</strong>：最多支持 <strong>2 台</strong>移动设备连接到发射器进行 APP 监看</li>
+<li><strong>广播模式</strong>：<strong>不支持</strong> APP 监看</li>
+</ul>
+<h3>5.12 接收器连接数量</h3>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>接收器数量</th>
+<th>APP 数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单播模式</td>
+<td>最多 2 台</td>
+<td>+2 个 APP</td>
+</tr>
+<tr>
+<td>广播模式</td>
+<td>最多 4 台</td>
+<td>不支持 APP</td>
+</tr>
+</tbody>
+</table>
+<h3>5.13 产品序列号位置</h3>
+<p>极影S 的产品序列号 / SN 号位于<strong>图传后方的电池扣板里面</strong>。</p>
+<hr />
+<h2>6. 常见问题 FAQ</h2>
+<h3>Q1: 连接 ATEM Mini 切换台输出画面偏色？</h3>
+<p><strong>A</strong>: BMD ATEM Mini 系列切换台的 <strong>【HDMI 1】接口不要接任何图传</strong>，图传要接切换台的 <strong>HDMI 2、3、4 接口</strong>。</p>
+<p><strong>原因</strong>：BMD ATEM Mini 系列切换台的【HDMI 1】接口支持的是 <strong>RGB 模式</strong>，而极影S 输出的视频是 <strong>YUV 模式</strong>，所以切换台会显示偏色。</p>
+<hr />
+<h3>Q2: 发射器工作正常，但接收器的连接丢失？</h3>
+<p><strong>A</strong>: 请按以下步骤排查：</p>
+<ol>
+<li>确保使用直流适配器或 NP-F 电池供电，并将电池<strong>充满电</strong></li>
+<li>选择<strong>"扫频"</strong>选择干净的频点，避免频率干扰</li>
+<li>发射器与接收器保持<strong>至少 1m 的距离</strong>，然后进行分组配对</li>
+</ol>
+<hr />
+<h3>Q3: 新接收器如何与现有系统配对？</h3>
+<p><strong>A</strong>: 将发射器、接收器设置在<strong>同一分组</strong>，它们将自动配对。</p>
+<hr />
+<h3>Q4: 极影S 是否能和小玛系列的图传/小监或者传奇C1 配对连接？</h3>
+<p><strong>A</strong>: <strong>不可以</strong>。极影S 与小玛系列、传奇C1 不兼容配对。</p>
+<hr />
+<h3>Q5: 极影S 是否能与极影H、极影7 配对使用？</h3>
+<p><strong>A</strong>: <strong>可以</strong>。极影系列其它产品的分组配对操作和逻辑相同，极影H、极影S、极影7 可互相配对。</p>
+<hr />
+<h3>Q6: 极影S 同一个场景最多能使用多少套？</h3>
+<p><strong>A</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>国内</th>
+<th>海外</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单播模式</td>
+<td>最多 5 套</td>
+<td>最多 4 套</td>
+</tr>
+<tr>
+<td>广播模式</td>
+<td>最多 4 套</td>
+<td>最多 2 套</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Q7: 极影S 一台发射器可同时连接多少台接收器？</h3>
+<p><strong>A</strong>:</p>
+<ul>
+<li><strong>单播模式</strong>：1 台发射器最多可同时连接 <strong>2 台接收器 + 2 个 APP</strong> 查看</li>
+<li><strong>广播模式</strong>：1 台发射器最多可同时连接 <strong>4 台接收器</strong></li>
+</ul>
+<hr />
+<h3>Q8: 极影S 最多支持几台移动设备连接到发射器进行 APP 监看？</h3>
+<p><strong>A</strong>:</p>
+<ul>
+<li><strong>单播模式</strong>：最多支持 <strong>2 台</strong>移动设备</li>
+<li><strong>广播模式</strong>：<strong>不支持</strong> APP 监看</li>
+</ul>
+<hr />
+<h3>Q9: 极影S 使用电池的续航时间是多少？</h3>
+<p><strong>A</strong>: 使用 <strong>NPF970 电池</strong>，满电续航可以用 <strong>4 个小时</strong>左右。</p>
+<hr />
+<h3>Q10: ATOMOS 记录器如何连接？</h3>
+<p><strong>A</strong>: 连接方式为 ATOMOS 记录器 → 发射器。</p>
+<hr />
+<h2>7. 固件升级</h2>
+<table>
+<thead>
+<tr>
+<th>发布日期</th>
+<th>固件版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024/6/19</td>
+<td>过渡版本</td>
+<td>若设备版本是 V1.0.2.0 以下（例如 V1.0.1.6），则先需要升级到过渡版本，再升级到 V1.0.3.9 版本</td>
+</tr>
+<tr>
+<td>2024/10/11</td>
+<td>V1.0.3.9</td>
+<td>最新版本</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>固件下载请访问猛玛官方知识库升级指南页面：https://moma-faq.com/e80f/video/d92c</p>
+</blockquote>
+<hr />
+<h2>8. 售后维修参考价格</h2>
+<h3>发射器（TX）</h3>
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>维修指导价（元）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主板组件</td>
+<td>400</td>
+</tr>
+<tr>
+<td>无线图传模块</td>
+<td>200</td>
+</tr>
+<tr>
+<td>显示子板组件</td>
+<td>60</td>
+</tr>
+<tr>
+<td>前壳组件</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<h3>接收器（RX）</h3>
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>维修指导价（元）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主板组件</td>
+<td>450</td>
+</tr>
+<tr>
+<td>无线图传模块</td>
+<td>200</td>
+</tr>
+<tr>
+<td>显示子板组件</td>
+<td>60</td>
+</tr>
+<tr>
+<td>前壳组件</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<h3>通用组件</h3>
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>维修指导价（元）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>屏幕组件</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>以上为维修参考价格，实际价格以官方报价为准。</p>
+</blockquote>
+<hr />
+<h2>9. 官方支持链接</h2>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极影S 官网支持页</td>
+<td>https://www.hollyland.com.cn/support/jiying-s/</td>
+</tr>
+<tr>
+<td>猛玛官方产品知识库</td>
+<td>https://moma-faq.com/</td>
+</tr>
+<tr>
+<td>极影S FAQ 分类</td>
+<td>https://moma-faq.com/video/5010</td>
+</tr>
+<tr>
+<td>极影S 快速使用</td>
+<td>https://moma-faq.com/video/5010/75853</td>
+</tr>
+<tr>
+<td>极影S 常见问题</td>
+<td>https://moma-faq.com/video/5010/9e384</td>
+</tr>
+<tr>
+<td>极影S 升级指南</td>
+<td>https://moma-faq.com/e80f/video/d92c</td>
+</tr>
+<tr>
+<td>猛玛官网</td>
+<td>https://www.moma.com.cn/</td>
+</tr>
+</tbody>
+</table>
+<h3>联系方式</h3>
+<ul>
+<li><strong>在线客服</strong>：周一至周日 9:00–22:00（北京时间）</li>
+<li><strong>服务热线</strong>：周一至周五 9:30–18:30（北京时间） · <strong>+86 400-666-2100</strong></li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>免责声明</strong>：本文档为基于猛玛官方公开资料整理的汇总，仅供参考。产品参数和功能以猛玛官方最新发布为准。</p>
+</blockquote>
+  </div>
+  <div class="footer">资料整理自猛玛官方公开文档，仅供参考。</div>
+</div>
+
+
+
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:#fff;border-right:1px solid #e8eaed;box-shadow:2px 0 12px rgba(0,0,0,.06);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#1f2937;}
+.wb-sidebar h2 a{color:#0f3460;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px;padding-left:8px;border-left:4px solid #9ca3af;}
+.wb-brand.ljn .wb-brand-title{border-color:#16a34a;}
+.wb-brand.ys .wb-brand-title{border-color:#2563eb;}
+.wb-brand.mm .wb-brand-title{border-color:#ea580c;}
+.wb-brand.da .wb-brand-title{border-color:#1a73e8;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:6px;color:#4b5563;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:#f3f4f6;color:#111827;}
+.wb-sidebar a.active{background:#eef2ff;color:#0f3460;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:8px 10px;background:#f3f4f6;border-radius:6px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;text-align:center;}
+.wb-sidebar .home-link:hover{background:#e5e7eb;}
+.wb-sidebar .note{padding:6px 10px;color:#9ca3af;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:36px;height:36px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);font-size:18px;line-height:34px;text-align:center;cursor:pointer;}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const current=location.pathname.split('/').pop();
+  const data=[
+    {brand:'绿巨能',cls:'ljn',color:'#16a34a',items:[{n:'单反相机三脚架',f:'ljn-tripod.html'},{n:'笔记本电池',f:'ljn-battery.html'},{n:'相机电池（汇总）',f:'camera-battery/index.html'},{n:'相机干电池',f:'camera-battery/相机干电池.html'},{n:'相机可直充电池',f:'camera-battery/相机可直充电池.html'},{n:'二合一读卡器',f:'ljn-reader-2in1.html'},{n:'多合一读卡器',f:'ljn-reader-multi.html'}]},
+    {brand:'影石',cls:'ys',color:'#2563eb',items:[{n:'迷你脚架自拍杆',f:'ys-mini-stand.html'},{n:'隐形自拍杆',f:'ys-invisible-rod.html'},{n:'自行车码表支架',f:'ys-bike-mount.html'}]},
+    {brand:'猛犸',cls:'mm',color:'#ea580c',items:[{n:'极影S 无线图传',f:'manta-jiyings.html'},{n:'LARK M3',f:'manta-lark-m3.html'},{n:'LARK MIX',f:'manta-lark-mix.html'},{n:'MELO P1',f:'manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'manta-melo-p1-faq.html'}]},
+    {brand:'数据分析',cls:'da',color:'#1a73e8',items:[{n:'绿巨能京东销售数据',f:'data-analysis/绿巨能京东销售数据分析.html'}]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="../index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+it.f+'" class="'+(it.f===current?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body>
+</html>

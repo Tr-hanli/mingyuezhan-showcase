@@ -1,0 +1,107 @@
+[
+  {
+    "date": "2026-08-17",
+    "timestamp": "2026-08-17 23:13",
+    "product_count": 12,
+    "total_sales": 167000,
+    "avg_price": 196.2,
+    "products": [
+      {
+        "name": "【3C认证】适用佳能E17相机电池",
+        "sku": "",
+        "price": 129.0,
+        "sales": 50000,
+        "category": "相机电池",
+        "model": "E17"
+      },
+      {
+        "name": "【3C认证】适用富士W126S电池",
+        "sku": "",
+        "price": 89.0,
+        "sales": 12000,
+        "category": "相机电池",
+        "model": "W126S"
+      },
+      {
+        "name": "【品类热卖】索尼FZ100相机电池",
+        "sku": "",
+        "price": 310.0,
+        "sales": 20000,
+        "category": "相机电池",
+        "model": "FZ100"
+      },
+      {
+        "name": "【3C认证】适用佳能E6NH相机电池",
+        "sku": "",
+        "price": 149.0,
+        "sales": 20000,
+        "category": "相机电池",
+        "model": "E6NH"
+      },
+      {
+        "name": "【3C认证】适用尼康EL25相机电池",
+        "sku": "",
+        "price": 199.0,
+        "sales": 10000,
+        "category": "相机电池",
+        "model": "EL25"
+      },
+      {
+        "name": "【3C认证】尼康EL15C相机电池",
+        "sku": "",
+        "price": 159.0,
+        "sales": 10000,
+        "category": "相机电池",
+        "model": "EL15C"
+      },
+      {
+        "name": "绿巨能V12压风式散热器",
+        "sku": "",
+        "price": 369.0,
+        "sales": 5000,
+        "category": "散热器",
+        "model": "V12"
+      },
+      {
+        "name": "【3C认证】松下BLG10相机电池",
+        "sku": "",
+        "price": 109.0,
+        "sales": 10000,
+        "category": "相机电池",
+        "model": "BLG10"
+      },
+      {
+        "name": "惠普暗影精灵SR03XL电池",
+        "sku": "",
+        "price": 209.0,
+        "sales": 10000,
+        "category": "笔记本电池",
+        "model": "SR03XL"
+      },
+      {
+        "name": "绿巨能轻翼V球形云台三脚架",
+        "sku": "",
+        "price": 229.0,
+        "sales": 5000,
+        "category": "摄影配件",
+        "model": "轻翼V球形云台三脚架"
+      },
+      {
+        "name": "联想拯救者Y7000P笔记本电池",
+        "sku": "",
+        "price": 264.0,
+        "sales": 10000,
+        "category": "笔记本电池",
+        "model": "Y7000P"
+      },
+      {
+        "name": "【3C认证】适用松下BLK22电池",
+        "sku": "",
+        "price": 139.0,
+        "sales": 5000,
+        "category": "相机电池",
+        "model": "BLK22"
+      }
+    ]
+  }
+]

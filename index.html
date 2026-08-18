@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>牛马的自我休养</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; background: #f4f6f9; color: #1f2733; line-height: 1.6; }
+  .hero { background: linear-gradient(180deg, #ffffff 0%, #f5f7fa 100%); color: #1f2733; min-height: 420px; padding: 70px 20px 64px; position: relative; overflow: hidden; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 1px solid #e1e7ef; box-shadow: 0 8px 30px rgba(20,40,80,.08); }
+  .hero::after { content: ''; position: absolute; bottom: 0; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, #b0bbd1, transparent); box-shadow: 0 6px 22px rgba(0,0,0,.12); z-index: 4; }
+  .hero-content { position: relative; z-index: 3; text-align: center; transform: translateX(50px); }
+  .hero h1 { font-size: 44px; letter-spacing: 8px; margin-bottom: 16px; color: #1f2733; font-weight: 800; }
+  .hero h1::after { content: ''; display: block; width: 72px; height: 4px; background: linear-gradient(90deg, #0f3460, #3b82f6); margin: 18px auto 0; border-radius: 4px; box-shadow: 0 2px 8px rgba(15,52,96,.22); }
+  .hero p { color: #5a6578; font-size: 15px; letter-spacing: 1px; }
+  .hero-person { position: absolute; left: 1%; bottom: -22px; height: 400px; width: auto; pointer-events: auto; cursor: pointer; z-index: 1; opacity: .92; filter: drop-shadow(0 6px 20px rgba(20,40,80,.15)); transition: transform .35s ease; }
+  .hero-person:hover { transform: translateY(-14px); }
+  @media (max-width: 860px) {
+    .hero { min-height: 340px; padding: 60px 20px 56px; }
+    .hero-content { transform: none; }
+    .hero-person { height: 300px; bottom: -16px; left: 0; }
+    .hero h1 { font-size: 34px; letter-spacing: 5px; }
+  }
+  @media (max-width: 560px) {
+    .hero-person { display: none; }
+    .hero { min-height: 240px; padding: 50px 20px 45px; }
+    .hero h1 { font-size: 28px; letter-spacing: 3px; }
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 36px 20px 60px; }
+  .brand { margin-bottom: 44px; }
+  .brand-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .brand-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .brand-title { font-size: 24px; font-weight: 700; }
+  .brand-sub { font-size: 13px; color: #8a94a6; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+  .card { background: #fff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 16px rgba(20,40,80,.06); transition: transform .18s, box-shadow .18s; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 8px; border: 1px solid #eef1f6; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(20,40,80,.14); }
+  .card .cat { font-size: 12px; color: #fff; align-self: flex-start; padding: 3px 10px; border-radius: 20px; }
+  .card h3 { font-size: 17px; line-height: 1.4; }
+  .card .go { margin-top: auto; font-size: 13px; color: #0f3460; font-weight: 600; }
+  .empty { background: #fff; border: 1px dashed #d4dae4; border-radius: 14px; padding: 26px; color: #8a94a6; font-size: 14px; }
+  .empty b { color: #56607a; }
+</style>
+
+
+
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:48px 40px; width:380px; max-width:90vw; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.4); }
+#pwd-gate .gate-icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:rgba(59,130,246,.15); display:flex; align-items:center; justify-content:center; font-size:28px; }
+#pwd-gate .gate-title { color:#e2e8f0; font-size:22px; font-weight:700; letter-spacing:2px; margin-bottom:8px; }
+#pwd-gate .gate-sub { color:#94a3b8; font-size:13px; margin-bottom:28px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); color:#f1f5f9; font-size:16px; outline:none; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+#pwd-gate .gate-input::placeholder { color:#64748b; }
+#pwd-gate .gate-input:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+#pwd-gate .gate-btn { width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none; background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; font-size:16px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:transform .15s,opacity .2s; }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); opacity:.92; }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#f87171; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#475569; font-size:11px; margin-top:24px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">访问验证</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+
+
+
+  <header class="hero">
+    <img class="hero-person" src="hero-person.png" alt="">
+    <div class="hero-content">
+      <h1>牛马的自我休养</h1>
+      <p>绿巨能 / 猛犸 / 影石 — 产品参数、使用指南与销售数据一站式查阅</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 绿巨能 -->
+    <section class="brand">
+      <div class="brand-head">
+        <span class="brand-dot" style="background:#16a34a"></span>
+        <div>
+          <div class="brand-title">绿巨能</div>
+          <div class="brand-sub">摄影配件 · 电池 · 读卡器</div>
+        </div>
+      </div>
+      <div class="grid">
+        <a class="card" href="products/ljn-battery.html">
+          <span class="cat" style="background:#16a34a">电池</span>
+          <h3>笔记本电池</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/camera-battery/index.html">
+          <span class="cat" style="background:#16a34a">相机电池</span>
+          <h3>相机电池（干电 / 直充）</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/ljn-reader-2in1.html">
+          <span class="cat" style="background:#16a34a">读卡器</span>
+          <h3>二合一读卡器</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/ljn-reader-multi.html">
+          <span class="cat" style="background:#16a34a">读卡器</span>
+          <h3>多合一读卡器</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/ljn-tripod.html">
+          <span class="cat" style="background:#16a34a">三脚架</span>
+          <h3>单反相机三脚架</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 影石 -->
+    <section class="brand">
+      <div class="brand-head">
+        <span class="brand-dot" style="background:#2563eb"></span>
+        <div>
+          <div class="brand-title">影石</div>
+          <div class="brand-sub">运动相机配件</div>
+        </div>
+      </div>
+      <div class="grid">
+        <a class="card" href="products/ys-mini-stand.html">
+          <span class="cat" style="background:#2563eb">自拍杆</span>
+          <h3>迷你脚架自拍杆</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/ys-invisible-rod.html">
+          <span class="cat" style="background:#2563eb">自拍杆</span>
+          <h3>隐形自拍杆</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/ys-bike-mount.html">
+          <span class="cat" style="background:#2563eb">车把支架</span>
+          <h3>自行车码表支架</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 猛犸 -->
+    <section class="brand">
+      <div class="brand-head">
+        <span class="brand-dot" style="background:#ea580c"></span>
+        <div>
+          <div class="brand-title">猛犸</div>
+          <div class="brand-sub">无线图传 · 麦克风</div>
+        </div>
+      </div>
+      <div class="grid">
+        <a class="card" href="products/manta-jiyings.html">
+          <span class="cat" style="background:#ea580c">无线图传</span>
+          <h3>极影S 4K 双频无线图传</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/manta-lark-m3.html">
+          <span class="cat" style="background:#ea580c">无线麦克风</span>
+          <h3>LARK M3</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/manta-lark-mix.html">
+          <span class="cat" style="background:#ea580c">无线麦克风</span>
+          <h3>LARK MIX</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/manta-melo-p1.html">
+          <span class="cat" style="background:#ea580c">无线声卡</span>
+          <h3>MELO P1 无线声卡系统</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+        <a class="card" href="products/manta-melo-p1-faq.html">
+          <span class="cat" style="background:#ea580c">问题总结</span>
+          <h3>MELO P1 问题总结</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 数据分析 -->
+    <section class="brand">
+      <div class="brand-head">
+        <span class="brand-dot" style="background:#1a73e8"></span>
+        <div>
+          <div class="brand-title">数据分析</div>
+          <div class="brand-sub">京东旗舰店销售数据</div>
+        </div>
+      </div>
+      <div class="grid">
+        <a class="card" href="products/data-analysis/绿巨能京东销售数据分析.html">
+          <span class="cat" style="background:#1a73e8">销售数据</span>
+          <h3>绿巨能京东销售数据分析</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- 企业文化 -->
+    <section class="brand">
+      <div class="brand-head">
+        <span class="brand-dot" style="background:#9333ea"></span>
+        <div>
+          <div class="brand-title">企业文化</div>
+          <div class="brand-sub">公司文化手册</div>
+        </div>
+      </div>
+      <div class="grid">
+        <a class="card" href="products/企业文化/企业文化手册初3.0版本(1).pdf">
+          <span class="cat" style="background:#9333ea">文化手册</span>
+          <h3>企业文化手册初3.0版本(1)</h3>
+          <span class="go">查看详情 →</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

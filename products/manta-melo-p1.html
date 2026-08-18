@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>猛玛 MELO P1 无线麦克风/声卡系统</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; background: #f5f5f5; color: #333; line-height: 1.7; }
+.container { max-width: 960px; margin: 0 auto; padding: 20px; }
+.header { text-align: center; padding: 36px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; border-radius: 12px; margin-bottom: 30px; }
+.header h1 { font-size: 24px; margin-bottom: 8px; }
+.header .subtitle { font-size: 13px; color: #aaa; }
+.content { background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+h2 { font-size: 22px; margin: 28px 0 14px; padding-left: 12px; border-left: 4px solid #ea580c; color: #1a1a2e; }
+h3 { font-size: 17px; margin: 20px 0 10px; color: #333; }
+h4 { font-size: 15px; margin: 14px 0 8px; color: #555; }
+p { margin-bottom: 12px; }
+ul, ol { margin: 12px 0 12px 24px; }
+li { margin-bottom: 6px; }
+blockquote { background: #f0f4ff; border-left: 4px solid #0f3460; padding: 14px 18px; margin: 16px 0; border-radius: 0 8px 8px 0; color: #333; }
+blockquote p { margin: 0; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+th, td { border: 1px solid #e0e0e0; padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #f8f9fa; font-weight: 600; }
+tr:nth-child(even) td { background: #fafafa; }
+code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-family: Consolas, monospace; font-size: 13px; }
+a { color: #0f3460; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.back-link { display: inline-block; margin-bottom: 20px; color: #0f3460; font-weight: 600; font-size: 14px; }
+.footer { text-align: center; padding: 30px 20px; color: #999; font-size: 13px; margin-top: 20px; }
+@media (max-width: 768px) {
+  .container { padding: 12px; }
+  .content { padding: 20px; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+</style>
+
+
+
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:48px 40px; width:380px; max-width:90vw; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.4); }
+#pwd-gate .gate-icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:rgba(59,130,246,.15); display:flex; align-items:center; justify-content:center; font-size:28px; }
+#pwd-gate .gate-title { color:#e2e8f0; font-size:22px; font-weight:700; letter-spacing:2px; margin-bottom:8px; }
+#pwd-gate .gate-sub { color:#94a3b8; font-size:13px; margin-bottom:28px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); color:#f1f5f9; font-size:16px; outline:none; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+#pwd-gate .gate-input::placeholder { color:#64748b; }
+#pwd-gate .gate-input:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+#pwd-gate .gate-btn { width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none; background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; font-size:16px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:transform .15s,opacity .2s; }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); opacity:.92; }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#f87171; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#475569; font-size:11px; margin-top:24px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">访问验证</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+
+
+
+<div class="container">
+  <a class="back-link" href="../index.html">← 返回 明月策</a>
+  <div class="header">
+    <h1>猛玛 MELO P1 无线麦克风/声卡系统</h1>
+    <div class="subtitle">猛犸 / 麦克风/声卡 · 产品资料与使用指南</div>
+  </div>
+  <div class="content">
+<h1>猛玛 MELO P1 无线麦克风系统 — 产品资料文档</h1>
+<blockquote>
+<p><strong>资料来源</strong>：https://www.hollyland.com.cn/support/melo-p1/
+<strong>品牌</strong>：HOLLYLAND 猛玛
+<strong>整理日期</strong>：2026-08-12</p>
+</blockquote>
+<hr />
+<h2>一、产品概述</h2>
+<p>MELO P1 是猛玛推出的无线麦克风/声卡系统，采用设备间全无线连接方案，实现麦克风、监听耳机与声卡之间的真无线连接。首创声卡行业一体式收纳充电盒形态，设备从盒中取出即可自动配对连接。</p>
+<p><strong>系统组件</strong>：
+1. 无线麦克风（手持麦，可更换电容/动圈麦头）
+2. 无线声卡
+3. 无线监听耳机
+4. 蓝牙遥控器
+5. 收纳盒（兼充电盒）</p>
+<hr />
+<h2>二、技术参数</h2>
+<h3>2.1 无线麦克风</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>动态范围</td>
+<td>116 dB</td>
+</tr>
+<tr>
+<td>频率响应</td>
+<td>动圈麦：50 Hz – 17 KHz；电容麦：20 Hz – 20 KHz</td>
+</tr>
+<tr>
+<td>采样规格</td>
+<td>48 KHz / 32 bit float &amp; 24 bit</td>
+</tr>
+<tr>
+<td>麦克风指向性</td>
+<td>心形指向</td>
+</tr>
+<tr>
+<td>最大声压级</td>
+<td>动圈麦：145 dB SPL；电容麦：132 dB SPL</td>
+</tr>
+<tr>
+<td>降噪深度</td>
+<td>最大 25 dB</td>
+</tr>
+<tr>
+<td>工作距离（无阻挡无干扰）</td>
+<td>60 米视距</td>
+</tr>
+<tr>
+<td>电池容量</td>
+<td>600 mAh</td>
+</tr>
+<tr>
+<td>充电时间</td>
+<td>2.5 小时</td>
+</tr>
+<tr>
+<td>续航</td>
+<td>12 小时</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>∅55 × 198.9 mm</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>动圈麦：312 克；电容麦：255 克</td>
+</tr>
+</tbody>
+</table>
+<h3>2.2 无线声卡</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无线模式</td>
+<td>2.4G 模式可连接：无线麦克风 ×2 + 无线监听耳机 ×1；蓝牙模式可连接：蓝牙音乐播放设备 ×1 + 蓝牙遥控器 ×1</td>
+</tr>
+<tr>
+<td>蓝牙伴奏输入规格</td>
+<td>48 KHz / 24 bit</td>
+</tr>
+<tr>
+<td>数字输出规格</td>
+<td>48 KHz / 32 bit float &amp; 24 bit</td>
+</tr>
+<tr>
+<td>顶部及侧面 USB-C 对外充电功率</td>
+<td>PD3.0，最大 60 W</td>
+</tr>
+<tr>
+<td>底部 USB-C 充电功率</td>
+<td>PD3.0，最大 67 W</td>
+</tr>
+<tr>
+<td>工作距离（无阻挡无干扰）</td>
+<td>2.4G：60 米；蓝牙：10 米</td>
+</tr>
+<tr>
+<td>电池容量</td>
+<td>700 mAh</td>
+</tr>
+<tr>
+<td>充电时间</td>
+<td>2.5 小时</td>
+</tr>
+<tr>
+<td>续航</td>
+<td>8 小时</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>72.5 × 56 × 13.6 mm</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>55 克</td>
+</tr>
+</tbody>
+</table>
+<h3>2.3 无线监听耳机</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>动态范围</td>
+<td>&gt; 66 dB</td>
+</tr>
+<tr>
+<td>喇叭频响范围</td>
+<td>20 Hz – 20 KHz</td>
+</tr>
+<tr>
+<td>最大声压级</td>
+<td>125 dB SPL</td>
+</tr>
+<tr>
+<td>2.4G 无线距离（无阻挡无干扰，正对声卡）</td>
+<td>60 米</td>
+</tr>
+<tr>
+<td>蓝牙无线距离（无阻挡无干扰，正对声卡）</td>
+<td>10 米</td>
+</tr>
+<tr>
+<td>续航</td>
+<td>蓝牙：7.5 小时（50% 音量）；2.4G：9 小时</td>
+</tr>
+<tr>
+<td>防水等级</td>
+<td>IPX4</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>25.02 × 23.71 × 23.56 mm</td>
+</tr>
+<tr>
+<td>重量（单只）</td>
+<td>5.7 克</td>
+</tr>
+</tbody>
+</table>
+<h3>2.4 蓝牙遥控器</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>遥控距离（无阻挡无干扰）</td>
+<td>70 米</td>
+</tr>
+<tr>
+<td>电池类型</td>
+<td>纽扣电池（CR2032）</td>
+</tr>
+<tr>
+<td>电池容量</td>
+<td>240 mAh</td>
+</tr>
+<tr>
+<td>闪避</td>
+<td>支持（可调节闪避音量大小）</td>
+</tr>
+<tr>
+<td>混响音量调节</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>聊天模式</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>唱歌模式</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>音效</td>
+<td>6 个</td>
+</tr>
+<tr>
+<td>静音</td>
+<td>话筒（可自定义静音哪个话筒）</td>
+</tr>
+<tr>
+<td>耳机音量</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>话筒音量</td>
+<td>不支持</td>
+</tr>
+</tbody>
+</table>
+<h3>2.5 收纳盒（充电盒）</h3>
+<table>
+<thead>
+<tr>
+<th>参数项</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电池容量</td>
+<td>5000 mAh</td>
+</tr>
+<tr>
+<td>充电时间</td>
+<td>9 V/3 A：2 小时；5 V/3 A：3 小时 40 分钟</td>
+</tr>
+<tr>
+<td>USB-C 口充电规格</td>
+<td>输出：5 V/3 A、9 V/3 A；输入：5 V/3 A、9 V/3 A</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>226.99 × 128.68 × 81.75 mm</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>834 克</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>三、系统连接能力总览</h2>
+<h3>3.1 音频输入混音</h3>
+<p>MELO P1 最多支持 <strong>5 路音频输入混音</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>通道</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通道 1</td>
+<td>无线手持麦 ×1</td>
+</tr>
+<tr>
+<td>通道 2</td>
+<td>无线手持麦 ×1</td>
+</tr>
+<tr>
+<td>通道 3</td>
+<td>3.5 mm 接口通道 ×1</td>
+</tr>
+<tr>
+<td>通道 4</td>
+<td>蓝牙连接伴奏 ×1</td>
+</tr>
+<tr>
+<td>通道 5</td>
+<td>主 USB-C 口音频输入 ×1</td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 音频输出</h3>
+<p>MELO P1 最多支持 <strong>4 路音频同时输出</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>通道</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通道 1</td>
+<td>主 USB-C 口音频输出</td>
+</tr>
+<tr>
+<td>通道 2</td>
+<td>副 USB-C 口音频输出</td>
+</tr>
+<tr>
+<td>通道 3</td>
+<td>3.5 mm 接口通道输出</td>
+</tr>
+<tr>
+<td>通道 4</td>
+<td>无线监听耳机</td>
+</tr>
+</tbody>
+</table>
+<h3>3.3 设备连接数量上限</h3>
+<table>
+<thead>
+<tr>
+<th>设备类型</th>
+<th>最大同时连接数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无线麦克风</td>
+<td>2 个</td>
+</tr>
+<tr>
+<td>无线监听耳机</td>
+<td>2 个（一对）</td>
+</tr>
+<tr>
+<td>蓝牙遥控器</td>
+<td>1 个</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>四、常见问题（FAQ）</h2>
+<h3>4.1 功能与使用</h3>
+<h4>Q1：MELO P1 有一键降噪功能吗？</h4>
+<p>有。MELO P1 的无线手持麦具备一键降噪功能，降噪深度最大可达 <strong>25 dB</strong>，可使用【猛玛音频】App 进行无级调节。</p>
+<h4>Q2：MELO P1 需要安装声卡驱动使用吗？</h4>
+<p>不需要安装驱动。MELO P1 可直接通过连接手机 APP【猛玛音频】进行调音操作，无需安装声卡驱动即可连接手机和电脑使用。</p>
+<h4>Q3：MELO P1 有预置的声卡效果包可以使用吗？</h4>
+<p>有。MELO P1 的声卡效果包名为<strong>【预设】</strong>，可使用手机 APP【猛玛音频】连接声卡直接选择喜欢的预设进行应用，快速获得想要的调音效果。</p>
+<h4>Q4：MELO P1 各设备可以通过充电盒同时充电吗？</h4>
+<p>可以。MELO P1 首创声卡行业内的一体式收纳充电盒形态，支持通过充电收纳盒给<strong>麦克风、监听耳机以及声卡</strong>三个设备同时充电。</p>
+<h4>Q5：MELO P1 需要自己去给声卡外接麦克风和监听耳机吗？</h4>
+<p>不需要。MELO P1 采用设备间全无线连接方案，实现麦克风、监听耳机和声卡之间的真全无线连接，无需接线。设备从盒中拿出即可自动配对连接，开始使用。</p>
+<h4>Q6：MELO P1 能够自定义调音吗？</h4>
+<p>支持。MELO P1 支持两种模式自定义调音：</p>
+<ul>
+<li><strong>快速自定义调音</strong>：使用官方预设效果 + 简洁调音模块</li>
+<li><strong>精细自定义调音</strong>：使用官方预设效果 + 专业调音界面</li>
+</ul>
+<h3>4.2 续航相关</h3>
+<h4>Q7：MELO P1 的续航时间有多久？</h4>
+<table>
+<thead>
+<tr>
+<th>设备</th>
+<th>续航时长</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>声卡（满载功率：连接 2 麦克风 + 无线监听 + 蓝牙伴奏 + 3.5 mm 接口 + 遥控器）</td>
+<td>约 8 小时</td>
+</tr>
+<tr>
+<td>无线手持麦</td>
+<td>约 12 小时</td>
+</tr>
+<tr>
+<td>无线监听耳机（2.4G 监听模式）</td>
+<td>约 9 小时</td>
+</tr>
+<tr>
+<td>无线监听耳机（蓝牙模式，50% 音量）</td>
+<td>约 7.5 小时</td>
+</tr>
+<tr>
+<td>充电收纳盒</td>
+<td>可为麦克风、声卡和耳机同时充电 2 次以上</td>
+</tr>
+</tbody>
+</table>
+<h3>4.3 连接与兼容性</h3>
+<h4>Q8：一台声卡设备最多可同时连接多少个无线麦克风？</h4>
+<p><strong>2 个</strong>。一台声卡设备最多可同时无线连接 2 个无线麦克风使用。</p>
+<h4>Q9：一台声卡设备最多可同时连接多少个无线监听耳机？</h4>
+<p><strong>2 个（一对）</strong>。一台声卡设备最多可同时无线连接 2 个（一对）无线监听耳机使用。</p>
+<h4>Q10：一台声卡设备最多可同时连接多少个遥控器？</h4>
+<p><strong>1 个</strong>。一台声卡设备最多可同时无线连接 1 个遥控器使用。</p>
+<h4>Q11：MELO P1 标配的无线手持麦可以更换麦头吗？</h4>
+<p>可以更换。标配无线手持麦有<strong>电容麦头</strong>和<strong>动圈麦头</strong>两种类型可选：</p>
+<ul>
+<li><strong>电容麦头</strong>：更适用于室内安静环境下直播使用</li>
+<li><strong>动圈麦头</strong>：更适用于户外嘈杂环境下直播使用</li>
+</ul>
+<h4>Q12：MELO P1 标配的遥控器可以充电吗？</h4>
+<p>不能充电。标配遥控器采用纽扣电池供电，型号为 <strong>CR2032</strong>。</p>
+<h4>Q13：MELO P1 支持双人演唱直播场景吗？</h4>
+<p>支持。声卡最多可配对两只无线手持麦克风，供双人主播同时演唱。但此场景下，需在声卡侧面 3.5 mm 接口处另接一对监听耳机给第二位主播进行效果监听。</p>
+<h4>Q14：MELO P1 支持连接电脑使用吗？</h4>
+<p>支持。使用移动设备（手机/平板）上的【猛玛音频】APP 调完音后，直接用数据线将声卡连接电脑即可使用。连接电脑时无需安装复杂驱动与机架软件，选择名字带 <strong>Audio Interface</strong> 的声卡音频输入/输出源即可获取声卡混音后的音频。</p>
+<h3>4.4 麦头类型识别</h3>
+<h4>Q15：如何区分 MELO P1 的手持麦麦头是电容还是动圈？</h4>
+<p><strong>拆解步骤</strong>：</p>
+<ol>
+<li>抓紧麦头，将无线手持麦克风的握持部分外壳向<strong>顺时针</strong>（从麦头向下看）方向稍微用力拧松，再慢慢旋转，即可将握持部分外壳拆卸下来；</li>
+<li>再将麦克风露出的磨砂感麦头固定金属环，也向<strong>顺时针</strong>（从麦头向下看）方向稍微用力拧松，再慢慢旋转，即可将固定金属环与麦头部分完全分离；</li>
+<li>最后将麦头部分轻轻向上拔出，即可卸下麦头。</li>
+</ol>
+<p><strong>判断方法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>判断方式</th>
+<th>电容麦头</th>
+<th>动圈麦头</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>麦头底部字母标识</td>
+<td><strong>CM</strong></td>
+<td><strong>DM</strong></td>
+</tr>
+<tr>
+<td>重量</td>
+<td>较轻</td>
+<td>较重</td>
+</tr>
+<tr>
+<td>标配防滑橡胶圈标识</td>
+<td>带 <strong>C</strong> 字</td>
+<td>带 <strong>D</strong> 字</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>提示</strong>：判断完麦头类型后，可将包装里标配的防滑橡胶圈套在麦头上进行便捷区分。</p>
+</blockquote>
+<hr />
+<h2>五、固件升级</h2>
+<p>MELO P1 支持固件升级，具体升级教程请参考猛玛官方支持页面：
+https://www.hollyland.com.cn/support/melo-p1/</p>
+<hr />
+<h2>六、配套 APP</h2>
+<table>
+<thead>
+<tr>
+<th>APP 名称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>猛玛音频</strong></td>
+<td>调音操作、降噪调节、预设效果选择、自定义调音（快速/精细）、设备管理</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>免责声明</strong>：本文档内容整理自猛玛官方公开资料，仅供参考。如有参数更新或变更，以猛玛官方最新发布信息为准。</p>
+</blockquote>
+  </div>
+  <div class="footer">资料整理自猛玛官方公开文档，仅供参考。</div>
+</div>
+
+
+
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:#fff;border-right:1px solid #e8eaed;box-shadow:2px 0 12px rgba(0,0,0,.06);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#1f2937;}
+.wb-sidebar h2 a{color:#0f3460;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px;padding-left:8px;border-left:4px solid #9ca3af;}
+.wb-brand.ljn .wb-brand-title{border-color:#16a34a;}
+.wb-brand.ys .wb-brand-title{border-color:#2563eb;}
+.wb-brand.mm .wb-brand-title{border-color:#ea580c;}
+.wb-brand.da .wb-brand-title{border-color:#1a73e8;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:6px;color:#4b5563;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:#f3f4f6;color:#111827;}
+.wb-sidebar a.active{background:#eef2ff;color:#0f3460;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:8px 10px;background:#f3f4f6;border-radius:6px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;text-align:center;}
+.wb-sidebar .home-link:hover{background:#e5e7eb;}
+.wb-sidebar .note{padding:6px 10px;color:#9ca3af;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:36px;height:36px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);font-size:18px;line-height:34px;text-align:center;cursor:pointer;}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const current=location.pathname.split('/').pop();
+  const data=[
+    {brand:'绿巨能',cls:'ljn',color:'#16a34a',items:[{n:'单反相机三脚架',f:'ljn-tripod.html'},{n:'笔记本电池',f:'ljn-battery.html'},{n:'相机电池（汇总）',f:'camera-battery/index.html'},{n:'相机干电池',f:'camera-battery/相机干电池.html'},{n:'相机可直充电池',f:'camera-battery/相机可直充电池.html'},{n:'二合一读卡器',f:'ljn-reader-2in1.html'},{n:'多合一读卡器',f:'ljn-reader-multi.html'}]},
+    {brand:'影石',cls:'ys',color:'#2563eb',items:[{n:'迷你脚架自拍杆',f:'ys-mini-stand.html'},{n:'隐形自拍杆',f:'ys-invisible-rod.html'},{n:'自行车码表支架',f:'ys-bike-mount.html'}]},
+    {brand:'猛犸',cls:'mm',color:'#ea580c',items:[{n:'极影S 无线图传',f:'manta-jiyings.html'},{n:'LARK M3',f:'manta-lark-m3.html'},{n:'LARK MIX',f:'manta-lark-mix.html'},{n:'MELO P1',f:'manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'manta-melo-p1-faq.html'}]},
+    {brand:'数据分析',cls:'da',color:'#1a73e8',items:[{n:'绿巨能京东销售数据',f:'data-analysis/绿巨能京东销售数据分析.html'}]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="../index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+it.f+'" class="'+(it.f===current?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body>
+</html>

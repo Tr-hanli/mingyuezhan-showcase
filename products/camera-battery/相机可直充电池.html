@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>绿巨能 相机可直充电池</title>
+<style>
+* {box-sizing: border-box;}
+body {margin:0; font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; background:#eef1f5; color:#1f2733; line-height:1.6;}
+.topbar {position:sticky; top:0; z-index:50; background:linear-gradient(180deg,#ffffff,#f7f9fc); border-bottom:2px solid #2563eb; padding:12px 20px 10px; box-shadow:0 2px 10px rgba(0,0,0,.08);}
+.tb-title {display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+.tb-title h1 {margin:0; font-size:21px; color:#0f2557; letter-spacing:.5px;}
+.tb-title .sub {font-size:13px; color:#64748b;}
+.searchrow {display:flex; align-items:center; gap:10px; margin-top:10px;}
+.search {display:flex; align-items:center; flex:1; max-width:560px; background:#fff; border:1px solid #cbd5e1; border-radius:10px; padding:2px 10px;}
+.search input {flex:1; border:none; outline:none; padding:9px 6px; font-size:15px; background:transparent; color:#1f2733;}
+.search .ico {font-size:15px; color:#94a3b8;}
+.cnt {font-size:13px; color:#2563eb; min-width:74px; font-weight:600;}
+.clr {border:none; background:#e2e8f0; color:#475569; width:26px; height:26px; border-radius:50%; cursor:pointer; font-size:13px;}
+.clr:hover {background:#cbd5e1;}
+.chips {display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;}
+.chip {border:1px solid #cbd5e1; background:#fff; color:#334155; padding:4px 12px; border-radius:16px; font-size:13px; cursor:pointer; transition:.15s;}
+.chip:hover {border-color:#2563eb; color:#2563eb;}
+.chip.active {background:#2563eb; border-color:#2563eb; color:#fff; font-weight:600;}
+.container {max-width:1180px; margin:18px auto; padding:0 16px;}
+.index {background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; margin-bottom:18px;}
+.idx-title {font-size:14px; font-weight:700; color:#0f2557; margin-bottom:8px;}
+.index .idx-brand {margin:6px 0; font-size:13px; line-height:2.1;}
+.index .idx-brand b {display:inline-block; min-width:62px; color:#2563eb;}
+.index a {display:inline-block; background:#f1f5f9; color:#334155; text-decoration:none; padding:2px 10px; margin:2px 5px 2px 0; border-radius:14px; font-size:12px; border:1px solid #e2e8f0;}
+.index a:hover {background:#2563eb; color:#fff;}
+.card {background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:18px 20px; margin-bottom:20px; box-shadow:0 1px 5px rgba(0,0,0,.05); scroll-margin-top:150px;}
+.card-head {display:flex; align-items:center; gap:10px; border-bottom:1px solid #eef2f7; padding-bottom:10px; flex-wrap:wrap;}
+.card-head h2 {margin:0; font-size:20px; color:#0f2557;}
+.brand {background:#2563eb; color:#fff; padding:2px 11px; border-radius:14px; font-size:13px;}
+.type {background:#ecfeff; color:#0e7490; padding:2px 10px; border-radius:14px; font-size:12px; border:1px solid #a5f3fc;}
+.mv-badge {background:#fff7ed; color:#c2410c; border:1px solid #fed7aa; padding:2px 10px; border-radius:14px; font-size:12px; font-weight:600;}
+.head-badges {margin-left:auto; display:flex; gap:8px; flex-wrap:wrap;}
+.cap-badge {background:#fffbeb; color:#b45309; border:1px solid #fcd34d; padding:3px 11px; border-radius:9px; font-size:13px; font-weight:700;}
+.volt-badge {background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; padding:3px 11px; border-radius:9px; font-size:13px; font-weight:700;}
+.card-body {display:flex; gap:22px; margin-top:16px; flex-wrap:wrap;}
+.left {flex:0 0 340px; max-width:340px;}
+.right {flex:1; min-width:300px;}
+.mainimg {background:#f1f5f9; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; align-items:center; justify-content:center; min-height:240px;}
+.main-img {max-width:100%; max-height:300px; object-fit:contain; cursor:zoom-in; border-radius:6px;}
+.noimg {color:#94a3b8; padding:40px; text-align:center;}
+.thumbs {display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+.thumb {width:74px; height:74px; object-fit:contain; background:#f1f5f9; border:2px solid #e2e8f0; border-radius:8px; cursor:pointer; padding:3px; transition:.15s;}
+.thumb:hover {border-color:#2563eb;}
+.thumb.active {border-color:#2563eb; box-shadow:0 0 0 2px rgba(37,99,235,.25);}
+.pt {font-size:15px; color:#2563eb; margin:6px 0 8px; border-left:4px solid #2563eb; padding-left:9px;}
+.speclist {display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; margin-bottom:6px;}
+.spec {display:flex; flex-direction:column; background:#f8fafc; border:1px solid #eef2f7; border-radius:8px; padding:5px 10px;}
+.sk {font-size:11px; color:#64748b;}
+.sv {font-size:14px; color:#0f172a; font-weight:600; word-break:break-word;}
+.ptable {border-collapse:collapse; width:100%; font-size:13px; background:#fff;}
+.ptable th, .ptable td {border:1px solid #e2e8f0; padding:6px 9px; text-align:left; vertical-align:top;}
+.ptable th {background:#f1f5f9; color:#0f172a; font-weight:700;}
+.ptable td:first-child {background:#f8fafc; font-weight:600; color:#334155; white-space:nowrap;}
+.tablewrap {overflow-x:auto; border-radius:8px;}
+.cap-note {background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:8px 12px; font-size:13px; color:#9a3412; margin:6px 0 10px;}
+.vcap {color:#94a3b8; font-size:11px; font-weight:400;}
+.details {margin-top:12px; border-top:1px dashed #e2e8f0; padding-top:10px;}
+.toggle {margin-top:10px; border:1px solid #cbd5e1; background:#fff; color:#334155; padding:6px 14px; border-radius:8px; font-size:13px; cursor:pointer;}
+.toggle:hover {border-color:#2563eb; color:#2563eb;}
+.sec {margin-top:10px;}
+.sec h3 {font-size:14px; color:#334155; margin:10px 0 4px;}
+.sec ul {margin:4px 0; padding-left:22px; font-size:13px;}
+.sec p {font-size:13px; margin:4px 0;}
+.filebox {background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:7px 12px; font-size:13px; display:inline-block;}
+.filebox a {color:#166534; font-weight:700; text-decoration:none;}
+.vnote {background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:7px 12px; font-size:13px; color:#991b1b; margin-top:8px;}
+.tutorial {margin-top:12px; border-top:1px dashed #e2e8f0; padding-top:8px;}
+#backTop {position:fixed; right:22px; bottom:26px; width:48px; height:48px; border-radius:50%; background:#2563eb; color:#fff; border:none; font-size:22px; cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,.3); display:none; z-index:60;}
+#backTop:hover {background:#0f2557;}
+#lightbox {position:fixed; inset:0; background:rgba(0,0,0,.88); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out;}
+#lightbox img {max-width:92%; max-height:92%; border-radius:6px;}
+.nomatch {display:none; text-align:center; color:#64748b; padding:40px; font-size:15px;}
+@media (max-width:680px){ .left{flex:1 1 100%;max-width:100%;} .speclist{grid-template-columns:1fr;} .head-badges{margin-left:0;width:100%;} }
+</style>
+
+
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:48px 40px; width:380px; max-width:90vw; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.4); }
+#pwd-gate .gate-icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:rgba(59,130,246,.15); display:flex; align-items:center; justify-content:center; font-size:28px; }
+#pwd-gate .gate-title { color:#e2e8f0; font-size:22px; font-weight:700; letter-spacing:2px; margin-bottom:8px; }
+#pwd-gate .gate-sub { color:#94a3b8; font-size:13px; margin-bottom:28px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); color:#f1f5f9; font-size:16px; outline:none; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+#pwd-gate .gate-input::placeholder { color:#64748b; }
+#pwd-gate .gate-input:focus { border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+#pwd-gate .gate-btn { width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none; background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; font-size:16px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:transform .15s,opacity .2s; }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); opacity:.92; }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#f87171; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#475569; font-size:11px; margin-top:24px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">访问验证</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+
+
+
+<div class="topbar">
+  <div class="tb-title">
+    <h1>绿巨能 相机可直充电池</h1>
+    <span class="sub">绿巨能相机电池 · 共 30 个型号 · 数据整理自官方知识库（llanoljn）</span>
+  </div>
+  <div class="searchrow">
+    <div class="search">
+      <span class="ico">🔍</span>
+      <input id="q" placeholder="搜索型号 / 品牌 / 容量 / 电压，如 NP-F970、索尼、2520、7.2V" oninput="applyFilter()">
+    </div>
+    <span id="cnt" class="cnt"></span>
+    <button id="clr" class="clr" onclick="clearFilter()" title="清除">✕</button>
+  </div>
+  <div class="chips" id="chips"><button class="chip active" data-b="__ALL__" onclick="toggleBrand(this)">全部</button><button class="chip" data-b="佳能" onclick="toggleBrand(this)">佳能 (10)</button><button class="chip" data-b="富士" onclick="toggleBrand(this)">富士 (4)</button><button class="chip" data-b="尼康" onclick="toggleBrand(this)">尼康 (6)</button><button class="chip" data-b="松下" onclick="toggleBrand(this)">松下 (2)</button><button class="chip" data-b="索尼" onclick="toggleBrand(this)">索尼 (8)</button></div>
+</div>
+<div class="container">
+  <div class="index"><div class="idx-title">品牌 / 型号索引</div><div class="idx-brand" data-b="佳能"><b>佳能</b>（10）：<a href="#m_fc99_c201_6310_63e0">【LP-E12】 (Type-C充电)</a><a href="#m_fc99_c201_6310_e301">【LP-E17】（Type-C充电）-半解码</a><a href="#m_fc99_c201_6310_1016">【LP-E6P】 (Type-C充电)</a><a href="#m_fc99_c201_6310_ac54">【LP-E6NH】 (Type-C充电)</a><a href="#m_fc99_c201_3c80_6bca">【LP-E17】 (Type-C充电) -极光系列</a><a href="#m_fc99_c201_3c80_3725">【LP-E10】 (Type-C充电) -极光系列</a><a href="#m_fc99_c201_3c80_0f28">【LP-E12】（Type-C充电）-极光系列</a><a href="#m_fc99_c201_3c80_de62">【LP-E6NH】（Type-C充电）-极光系列</a><a href="#m_fc99_c201_3c80_cc00">【LP-E8】（Type-C充电）-极光系列</a><a href="#m_fc99_c201_3c80_b58e">【LP-E6P】 (Type-C充电) -极光系列</a></div><div class="idx-brand" data-b="富士"><b>富士</b>（4）：<a href="#m_fc99_a652_d478">【NP-W235】 (Type-C充电)</a><a href="#m_fc99_a652_95cc">【NP-W235】 (Type-C充电)-极光系列</a><a href="#m_fc99_a652_aca0">【NP-W126】(Type-C充电)-极光系列</a><a href="#m_fc99_a652_64ec">【NP-W126s】 Type-C充电</a></div><div class="idx-brand" data-b="尼康"><b>尼康</b>（6）：<a href="#m_fc99_9a44_c32c">【EN-EL25】 (Type-C充电)</a><a href="#m_fc99_9a44_47a1">【EN-EL15C】 (Type-C充电)</a><a href="#m_fc99_9a44_24c5">【EN-EL14】 (Type-C充电)</a><a href="#m_fc99_9a44_b23c">【EN-EL25】(Type-C充电)-极光系列</a><a href="#m_fc99_9a44_ce2c">【EN-EL15C】 (Type-C充电)-极光系列</a><a href="#m_fc99_9a44_8d48">【EN-EL14】(Type-C充电)-极光系列</a></div><div class="idx-brand" data-b="松下"><b>松下</b>（2）：<a href="#m_fc99_af82_c24b">【DMW-BLK22】 (Type-C充电)</a><a href="#m_fc99_af82_a9a4">【DMW-BLK22】 (Type-C充电)-极光系列</a></div><div class="idx-brand" data-b="索尼"><b>索尼</b>（8）：<a href="#m_fc99_dbb0_d38f_87de">【NP-F990】 直充电池</a><a href="#m_fc99_dbb0_d38f_0c1e">【NP-F980】 直充电池</a><a href="#m_fc99_dbb0_d38f_8f7e">【NP-F970】 直充电池</a><a href="#m_fc99_dbb0_fb41_f7e4">【NP-FW50】（Type-C充电）</a><a href="#m_fc99_dbb0_fb41_6a79">【NP-FZ100】（Type-C充电）</a><a href="#m_fc99_dbb0_5d42_8070">【NP-FW50】（Type-C充电）-极光系列</a><a href="#m_fc99_dbb0_5d42_2d84">【NP-F550】 (Type-C充电)-极光系列</a><a href="#m_fc99_dbb0_5d42_00a0">【NP-FZ100】 (Type-C充电)-极光系列</a></div></div>
+  <div id="cards">
+    <div class="card" id="m_fc99_a652_d478" data-k="富士 【NP-W235】 (Type-C充电) CN033 CN083 6933064622663 6933064625435 CN033 CN083 7.2v 7.2v 8.4v 8.4v 2320mAh/16.71Wh 2520mAh/18.15Wh 2200mAh/15.84Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 5V⎓2A（MAX） 5.1x3.9x2.2cm 5.1x3.9x2.2cm 约83g 约83.3g ABS ABS 锂电池 锂电池 约348张 约435张 约1.6h 约2h 约4小时 暂无 GB31241-2022 GB31241-2022 是 是 2026010915854814 2026010915855518 XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2 XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2 回答 69码 6933064622663 6933064625435 型号 CN033 CN083 电压 7.2v 7.2v 充电限制电压 8.4v 8.4v 典型容量/典型瓦时 2320mAh/16.71Wh 2520mAh/18.15Wh 额定容量/额定瓦时 2200mAh/15.84Wh 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 5V⎓2A（MAX） 产品尺寸 5.1x3.9x2.2cm 5.1x3.9x2.2cm 净重重量 约83g 约83.3g 材质 ABS ABS 电池类型 锂电池 锂电池 CIPA方式拍照张数 约348张 约435张 录制时间 约1.6h 约2h 充电时间 约4小时 暂无 执行标准 GB31241-2022 GB31241-2022 是否全解码 是 是 3C编号 2026010915854814 2026010915855518 适用相机型号 XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2 XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 问题点 回答 问题点 回答" data-brand="富士">
+      <div class="card-head">
+        <span class="brand">富士</span>
+        <h2>【NP-W235】 (Type-C充电)</h2>
+        <span class="mv-badge">多容量版本</span>
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2320mAh/16.71Wh / 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2v / 7.2v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_a652_d478" class="main-img" src="images/2742d6ab4fa267.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/2742d6ab4fa267.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"><img class="thumb" src="images/e4ea6a8d2a1541.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"><img class="thumb" src="images/25da075f2541d7.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"><img class="thumb" src="images/2bd5c8a0d08975.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"><img class="thumb" src="images/84e1b981510051.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2320mAh/16.71Wh / 2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2200mAh/15.84Wh / 2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2v / 7.2v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v / 8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064622663 / 6933064625435</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN033 / CN083</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 2 个容量版本 — <b>CN033</b>（2320mAh/16.71Wh） · <b>CN083</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN033<br><span class="vcap">2320mAh/16.71Wh</span></th><th>CN083<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064622663</td><td>6933064625435</td></tr><tr><td>型号</td><td>CN033</td><td>CN083</td></tr><tr><td>电压</td><td>7.2v</td><td>7.2v</td></tr><tr><td>充电限制电压</td><td>8.4v</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2320mAh/16.71Wh</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2200mAh/15.84Wh</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>5.1x3.9x2.2cm</td><td>5.1x3.9x2.2cm</td></tr><tr><td>净重重量</td><td>约83g</td><td>约83.3g</td></tr><tr><td>材质</td><td>ABS</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约348张</td><td>约435张</td></tr><tr><td>录制时间</td><td>约1.6h</td><td>约2h</td></tr><tr><td>充电时间</td><td>约4小时</td><td>暂无</td></tr><tr><td>执行标准</td><td>GB31241-2022</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854814</td><td>2026010915855518</td></tr><tr><td>适用相机型号</td><td>XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2</td><td>XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_a652_d478" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>1.售前问题点</h3><div class="tablewrap"><table class="ptable"><tr><td>问题点</td><td>回答</td></tr></table></div></div><div class="sec"><h3>2.售后问题点</h3><div class="tablewrap"><table class="ptable"><tr><td>问题点</td><td>回答</td></tr></table></div></div></div><button class="toggle" onclick="toggleDet('det_fc99_a652_d478',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="" target="_blank" rel="noopener">相机电池通用说明书（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_a652_95cc" data-k="富士 【NP-W235】 (Type-C充电)-极光系列 CN092 6933064626630 CN092 7.2v 8.4v 2520mAh/18.15Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 5.1x3.9x2.2vm 约83.5g ABS 锂电池 约378张 约1.7h 约2.2h GB31241-2022 是 2026010915854657 XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2 69码 6933064626630 型号 CN092 电压 7.2v 充电限制电压 8.4v 典型容量/典型瓦时 2520mAh/18.15Wh 额定容量/额定瓦时 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 产品尺寸 5.1x3.9x2.2vm 净重重量 约83.5g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约378张 录制时间 约1.7h 充电时间 约2.2h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854657 适用相机型号 XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="富士">
+      <div class="card-head">
+        <span class="brand">富士</span>
+        <h2>【NP-W235】 (Type-C充电)-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_a652_95cc" class="main-img" src="images/b0f1fee4c3ac3c.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/b0f1fee4c3ac3c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/4af7c6e116e72c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/9069a7e3dc8100.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/fc23cf1778c096.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/e6af80e88ad4bb.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/ae3738d5ee82db.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/03f3c1abe737e6.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064626630</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN092</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN092</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN092<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064626630</td></tr><tr><td>型号</td><td>CN092</td></tr><tr><td>电压</td><td>7.2v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>5.1x3.9x2.2vm</td></tr><tr><td>净重重量</td><td>约83.5g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约378张</td></tr><tr><td>录制时间</td><td>约1.7h</td></tr><tr><td>充电时间</td><td>约2.2h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854657</td></tr><tr><td>适用相机型号</td><td>XT5/XT4/GFX100S/GFX50S II/X-H2S/X-H2</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_a652_95cc" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_a652_95cc',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_a652_aca0" data-k="富士 【NP-W126】(Type-C充电)-极光系列 NP-W126 富士 NP-W126 Type-C充电 相机电池 1050mAh 极光系列/3C 6933064629952 NP-W126 7.4V 8.4v 1050mAh/7.77Wh 970mAh/7.18Wh 5V⎓1A（MAX） 47*36.2*15.5mm 约50g ABS 锂电池 约280张 约1.15h GB31241-2022 是 2026010915854651 FUJI X-E3 X-Pro2 X-Pro1 X-E1 X-E2 X-Pro3 X-E2S X-100/FX-M1 X-A1 X-A2 X-A3 X-A5 X-A10 X-T1 X-T2 X-T3 X-T10 X-T20 X-H1 X-T100 FinePix HS50EXR HS33EXR HS35EXR HS30EXR X-T200/-Pro1/T30/T20/T10/T200/T100/X-E2S/X100V/X-A7/X-M1/x100vi 名称 富士 NP-W126 Type-C充电 相机电池 1050mAh 极光系列/3C 69码 6933064629952 型号 NP-W126 电压 7.4V 充电限制电压 8.4v 典型容量/典型瓦时 1050mAh/7.77Wh 额定容量/额定瓦时 970mAh/7.18Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 47*36.2*15.5mm 净重重量 约50g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约280张 录制时间 约1.15h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854651 适用相机型号 FUJI X-E3 X-Pro2 X-Pro1 X-E1 X-E2 X-Pro3 X-E2S X-100/FX-M1 X-A1 X-A2 X-A3 X-A5 X-A10 X-T1 X-T2 X-T3 X-T10 X-T20 X-H1 X-T100 FinePix HS50EXR HS33EXR HS35EXR HS30EXR X-T200/-Pro1/T30/T20/T10/T200/T100/X-E2S/X100V/X-A7/X-M1/x100vi Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="富士">
+      <div class="card-head">
+        <span class="brand">富士</span>
+        <h2>【NP-W126】(Type-C充电)-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 1050mAh/7.77Wh</span>
+          <span class="volt-badge">⚡ 7.4V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_a652_aca0" class="main-img" src="images/aa8a98f3658bd7.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/aa8a98f3658bd7.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_aca0',this.src,this.alt,this)"><img class="thumb" src="images/64abaf7d82e169.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_aca0',this.src,this.alt,this)"><img class="thumb" src="images/b80e9c6bdc7ee6.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_aca0',this.src,this.alt,this)"><img class="thumb" src="images/8a0040641f1a5c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_aca0',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">1050mAh/7.77Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">970mAh/7.18Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064629952</span></div><div class="spec"><span class="sk">型号</span><span class="sv">NP-W126</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>NP-W126</b>（1050mAh/7.77Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>NP-W126<br><span class="vcap">1050mAh/7.77Wh</span></th></tr><tr><td>名称</td><td>富士 NP-W126 Type-C充电 相机电池 1050mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064629952</td></tr><tr><td>型号</td><td>NP-W126</td></tr><tr><td>电压</td><td>7.4V</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>1050mAh/7.77Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>970mAh/7.18Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>47*36.2*15.5mm</td></tr><tr><td>净重重量</td><td>约50g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约280张</td></tr><tr><td>录制时间</td><td>约1.15h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854651</td></tr><tr><td>适用相机型号</td><td>FUJI X-E3 X-Pro2 X-Pro1 X-E1 X-E2 X-Pro3 X-E2S X-100/FX-M1 X-A1 X-A2 X-A3 X-A5 X-A10 X-T1 X-T2 X-T3 X-T10 X-T20 X-H1 X-T100 FinePix HS50EXR HS33EXR HS35EXR HS30EXR X-T200/-Pro1/T30/T20/T10/T200/T100/X-E2S/X100V/X-A7/X-M1/x100vi</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_a652_aca0" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_a652_aca0',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_a652_64ec" data-k="富士 【NP-W126s】 Type-C充电 CN084 富士 NP-W126S Type-C充电 相机电池 1050mAh/3C 6933064625442 CN084 7.4v 8.4v 1050mAh/7.77Wh 997mAh/7.38Wh 4.8x3.6x.1.6cm 约49g ABS 锂电池 约280张 约69min 约2.3小时 GB31241-2022 是 2026010915855717 名称 富士 NP-W126S Type-C充电 相机电池 1050mAh/3C 69码 6933064625442 型号 CN084 电压 7.4v 充电限制电压 8.4v 典型容量/典型瓦时 1050mAh/7.77Wh 额定容量/额定瓦时 997mAh/7.38Wh 产品尺寸 4.8x3.6x.1.6cm 净重重量 约49g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约280张 录制时间（min） 约69min 充电时间 约2.3小时 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915855717 适用相机型号： FUJI X-E3 X-Pro2 X-Pro1 X-E1 X-E2 X-Pro3 X-E2S X-100/FX-M1 X-A1 X-A2 X-A3 X-A5 X-A10 X-T1 X-T2 X-T3 X-T10 X-T20 X-H1 X-T100 FinePix HS50EXR HS33EXR HS35EXR HS30EXR X-T200/-Pro1/T30/T20/T10/T200/T100/X-E2S/X100V/X-A7/X-M1/x100vi Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="富士">
+      <div class="card-head">
+        <span class="brand">富士</span>
+        <h2>【NP-W126s】 Type-C充电</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 1050mAh/7.77Wh</span>
+          <span class="volt-badge">⚡ 7.4v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_a652_64ec" class="main-img" src="images/22f42e6862745e.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/22f42e6862745e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_64ec',this.src,this.alt,this)"><img class="thumb" src="images/7ee4aed463f5f2.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_64ec',this.src,this.alt,this)"><img class="thumb" src="images/360cdb2d6434ed.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_64ec',this.src,this.alt,this)"><img class="thumb" src="images/76fc85b8736f48.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_64ec',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">1050mAh/7.77Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">997mAh/7.38Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064625442</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN084</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN084</b>（1050mAh/7.77Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN084<br><span class="vcap">1050mAh/7.77Wh</span></th></tr><tr><td>名称</td><td>富士 NP-W126S Type-C充电 相机电池 1050mAh/3C</td></tr><tr><td>69码</td><td>6933064625442</td></tr><tr><td>型号</td><td>CN084</td></tr><tr><td>电压</td><td>7.4v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>1050mAh/7.77Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>997mAh/7.38Wh</td></tr><tr><td>产品尺寸</td><td>4.8x3.6x.1.6cm</td></tr><tr><td>净重重量</td><td>约49g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约280张</td></tr><tr><td>录制时间（min）</td><td>约69min</td></tr><tr><td>充电时间</td><td>约2.3小时</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915855717</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_a652_64ec" hidden><div class="sec"><h3>参数</h3><p>适用相机型号：</p><p>FUJI X-E3 X-Pro2 X-Pro1 X-E1 X-E2 X-Pro3</p><p>X-E2S X-100/FX-M1 X-A1 X-A2 X-A3</p><p>X-A5 X-A10 X-T1 X-T2 X-T3 X-T10 X-T20 X-H1</p><p>X-T100 FinePix HS50EXR HS33EXR HS35EXR HS30EXR X-T200/-Pro1/T30/T20/T10/T200/T100/X-E2S/X100V/X-A7/X-M1/x100vi</p></div><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_a652_64ec',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_af82_c24b" data-k="松下 【DMW-BLK22】 (Type-C充电) CN056 CN055 6933064625169 6933064625152 CN056 CN055 7.2v 7.2V 8.4v 8.4V 2320mAh/16.71Wh 2520mAh/18.15Wh 2200mAh/15.84Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 5V⎓2A（MAX） 5.7x3.9x2.2cm 5.7x3.9x2.2cm 约81g 约83g ABS ABS 锂电池 锂电池 约353张 约385张 约1.86小时 约2小时 约2.8h 暂无 GB31241-2022 GB31241-2022 是 是 2026010915855789 2024260915000888 松下DC-S5 S5K GH5M2 GH6 松下DC-S5 S5K GH5M2 GH6 69码 6933064625169 6933064625152 型号 CN056 CN055 电压 7.2v 7.2V 充电限制电压 8.4v 8.4V 典型容量/典型瓦时 2320mAh/16.71Wh 2520mAh/18.15Wh 额定容量/额定瓦时 2200mAh/15.84Wh 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 5V⎓2A（MAX） 产品尺寸 5.7x3.9x2.2cm 5.7x3.9x2.2cm 净重重量 约81g 约83g 材质 ABS ABS 电池类型 锂电池 锂电池 CIPA方式拍照张数 约353张 约385张 录制时间 约1.86小时 约2小时 充电时间 约2.8h 暂无 执行标准 GB31241-2022 GB31241-2022 是否全解码 是 是 3C编号 2026010915855789 2024260915000888 适用相机型号 松下DC-S5 S5K GH5M2 GH6 松下DC-S5 S5K GH5M2 GH6 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="松下">
+      <div class="card-head">
+        <span class="brand">松下</span>
+        <h2>【DMW-BLK22】 (Type-C充电)</h2>
+        <span class="mv-badge">多容量版本</span>
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2320mAh/16.71Wh / 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2v / 7.2V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_af82_c24b" class="main-img" src="images/572b39997278c5.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/572b39997278c5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"><img class="thumb" src="images/e0ad9d8f86f837.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"><img class="thumb" src="images/cbb002666cf872.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"><img class="thumb" src="images/da1d4032161ae1.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"><img class="thumb" src="images/2910c68e341bad.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2320mAh/16.71Wh / 2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2200mAh/15.84Wh / 2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2v / 7.2V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v / 8.4V</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064625169 / 6933064625152</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN056 / CN055</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 2 个容量版本 — <b>CN056</b>（2320mAh/16.71Wh） · <b>CN055</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN056<br><span class="vcap">2320mAh/16.71Wh</span></th><th>CN055<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064625169</td><td>6933064625152</td></tr><tr><td>型号</td><td>CN056</td><td>CN055</td></tr><tr><td>电压</td><td>7.2v</td><td>7.2V</td></tr><tr><td>充电限制电压</td><td>8.4v</td><td>8.4V</td></tr><tr><td>典型容量/典型瓦时</td><td>2320mAh/16.71Wh</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2200mAh/15.84Wh</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>5.7x3.9x2.2cm</td><td>5.7x3.9x2.2cm</td></tr><tr><td>净重重量</td><td>约81g</td><td>约83g</td></tr><tr><td>材质</td><td>ABS</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约353张</td><td>约385张</td></tr><tr><td>录制时间</td><td>约1.86小时</td><td>约2小时</td></tr><tr><td>充电时间</td><td>约2.8h</td><td>暂无</td></tr><tr><td>执行标准</td><td>GB31241-2022</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915855789</td><td>2024260915000888</td></tr><tr><td>适用相机型号</td><td>松下DC-S5 S5K GH5M2 GH6</td><td>松下DC-S5 S5K GH5M2 GH6</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_af82_c24b" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_af82_c24b',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_af82_a9a4" data-k="松下 【DMW-BLK22】 (Type-C充电)-极光系列 CN094 6933064626654 CN094 7.2V 8.4v 2520mAh/18.15Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 56.6x39.2x20.8mm 约82.3g ABS 锂电池 约385张 约2h 约2.6h GB31241-2022 是 2026010915854648 松下DC-S5 S5K GH5M2 GH6 69码 6933064626654 型号 CN094 电压 7.2V 充电限制电压 8.4v 典型容量/典型瓦时 2520mAh/18.15Wh 额定容量/额定瓦时 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 产品尺寸 56.6x39.2x20.8mm 净重重量 约82.3g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约385张 录制时间 约2h 充电时间 约2.6h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854648 适用相机型号 松下DC-S5 S5K GH5M2 GH6 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="松下">
+      <div class="card-head">
+        <span class="brand">松下</span>
+        <h2>【DMW-BLK22】 (Type-C充电)-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_af82_a9a4" class="main-img" src="images/31ec0e12208b88.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/31ec0e12208b88.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_a9a4',this.src,this.alt,this)"><img class="thumb" src="images/02d555384617be.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_a9a4',this.src,this.alt,this)"><img class="thumb" src="images/6bef16690316be.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_a9a4',this.src,this.alt,this)"><img class="thumb" src="images/c2253e531b4530.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_a9a4',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064626654</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN094</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN094</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN094<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064626654</td></tr><tr><td>型号</td><td>CN094</td></tr><tr><td>电压</td><td>7.2V</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>56.6x39.2x20.8mm</td></tr><tr><td>净重重量</td><td>约82.3g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约385张</td></tr><tr><td>录制时间</td><td>约2h</td></tr><tr><td>充电时间</td><td>约2.6h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854648</td></tr><tr><td>适用相机型号</td><td>松下DC-S5 S5K GH5M2 GH6</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_af82_a9a4" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_af82_a9a4',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_9a44_c32c" data-k="尼康 【EN-EL25】 (Type-C充电) CN038 6933064622717 CN038 7.6V 8.7v 1250mAh/9.5Wh 1190mAh/9.05Wh 5V⎓1A（MAX） 5.1x3.4x1.8cm 约51g ABS 锂电池 约378张 约2.16h 约2.5h GB31241-2022 是 2024260915000624 Z30 Z50 ZFC 69码 6933064622717 型号 CN038 电压 7.6V 充电限制电压 8.7v 典型容量/典型瓦时 1250mAh/9.5Wh 额定容量/额定瓦时 1190mAh/9.05Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 5.1x3.4x1.8cm 净重重量 约51g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约378张 录制时间 约2.16h 充电时间 约2.5h 执行标准 GB31241-2022 是否全解码 是 3C编号 2024260915000624 适用相机型号 Z30 Z50 ZFC Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="尼康">
+      <div class="card-head">
+        <span class="brand">尼康</span>
+        <h2>【EN-EL25】 (Type-C充电)</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 1250mAh/9.5Wh</span>
+          <span class="volt-badge">⚡ 7.6V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_9a44_c32c" class="main-img" src="images/38b1cd0902a042.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/38b1cd0902a042.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"><img class="thumb" src="images/5a56e6e107b504.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"><img class="thumb" src="images/fc98de399d3cf4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"><img class="thumb" src="images/946d9202cddc7d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"><img class="thumb" src="images/3c0be6d1173e8e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">1250mAh/9.5Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">1190mAh/9.05Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.6V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.7v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064622717</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN038</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN038</b>（1250mAh/9.5Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN038<br><span class="vcap">1250mAh/9.5Wh</span></th></tr><tr><td>69码</td><td>6933064622717</td></tr><tr><td>型号</td><td>CN038</td></tr><tr><td>电压</td><td>7.6V</td></tr><tr><td>充电限制电压</td><td>8.7v</td></tr><tr><td>典型容量/典型瓦时</td><td>1250mAh/9.5Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>1190mAh/9.05Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>5.1x3.4x1.8cm</td></tr><tr><td>净重重量</td><td>约51g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约378张</td></tr><tr><td>录制时间</td><td>约2.16h</td></tr><tr><td>充电时间</td><td>约2.5h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2024260915000624</td></tr><tr><td>适用相机型号</td><td>Z30 Z50 ZFC</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_9a44_c32c" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_9a44_c32c',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_9a44_47a1" data-k="尼康 【EN-EL15C】 (Type-C充电) CN035 CN069 6933064622687 6933064625299 CN035 CN069 7.2v 7.2v 8.4v 8.4v 2320mAh/16.71Wh 2520mAh/18.15Wh 2200mAh/15.84Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 5V⎓2A（MAX） 5.2x3.9x2cm 5.2x3.9x2cm 约74g 约82.8g ABS ABS 锂电池 锂电池 约457张 约495张 约3.3h 约3.8h GB31241-2022 GB31241-2022 是 是 2026010915854875 2026010915854876 D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III 69码 6933064622687 6933064625299 型号 CN035 CN069 电压 7.2v 7.2v 充电限制电压 8.4v 8.4v 典型容量/典型瓦时 2320mAh/16.71Wh 2520mAh/18.15Wh 额定容量/额定瓦时 2200mAh/15.84Wh 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 5V⎓2A（MAX） 产品尺寸 5.2x3.9x2cm 5.2x3.9x2cm 净重重量 约74g 约82.8g 材质 ABS ABS 电池类型 锂电池 锂电池 CIPA方式拍照张数 约457张 约495张 录制时间（H） 约3.3h 约3.8h 执行标准 GB31241-2022 GB31241-2022 是否全解码 是 是 3C编号 2026010915854875 2026010915854876 适用相机型号 D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="尼康">
+      <div class="card-head">
+        <span class="brand">尼康</span>
+        <h2>【EN-EL15C】 (Type-C充电)</h2>
+        <span class="mv-badge">多容量版本</span>
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2320mAh/16.71Wh / 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2v / 7.2v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_9a44_47a1" class="main-img" src="images/711fe824d6063d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/711fe824d6063d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/19aec51fcd23ab.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/9e9b481c096de1.jpg" alt="EN-EL15C 2520mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/d90c98f86542a7.jpg" alt="EN-EL15C 2520mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/138b747f344d5b.jpg" alt="EN-EL15C 2320mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/64b7fda16273d7.jpg" alt="EN-EL15C 2320mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/720acd992b8fed.jpg" alt="EN-EL15C 2320mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/0ebb009f7704d5.jpg" alt="EN-EL15C 2320mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2320mAh/16.71Wh / 2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2200mAh/15.84Wh / 2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2v / 7.2v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v / 8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064622687 / 6933064625299</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN035 / CN069</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 2 个容量版本 — <b>CN035</b>（2320mAh/16.71Wh） · <b>CN069</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN035<br><span class="vcap">2320mAh/16.71Wh</span></th><th>CN069<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064622687</td><td>6933064625299</td></tr><tr><td>型号</td><td>CN035</td><td>CN069</td></tr><tr><td>电压</td><td>7.2v</td><td>7.2v</td></tr><tr><td>充电限制电压</td><td>8.4v</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2320mAh/16.71Wh</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2200mAh/15.84Wh</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>5.2x3.9x2cm</td><td>5.2x3.9x2cm</td></tr><tr><td>净重重量</td><td>约74g</td><td>约82.8g</td></tr><tr><td>材质</td><td>ABS</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约457张</td><td>约495张</td></tr><tr><td>录制时间（H）</td><td>约3.3h</td><td>约3.8h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854875</td><td>2026010915854876</td></tr><tr><td>适用相机型号</td><td>D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III</td><td>D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_9a44_47a1" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_9a44_47a1',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_9a44_24c5" data-k="尼康 【EN-EL14】 (Type-C充电)  尼康 EN-EL14 Type-C充电 相机电池 950mAh/3C 6933064625305 7.4V 8.4v 950mAh/7.03Wh 900mAh/6.66Wh 5V⎓1A（MAX） 52.8*37.8*14mm 46.1g ABS 锂电池 约320张 约1.8h GB31241-2022 是 2026010915854860 D3100 D3200 D3300 D3400 D3500 D5100 D5200 D5300 D5600 DF D5500 COOLPIX P7000 P7100 P7700 P7800 P7200 名称 尼康 EN-EL14 Type-C充电 相机电池 950mAh/3C 69码 6933064625305 电压 7.4V 充电限制电压 8.4v 典型容量/典型瓦时 950mAh/7.03Wh 额定容量/额定瓦时 900mAh/6.66Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 52.8*37.8*14mm 净重重量 46.1g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约320张 录制时间 约1.8h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854860 适用相机型号 D3100 D3200 D3300 D3400 D3500 D5100 D5200 D5300 D5600 DF D5500 COOLPIX P7000 P7100 P7700 P7800 P7200 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="尼康">
+      <div class="card-head">
+        <span class="brand">尼康</span>
+        <h2>【EN-EL14】 (Type-C充电)</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 950mAh/7.03Wh</span>
+          <span class="volt-badge">⚡ 7.4V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_9a44_24c5" class="main-img" src="images/aeda2a99f39030.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/aeda2a99f39030.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_24c5',this.src,this.alt,this)"><img class="thumb" src="images/1e7bdd9f0d0cff.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_24c5',this.src,this.alt,this)"><img class="thumb" src="images/05b926a46609a5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_24c5',this.src,this.alt,this)"><img class="thumb" src="images/356de77e69912b.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_24c5',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">950mAh/7.03Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">900mAh/6.66Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064625305</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="tablewrap"><table class="ptable"><tr><td>名称</td><td>尼康 EN-EL14 Type-C充电 相机电池 950mAh/3C</td></tr><tr><td>69码</td><td>6933064625305</td></tr><tr><td>电压</td><td>7.4V</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>950mAh/7.03Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>900mAh/6.66Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>52.8*37.8*14mm</td></tr><tr><td>净重重量</td><td>46.1g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约320张</td></tr><tr><td>录制时间</td><td>约1.8h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854860</td></tr><tr><td>适用相机型号</td><td>D3100 D3200 D3300 D3400 D3500 D5100 D5200 D5300 D5600 DF D5500 COOLPIX P7000 P7100 P7700 P7800 P7200</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_9a44_24c5" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_9a44_24c5',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_9a44_b23c" data-k="尼康 【EN-EL25】(Type-C充电)-极光系列  尼康 EN-EL25 Type-C充电 相机电池 1250mAh 极光系列/3C 6933064629969 7.6V 8.7v 1250mAh/9.5Wh 1190mAh/9.05Wh 5V⎓1.5A（MAX） 50.5*33.5*17.6mm 51.5g ABS 锂电池 约378张 约2h 暂无 是 暂无 Z30/Z50/ZFC 名称 尼康 EN-EL25 Type-C充电 相机电池 1250mAh 极光系列/3C 69码 6933064629969 电压 7.6V 充电限制电压 8.7v 典型容量/典型瓦时 1250mAh/9.5Wh 额定容量/额定瓦时 1190mAh/9.05Wh USB-C输入 5V⎓1.5A（MAX） 产品尺寸 50.5*33.5*17.6mm 净重重量 51.5g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约378张 录制时间 约2h 执行标准 暂无 是否全解码 是 3C编号 暂无 适用相机型号 Z30/Z50/ZFC Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="尼康">
+      <div class="card-head">
+        <span class="brand">尼康</span>
+        <h2>【EN-EL25】(Type-C充电)-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 1250mAh/9.5Wh</span>
+          <span class="volt-badge">⚡ 7.6V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_9a44_b23c" class="main-img" src="images/16fb42f5d505e0.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/16fb42f5d505e0.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_b23c',this.src,this.alt,this)"><img class="thumb" src="images/73bd3365e86567.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_b23c',this.src,this.alt,this)"><img class="thumb" src="images/7abac93448456c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_b23c',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">1250mAh/9.5Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">1190mAh/9.05Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.6V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.7v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064629969</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="tablewrap"><table class="ptable"><tr><td>名称</td><td>尼康 EN-EL25 Type-C充电 相机电池 1250mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064629969</td></tr><tr><td>电压</td><td>7.6V</td></tr><tr><td>充电限制电压</td><td>8.7v</td></tr><tr><td>典型容量/典型瓦时</td><td>1250mAh/9.5Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>1190mAh/9.05Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1.5A（MAX）</td></tr><tr><td>产品尺寸</td><td>50.5*33.5*17.6mm</td></tr><tr><td>净重重量</td><td>51.5g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约378张</td></tr><tr><td>录制时间</td><td>约2h</td></tr><tr><td>执行标准</td><td>暂无</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>暂无</td></tr><tr><td>适用相机型号</td><td>Z30/Z50/ZFC</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_9a44_b23c" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_9a44_b23c',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_9a44_ce2c" data-k="尼康 【EN-EL15C】 (Type-C充电)-极光系列 CN093 6933064626647 CN093 7.2V 8.4v 2520mAh/18.15Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 5.5x3.9x.2.2cm 约81.1g ABS 锂电池 约495张 约3.8h 约2小时 GB31241-2022 是 2026010915854671 D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III 69码 6933064626647 型号 CN093 电压 7.2V 充电限制电压 8.4v 典型容量/典型瓦时 2520mAh/18.15Wh 额定容量/额定瓦时 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 产品尺寸 5.5x3.9x.2.2cm 净重重量 约81.1g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约495张 录制时间 约3.8h 充电时间 约2小时 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854671 适用相机型号 D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="尼康">
+      <div class="card-head">
+        <span class="brand">尼康</span>
+        <h2>【EN-EL15C】 (Type-C充电)-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_9a44_ce2c" class="main-img" src="images/a2411b8b66cf61.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/a2411b8b66cf61.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_ce2c',this.src,this.alt,this)"><img class="thumb" src="images/abcd1d9475e114.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_ce2c',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064626647</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN093</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN093</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN093<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064626647</td></tr><tr><td>型号</td><td>CN093</td></tr><tr><td>电压</td><td>7.2V</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>5.5x3.9x.2.2cm</td></tr><tr><td>净重重量</td><td>约81.1g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约495张</td></tr><tr><td>录制时间</td><td>约3.8h</td></tr><tr><td>充电时间</td><td>约2小时</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854671</td></tr><tr><td>适用相机型号</td><td>D7100 D7500 D750 D7000 D7200 D810 D850 D800 D800E D810A P520 P530 D500 D600 D610 微单V1 Z6 Z7 V1 Z5 Z7II Z6II Z8 ZF Z6III</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_9a44_ce2c" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_9a44_ce2c',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_9a44_8d48" data-k="尼康 【EN-EL14】(Type-C充电)-极光系列 CN110 CN110 尼康 EN-EL14 Type-C充电 相机电池 950mAh 极光系列/3C 6933064629976 7.4V 8.4v 950mAh/7.03Wh 900mAh/6.66Wh 5V⎓1A（MAX） 52.8*37.8*14mm 46g ABS 锂电池 约320张 约1.8h GB31241-2022 是 2026010915854637 D3100 D3200 D3300 D3400 D3500 D5100 D5200 D5300 D5600 DF D5500 COOLPIX P7000 P7100 P7700 P7800 P7200 型号 CN110 名称 尼康 EN-EL14 Type-C充电 相机电池 950mAh 极光系列/3C 69码 6933064629976 电压 7.4V 充电限制电压 8.4v 典型容量/典型瓦时 950mAh/7.03Wh 额定容量/额定瓦时 900mAh/6.66Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 52.8*37.8*14mm 净重重量 46g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约320张 录制时间 约1.8h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854637 适用相机型号 D3100 D3200 D3300 D3400 D3500 D5100 D5200 D5300 D5600 DF D5500 COOLPIX P7000 P7100 P7700 P7800 P7200 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="尼康">
+      <div class="card-head">
+        <span class="brand">尼康</span>
+        <h2>【EN-EL14】(Type-C充电)-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 950mAh/7.03Wh</span>
+          <span class="volt-badge">⚡ 7.4V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_9a44_8d48" class="main-img" src="images/9fb6588035718d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/9fb6588035718d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_8d48',this.src,this.alt,this)"><img class="thumb" src="images/00a98c9ae78bbf.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_8d48',this.src,this.alt,this)"><img class="thumb" src="images/58e8f100246511.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_8d48',this.src,this.alt,this)"><img class="thumb" src="images/233db327cd4b87.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_8d48',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">950mAh/7.03Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">900mAh/6.66Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064629976</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN110</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN110</b>（950mAh/7.03Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN110<br><span class="vcap">950mAh/7.03Wh</span></th></tr><tr><td>型号</td><td>CN110</td></tr><tr><td>名称</td><td>尼康 EN-EL14 Type-C充电 相机电池 950mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064629976</td></tr><tr><td>电压</td><td>7.4V</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>950mAh/7.03Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>900mAh/6.66Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>52.8*37.8*14mm</td></tr><tr><td>净重重量</td><td>46g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约320张</td></tr><tr><td>录制时间</td><td>约1.8h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854637</td></tr><tr><td>适用相机型号</td><td>D3100 D3200 D3300 D3400 D3500 D5100 D5200 D5300 D5600 DF D5500 COOLPIX P7000 P7100 P7700 P7800 P7200</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_9a44_8d48" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_9a44_8d48',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_dbb0_d38f_87de" data-k="索尼 【NP-F990】 直充电池 NP-F990 索尼 NP-F990 Type-C充电 相机电池 10400mAh/3C 6933064625909 NP-F990 10400mAh/76.96Wh 9880mAh/73.12Wh 7.4V 8.4V 70.6*38.6*98mm 445g PD3.0/QC3.0/QC2.0/FCP/AFC/PPS 5V⎓3A,9V⎓3A,12V⎓2.5A,15V⎓2A,20V⎓1.5A：30W Max QC3.0/QC2.0/FCP/AFC 5V⎓4.5A,9V⎓2A,12V⎓1.5A：22.5W Max 5V=3A：15W 14.8V⎓2.2A Max 天鹏18650（2600mAh） 2S4P PC+ABS GB31241-2022；GB4943.1-2022 2026010914854663 名称 索尼 NP-F990 Type-C充电 相机电池 10400mAh/3C 69码 6933064625909 型号 NP-F990 典型容量/典型能量： 10400mAh/76.96Wh 额定容量/额定能量： 9880mAh/73.12Wh 电池电压 7.4V 充电电压 8.4V 尺寸 70.6*38.6*98mm 产品净重 445g USB-C 支持协议： PD3.0/QC3.0/QC2.0/FCP/AFC/PPS USB-C 输入/输出 5V⎓3A,9V⎓3A,12V⎓2.5A,15V⎓2A,20V⎓1.5A：30W Max USB-A 支持协议： QC3.0/QC2.0/FCP/AFC USB-A 输出： 5V⎓4.5A,9V⎓2A,12V⎓1.5A：22.5W Max USB-C+USB-A：总输出功率 5V=3A：15W D-TAP 输出： 14.8V⎓2.2A Max 电芯 天鹏18650（2600mAh） 组合方式 2S4P 材质 PC+ABS 执行标准 GB31241-2022；GB4943.1-2022 3c编号 2026010914854663 1.数显屏幕，电压、功率一目了然 2.PD双向30W 3.多功能接口（USB-C、USB-A、D-TAP） 4.智能芯片，多重保护 ；5.品质电芯，持久续航 。 5.Type-C充电，一根线就能解决 6.充电宝也能充电 7. 传统的充电器也能充电 8. 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 按键操作：单击唤醒屏幕显示，长按3秒关闭电池 产品屏幕显示 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="索尼">
+      <div class="card-head">
+        <span class="brand">索尼</span>
+        <h2>【NP-F990】 直充电池</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          
+          
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_dbb0_d38f_87de" class="main-img" src="images/c9edf77bc1b480.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/c9edf77bc1b480.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_d38f_87de',this.src,this.alt,this)"><img class="thumb" src="images/86fd0ed196ecb4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_d38f_87de',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">尺寸</span><span class="sv">70.6*38.6*98mm</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064625909</span></div><div class="spec"><span class="sk">型号</span><span class="sv">NP-F990</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>NP-F990</b>（10400mAh/76.96Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>NP-F990<br><span class="vcap">10400mAh/76.96Wh</span></th></tr><tr><td>名称</td><td>索尼 NP-F990 Type-C充电 相机电池 10400mAh/3C</td></tr><tr><td>69码</td><td>6933064625909</td></tr><tr><td>型号</td><td>NP-F990</td></tr><tr><td>典型容量/典型能量：</td><td>10400mAh/76.96Wh</td></tr><tr><td>额定容量/额定能量：</td><td>9880mAh/73.12Wh</td></tr><tr><td>电池电压</td><td>7.4V</td></tr><tr><td>充电电压</td><td>8.4V</td></tr><tr><td>尺寸</td><td>70.6*38.6*98mm</td></tr><tr><td>产品净重</td><td>445g</td></tr><tr><td>USB-C 支持协议：</td><td>PD3.0/QC3.0/QC2.0/FCP/AFC/PPS</td></tr><tr><td>USB-C 输入/输出</td><td>5V⎓3A,9V⎓3A,12V⎓2.5A,15V⎓2A,20V⎓1.5A：30W Max</td></tr><tr><td>USB-A 支持协议：</td><td>QC3.0/QC2.0/FCP/AFC</td></tr><tr><td>USB-A 输出：</td><td>5V⎓4.5A,9V⎓2A,12V⎓1.5A：22.5W Max</td></tr><tr><td>USB-C+USB-A：总输出功率</td><td>5V=3A：15W</td></tr><tr><td>D-TAP 输出：</td><td>14.8V⎓2.2A Max</td></tr><tr><td>电芯</td><td>天鹏18650（2600mAh）</td></tr><tr><td>组合方式</td><td>2S4P</td></tr><tr><td>材质</td><td>PC+ABS</td></tr><tr><td>执行标准</td><td>GB31241-2022；GB4943.1-2022</td></tr><tr><td>3c编号</td><td>2026010914854663</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_dbb0_d38f_87de" hidden><div class="sec"><h3>卖点</h3><p>1.数显屏幕，电压、功率一目了然</p><p>2.PD双向30W</p><p>3.多功能接口（USB-C、USB-A、D-TAP）</p><p>4.智能芯片，多重保护 ；5.品质电芯，持久续航 。</p><p>5.Type-C充电，一根线就能解决</p><p>6.充电宝也能充电</p><p>7. 传统的充电器也能充电</p><p>8. 便携、小巧、减负出行</p></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>使用教程</h3><p>按键操作：单击唤醒屏幕显示，长按3秒关闭电池</p><p>产品屏幕显示</p></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_dbb0_d38f_87de',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_dbb0_d38f_0c1e" data-k="索尼 【NP-F980】 直充电池 NP-F980 索尼 NP-F980 Type-C充电 相机电池 7800mAh/3C 6933064625893 NP-F980 7800mAh/57.72Wh 7410mAh/54.84Wh 7.4V 8.4V 70.6*38.6*73.5mm 330g PD3.0/QC3.0/QC2.0/FCP/AFC/PPS 5V⎓3A,9V⎓3A,12V⎓2.5A,15V⎓2A,20V⎓1.5A：30W Max QC3.0/QC2.0/FCP/AFC 5V⎓4.5A,9V⎓2A,12V⎓1.5A：22.5W Max 5V⎓3A 15W 天鹏18650（2600mAh） 2S3P PC+ABS 2026010914854662 GB31241-2022；GB4943.1-2022 名称 索尼 NP-F980 Type-C充电 相机电池 7800mAh/3C 69码 6933064625893 型号 NP-F980 典型容量/典型能量： 7800mAh/57.72Wh 额定容量/额定能量： 7410mAh/54.84Wh 电池电压 7.4V 充电电压 8.4V 尺寸 70.6*38.6*73.5mm 重量 330g USB-C 支持协议： PD3.0/QC3.0/QC2.0/FCP/AFC/PPS USB-C 输入/输出： 5V⎓3A,9V⎓3A,12V⎓2.5A,15V⎓2A,20V⎓1.5A：30W Max USB-A 支持协议： QC3.0/QC2.0/FCP/AFC USB-A 输出： 5V⎓4.5A,9V⎓2A,12V⎓1.5A：22.5W Max USB-C+USB-A 总输出： 5V⎓3A 15W 电芯 天鹏18650（2600mAh） 组合方式 2S3P 材质 PC+ABS 3c编号 2026010914854662 执行标准 GB31241-2022；GB4943.1-2022 1.数显屏幕，电压、功率一目了然 2.PD双向30W 3.多功能接口（USB-C、USB-A） 4.智能芯片，多重保护 5.品质电芯，持久续航 按键操作：单击唤醒屏幕显示，长按3秒关闭电池 屏幕显示说明： 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="索尼">
+      <div class="card-head">
+        <span class="brand">索尼</span>
+        <h2>【NP-F980】 直充电池</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          
+          
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_dbb0_d38f_0c1e" class="main-img" src="images/c9edf77bc1b480.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/c9edf77bc1b480.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_d38f_0c1e',this.src,this.alt,this)"><img class="thumb" src="images/25c847947e78a4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_d38f_0c1e',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">尺寸</span><span class="sv">70.6*38.6*73.5mm</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064625893</span></div><div class="spec"><span class="sk">型号</span><span class="sv">NP-F980</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>NP-F980</b>（7800mAh/57.72Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>NP-F980<br><span class="vcap">7800mAh/57.72Wh</span></th></tr><tr><td>名称</td><td>索尼 NP-F980 Type-C充电 相机电池 7800mAh/3C</td></tr><tr><td>69码</td><td>6933064625893</td></tr><tr><td>型号</td><td>NP-F980</td></tr><tr><td>典型容量/典型能量：</td><td>7800mAh/57.72Wh</td></tr><tr><td>额定容量/额定能量：</td><td>7410mAh/54.84Wh</td></tr><tr><td>电池电压</td><td>7.4V</td></tr><tr><td>充电电压</td><td>8.4V</td></tr><tr><td>尺寸</td><td>70.6*38.6*73.5mm</td></tr><tr><td>重量</td><td>330g</td></tr><tr><td>USB-C 支持协议：</td><td>PD3.0/QC3.0/QC2.0/FCP/AFC/PPS</td></tr><tr><td>USB-C 输入/输出：</td><td>5V⎓3A,9V⎓3A,12V⎓2.5A,15V⎓2A,20V⎓1.5A：30W Max</td></tr><tr><td>USB-A 支持协议：</td><td>QC3.0/QC2.0/FCP/AFC</td></tr><tr><td>USB-A 输出：</td><td>5V⎓4.5A,9V⎓2A,12V⎓1.5A：22.5W Max</td></tr><tr><td>USB-C+USB-A 总输出：</td><td>5V⎓3A 15W</td></tr><tr><td>电芯</td><td>天鹏18650（2600mAh）</td></tr><tr><td>组合方式</td><td>2S3P</td></tr><tr><td>材质</td><td>PC+ABS</td></tr><tr><td>3c编号</td><td>2026010914854662</td></tr><tr><td>执行标准</td><td>GB31241-2022；GB4943.1-2022</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_dbb0_d38f_0c1e" hidden><div class="sec"><h3>卖点</h3><p>1.数显屏幕，电压、功率一目了然</p><p>2.PD双向30W</p><p>3.多功能接口（USB-C、USB-A）</p><p>4.智能芯片，多重保护</p><p>5.品质电芯，持久续航</p></div><div class="sec"><h3>使用教程</h3><p>按键操作：单击唤醒屏幕显示，长按3秒关闭电池</p><p>屏幕显示说明：</p></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_dbb0_d38f_0c1e',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_dbb0_d38f_8f7e" data-k="索尼 【NP-F970】 直充电池 CN047 CN047 6933064625077 6933064625084 CN047 CN047 7.4V 7.4V 8.4V 8.4V 6600mAh/48.84Wh 10500mAh/77.7Wh 6300mAh/46.62Wh 9970mAh/72.79Wh 72.2±0.2mm*39.1±0.2mm*73.8±0.2mm 72.2±0.2mm*39.1±0.2mm*73.8±0.2mm 330±10g 暂无 PD20W、兼容：5V/3A、9V/2.22A、12V/1.66A，支持输出对外供电 PD20W、兼容：5V/3A、9V/2.22A、12V/1.66A，支持输出对外供电 type-c、USB-A type-c、USB-A 是，功率：5V2A 是，功率：5V2A PC+ABS PC+ABS 6600mha：常规充电器：约10小时， 10500mha：PD20W充电约3.5个小时； 8小时43分钟（ F970/10500） 暂无 69码 6933064625077 6933064625084 型号 CN047 CN047 电压 7.4V 7.4V 充电限制电压 8.4V 8.4V 典型容量/典型能量 6600mAh/48.84Wh 10500mAh/77.7Wh 额定容量/额定能量 6300mAh/46.62Wh 9970mAh/72.79Wh 尺寸 72.2±0.2mm*39.1±0.2mm*73.8±0.2mm 72.2±0.2mm*39.1±0.2mm*73.8±0.2mm 重量 330±10g 暂无 充电功率 PD20W、兼容：5V/3A、9V/2.22A、12V/1.66A，支持输出对外供电 PD20W、兼容：5V/3A、9V/2.22A、12V/1.66A，支持输出对外供电 接口 type-c、USB-A type-c、USB-A 是否支持USB给手机充电 是，功率：5V2A 是，功率：5V2A 材质 PC+ABS PC+ABS 充电时长 6600mha：常规充电器：约10小时， 10500mha：PD20W充电约3.5个小时； 续航时长 8小时43分钟（ F970/10500） 暂无 Tpye-c充电方便携带，出门只要带一条线就能充电；支持录像机、补光灯、监视器、图传、手机、平板等设备；充电线、充电器都能充电；完美匹配相机，原装芯片全解码；安全可靠，不伤相机、电池9大安全保护；尽情使用，可不间断长时间使用 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 6933064616839 索尼 NP-F970 Type-C充电 PD20W相机电池 6600mAh 国产A品电芯 6933064616860 索尼 NP-F970 Type-C充电 PD20W相机电池 10500mAh （进口LG电芯) 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="索尼">
+      <div class="card-head">
+        <span class="brand">索尼</span>
+        <h2>【NP-F970】 直充电池</h2>
+        <span class="mv-badge">多容量版本</span>
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          
+          <span class="volt-badge">⚡ 7.4V / 7.4V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_dbb0_d38f_8f7e" class="main-img" src="images/4b779564b419e8.jpg" alt="NP-F970 6600mAh TypeC 直充电池" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/4b779564b419e8.jpg" alt="NP-F970 6600mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/591434a1005e5d.jpg" alt="NP-F970 6600mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/a3637990c650c8.jpg" alt="NP-F970 6600mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/5589ae4126ef26.jpg" alt="NP-F970 6600mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/07c0a97a9fb692.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/582e21deac91c2.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/d9052f5a9ae07e.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/d0e7ed9f7948df.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/f67e13cb472977.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">电压</span><span class="sv">7.4V / 7.4V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4V / 8.4V</span></div><div class="spec"><span class="sk">尺寸</span><span class="sv">72.2±0.2mm*39.1±0.2mm*73.8±0.2mm / 72.2±0.2mm*39.1±0.2mm*73.8±0.2mm</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064625077 / 6933064625084</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN047 / CN047</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 2 个容量版本 — <b>CN047</b>（6600mAh/48.84Wh） · <b>CN047</b>（10500mAh/77.7Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN047<br><span class="vcap">6600mAh/48.84Wh</span></th><th>CN047<br><span class="vcap">10500mAh/77.7Wh</span></th></tr><tr><td>69码</td><td>6933064625077</td><td>6933064625084</td></tr><tr><td>型号</td><td>CN047</td><td>CN047</td></tr><tr><td>电压</td><td>7.4V</td><td>7.4V</td></tr><tr><td>充电限制电压</td><td>8.4V</td><td>8.4V</td></tr><tr><td>典型容量/典型能量</td><td>6600mAh/48.84Wh</td><td>10500mAh/77.7Wh</td></tr><tr><td>额定容量/额定能量</td><td>6300mAh/46.62Wh</td><td>9970mAh/72.79Wh</td></tr><tr><td>尺寸</td><td>72.2±0.2mm*39.1±0.2mm*73.8±0.2mm</td><td>72.2±0.2mm*39.1±0.2mm*73.8±0.2mm</td></tr><tr><td>重量</td><td>330±10g</td><td>暂无</td></tr><tr><td>充电功率</td><td>PD20W、兼容：5V/3A、9V/2.22A、12V/1.66A，支持输出对外供电</td><td>PD20W、兼容：5V/3A、9V/2.22A、12V/1.66A，支持输出对外供电</td></tr><tr><td>接口</td><td>type-c、USB-A</td><td>type-c、USB-A</td></tr><tr><td>是否支持USB给手机充电</td><td>是，功率：5V2A</td><td>是，功率：5V2A</td></tr><tr><td>材质</td><td>PC+ABS</td><td>PC+ABS</td></tr><tr><td>充电时长</td><td>6600mha：常规充电器：约10小时，</td><td>10500mha：PD20W充电约3.5个小时；</td></tr><tr><td>续航时长</td><td>8小时43分钟（ F970/10500）</td><td>暂无</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_dbb0_d38f_8f7e" hidden><div class="sec"><h3>卖点</h3><p>Tpye-c充电方便携带，出门只要带一条线就能充电；支持录像机、补光灯、监视器、图传、手机、平板等设备；充电线、充电器都能充电；完美匹配相机，原装芯片全解码；安全可靠，不伤相机、电池9大安全保护；尽情使用，可不间断长时间使用</p></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li><li>6933064616839 索尼 NP-F970 Type-C充电 PD20W相机电池 6600mAh 国产A品电芯</li></ul><p>6933064616860 索尼 NP-F970 Type-C充电 PD20W相机电池 10500mAh （进口LG电芯)</p></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_dbb0_d38f_8f7e',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_dbb0_fb41_f7e4" data-k="索尼 【NP-FW50】（Type-C充电） NP-FW50 6933064622403 NP-FW50 1030mAh/7.63Wh 980mAh/7.25Wh 7.4V 8.4V 4.5*3.2*1.8cm 约45g 5V⎓1A ABS 锂电池 约360张 约89min GB31241-2022 是 2026010915855772 ILCE-6500/6300/6000/6400/6100/5100/5000/7SM2/7RM2/ILCE-7M2/ILCE-7R/ILCE-7S/ZV-E10/a7r2/7M2/QX1/RX10M4/RX10M3/RX10M2/RX10/NEX-C3/NEX-F3/NEX-3N-NEX-5C/NEX-5N/NEX-5R/NEX-5T/NEX-6/NEX-7/A33/A35/A37/A55/A3000 69码 6933064622403 型号 NP-FW50 典型容量/典型能量 1030mAh/7.63Wh 额定容量/额定能量 980mAh/7.25Wh 电压 7.4V 充电限制电压 8.4V 尺寸 4.5*3.2*1.8cm 重量 约45g USB-C输入 5V⎓1A 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约360张 录制时间 约89min 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915855772 适用相机型号 ILCE-6500/6300/6000/6400/6100/5100/5000/7SM2/7RM2/ILCE-7M2/ILCE-7R/ILCE-7S/ZV-E10/a7r2/7M2/QX1/RX10M4/RX10M3/RX10M2/RX10/NEX-C3/NEX-F3/NEX-3N-NEX-5C/NEX-5N/NEX-5R/NEX-5T/NEX-6/NEX-7/A33/A35/A37/A55/A3000 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="索尼">
+      <div class="card-head">
+        <span class="brand">索尼</span>
+        <h2>【NP-FW50】（Type-C充电）</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          
+          <span class="volt-badge">⚡ 7.4V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_dbb0_fb41_f7e4" class="main-img" src="images/ae94af6ef2c5f4.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/ae94af6ef2c5f4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"><img class="thumb" src="images/6ad21b5f168355.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"><img class="thumb" src="images/d0d4add1e0b64e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"><img class="thumb" src="images/d6102e8b65fc11.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"><img class="thumb" src="images/dfc19873b412d5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">电压</span><span class="sv">7.4V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4V</span></div><div class="spec"><span class="sk">尺寸</span><span class="sv">4.5*3.2*1.8cm</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064622403</span></div><div class="spec"><span class="sk">型号</span><span class="sv">NP-FW50</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>NP-FW50</b>（1030mAh/7.63Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>NP-FW50<br><span class="vcap">1030mAh/7.63Wh</span></th></tr><tr><td>69码</td><td>6933064622403</td></tr><tr><td>型号</td><td>NP-FW50</td></tr><tr><td>典型容量/典型能量</td><td>1030mAh/7.63Wh</td></tr><tr><td>额定容量/额定能量</td><td>980mAh/7.25Wh</td></tr><tr><td>电压</td><td>7.4V</td></tr><tr><td>充电限制电压</td><td>8.4V</td></tr><tr><td>尺寸</td><td>4.5*3.2*1.8cm</td></tr><tr><td>重量</td><td>约45g</td></tr><tr><td>USB-C输入</td><td>5V⎓1A</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约360张</td></tr><tr><td>录制时间</td><td>约89min</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915855772</td></tr><tr><td>适用相机型号</td><td>ILCE-6500/6300/6000/6400/6100/5100/5000/7SM2/7RM2/ILCE-7M2/ILCE-7R/ILCE-7S/ZV-E10/a7r2/7M2/QX1/RX10M4/RX10M3/RX10M2/RX10/NEX-C3/NEX-F3/NEX-3N-NEX-5C/NEX-5N/NEX-5R/NEX-5T/NEX-6/NEX-7/A33/A35/A37/A55/A3000</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_dbb0_fb41_f7e4" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_dbb0_fb41_f7e4',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_dbb0_fb41_6a79" data-k="索尼 【NP-FZ100】（Type-C充电） fz100 fz100 fz100 fz100 6933064622366 6933064625121 索尼 FZ-100 Type-C充电 相机电池 2320mAh/3C 索尼 FZ-100 Type-C充电 相机电池 2520mAh/3C 7.2v 7.2v 8.4v 8.4V 2320mAh/16.71Wh 2520mAh/18.15Wh 2200mAh/15.84Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 5V⎓2A（MAX） 51x38x22mm 51x38x22mm 约80g 81.7g ABS ABS 锂电池 锂电池 约675张 约735张 3.8H 4.1h GB31241-2022 GB31241-2022 是 是 2026010915855292 2026010915855713 A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/ZV-E1/A6700/A7C2/A7M4/A93 A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/ZV-E1/A6700/A7C2/A7M4/A93 简称 fz100 fz100 69码 6933064622366 6933064625121 型号 索尼 FZ-100 Type-C充电 相机电池 2320mAh/3C 索尼 FZ-100 Type-C充电 相机电池 2520mAh/3C  CN004 CN052 电压 7.2v 7.2v 充电限制电压 8.4v 8.4V 典型容量/典型瓦时 2320mAh/16.71Wh 2520mAh/18.15Wh 额定容量/额定瓦时 2200mAh/15.84Wh 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 5V⎓2A（MAX） 产品尺寸 51x38x22mm 51x38x22mm 净重重量 约80g 81.7g 材质 ABS ABS 电池类型 锂电池 锂电池 CIPA方式拍照张数 约675张 约735张 录制时间 3.8H 4.1h 执行标准 GB31241-2022 GB31241-2022 是否全解码 是 是 3C编号 2026010915855292 2026010915855713 适用相机型号 A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/ZV-E1/A6700/A7C2/A7M4/A93 A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/ZV-E1/A6700/A7C2/A7M4/A93 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="索尼">
+      <div class="card-head">
+        <span class="brand">索尼</span>
+        <h2>【NP-FZ100】（Type-C充电）</h2>
+        <span class="mv-badge">多容量版本</span>
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2320mAh/16.71Wh / 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2v / 7.2v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_dbb0_fb41_6a79" class="main-img" src="images/bf2011c313e883.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/bf2011c313e883.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/dc82d0f4184483.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/5b620da986b563.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/e9d12945394623.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/be13987c5e5886.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/f87c3a3058674c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/650c8883e7616b.jpg" alt="2320mAh" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/4ddc2f3b3c0bf0.jpg" alt="2520mAh" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/4216d2c7608671.jpg" alt="2520mAh" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2320mAh/16.71Wh / 2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2200mAh/15.84Wh / 2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2v / 7.2v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v / 8.4V</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064622366 / 6933064625121</span></div><div class="spec"><span class="sk">型号</span><span class="sv">索尼 FZ-100 Type-C充电 相机电池 2320mAh/3C / 索尼 FZ-100 Type-C充电 相机电池 2520mAh/3C</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 2 个容量版本 — <b>索尼 FZ-100 Type-C充电 相机电池 2320mAh/3C</b>（2320mAh/16.71Wh） · <b>索尼 FZ-100 Type-C充电 相机电池 2520mAh/3C</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>索尼 FZ-100 Type-C充电 相机电池 2320mAh/3C<br><span class="vcap">2320mAh/16.71Wh</span></th><th>索尼 FZ-100 Type-C充电 相机电池 2520mAh/3C<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>简称</td><td>fz100</td><td>fz100</td></tr><tr><td>69码</td><td>6933064622366</td><td>6933064625121</td></tr><tr><td>型号</td><td>索尼 FZ-100 Type-C充电 相机电池 2320mAh/3C</td><td>索尼 FZ-100 Type-C充电 相机电池 2520mAh/3C</td></tr><tr><td></td><td>CN004</td><td>CN052</td></tr><tr><td>电压</td><td>7.2v</td><td>7.2v</td></tr><tr><td>充电限制电压</td><td>8.4v</td><td>8.4V</td></tr><tr><td>典型容量/典型瓦时</td><td>2320mAh/16.71Wh</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2200mAh/15.84Wh</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>51x38x22mm</td><td>51x38x22mm</td></tr><tr><td>净重重量</td><td>约80g</td><td>81.7g</td></tr><tr><td>材质</td><td>ABS</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约675张</td><td>约735张</td></tr><tr><td>录制时间</td><td>3.8H</td><td>4.1h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915855292</td><td>2026010915855713</td></tr><tr><td>适用相机型号</td><td>A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/ZV-E1/A6700/A7C2/A7M4/A93</td><td>A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/ZV-E1/A6700/A7C2/A7M4/A93</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_dbb0_fb41_6a79" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_dbb0_fb41_6a79',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_dbb0_5d42_8070" data-k="索尼 【NP-FW50】（Type-C充电）-极光系列 CN107 索尼 NP-FW50 Type-C充电 相机电池 1030mAh 极光系列/3C 6933064629945 CN107 7.4v 8.4v 1030mAh/7.63Wh 980mAh/7.26Wh 5V⎓1A（MAX） 45.2*31.7*18.5mm 约47.1g ABS 锂电池 约380张 约1.5h GB31241-2022 是 2026010915854647 6500/6300/6000/6400/6100/5100/5000/7SM2/7RM2/ILCE-7M2/ILCE-7R/ILCE-7S/ZV-E10/a7r2/7M2/QX1/RX10M4/RX10M3/RX10M2/RX10/NEX-C3/NEX-F3/NEX-3N-NEX-5C/NEX-5N/NEX-5R/NEX-5T/NEX-6/NEX-7/A33/A35/A37/A55/A3000 名称 索尼 NP-FW50 Type-C充电 相机电池 1030mAh 极光系列/3C 69码 6933064629945 型号 CN107 电压 7.4v 充电限制电压 8.4v 典型容量/典型瓦时 1030mAh/7.63Wh 额定容量/额定瓦时 980mAh/7.26Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 45.2*31.7*18.5mm 净重重量 约47.1g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约380张 录制时间 约1.5h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854647 适用相机型号 6500/6300/6000/6400/6100/5100/5000/7SM2/7RM2/ILCE-7M2/ILCE-7R/ILCE-7S/ZV-E10/a7r2/7M2/QX1/RX10M4/RX10M3/RX10M2/RX10/NEX-C3/NEX-F3/NEX-3N-NEX-5C/NEX-5N/NEX-5R/NEX-5T/NEX-6/NEX-7/A33/A35/A37/A55/A3000 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="索尼">
+      <div class="card-head">
+        <span class="brand">索尼</span>
+        <h2>【NP-FW50】（Type-C充电）-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 1030mAh/7.63Wh</span>
+          <span class="volt-badge">⚡ 7.4v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_dbb0_5d42_8070" class="main-img" src="images/05786165d22e9d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/05786165d22e9d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_8070',this.src,this.alt,this)"><img class="thumb" src="images/4ba1a32a3315af.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_8070',this.src,this.alt,this)"><img class="thumb" src="images/a3ddcaf0997cbf.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_8070',this.src,this.alt,this)"><img class="thumb" src="images/4d793c20c403c2.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_8070',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">1030mAh/7.63Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">980mAh/7.26Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064629945</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN107</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN107</b>（1030mAh/7.63Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN107<br><span class="vcap">1030mAh/7.63Wh</span></th></tr><tr><td>名称</td><td>索尼 NP-FW50 Type-C充电 相机电池 1030mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064629945</td></tr><tr><td>型号</td><td>CN107</td></tr><tr><td>电压</td><td>7.4v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>1030mAh/7.63Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>980mAh/7.26Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>45.2*31.7*18.5mm</td></tr><tr><td>净重重量</td><td>约47.1g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约380张</td></tr><tr><td>录制时间</td><td>约1.5h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854647</td></tr><tr><td>适用相机型号</td><td>6500/6300/6000/6400/6100/5100/5000/7SM2/7RM2/ILCE-7M2/ILCE-7R/ILCE-7S/ZV-E10/a7r2/7M2/QX1/RX10M4/RX10M3/RX10M2/RX10/NEX-C3/NEX-F3/NEX-3N-NEX-5C/NEX-5N/NEX-5R/NEX-5T/NEX-6/NEX-7/A33/A35/A37/A55/A3000</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_dbb0_5d42_8070" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_dbb0_5d42_8070',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_dbb0_5d42_2d84" data-k="索尼 【NP-F550】 (Type-C充电)-极光系列 CN095 6933064626661 索尼 NP-F550 Type-C充电 相机电池 2500mAh 极光系列/3C CN095 7.4v 8.4v 2500mAh/18.15Wh 2370mAh/17.28Wh 5V⎓2A 70.6*38.6*22.8mm 约109g ABS 锂电池 约303张 约3.8h GB31241-2022 是 2026010915854672 适用机型：SONY/索尼PXW-Z100 HXR-NX5 HXR-NX100 HXRMC2500NEX-EA50CH NEX-EA50CK HXR-NX3 NEX-FS700RH FDR-AX1E CCD-TR系列 200 215 3 300 3000 3300 416 500 516 517 57 555 67 716 76 818 87 910 917 930 940 97CCD-TRV系列 101 119 15 16 215 25 3000 315 35 36 37 4 41 43 88 90 91 93 95 98 99 68 715 716 72 720 75CCD-SC系列 5 55 65DCR-TR7 系列 7000DCR-TRV系列 103 110 120 130 210 310 315 320 103DCR-TV系列 900 900EDCR-VX系列1000 2000 2100 2200E 700DSC-CD系列 100 250 400 DSC-D系列 700 770DSR系列 200 300 100AGV系列 A500 A500E D200 D800MVC-FD系列 100 200 5 51 7 71 73 75 81 83 85 87 88 90 91 91AOL 92 95 97INFOLITHIUM L系列 BC-V615 DCM-M1 DCR-TRU47E MVC-CD1000 PLM-100 VCL-ES06E HVR-Z1C HDR-FX1E Q002-HDR1 DCR-VX2100E DSR-PD150P DSR-PD190P FDR-AX1ENEX-FS700RH NEX-EA50CH NEXEA50M NEX-EA50CK HXR-NX 69码 6933064626661 名称 索尼 NP-F550 Type-C充电 相机电池 2500mAh 极光系列/3C 型号 CN095 电压 7.4v 充电限制电压 8.4v 典型容量/典型瓦时 2500mAh/18.15Wh 额定容量/额定瓦时 2370mAh/17.28Wh USB-C输入 5V⎓2A 产品尺寸 70.6*38.6*22.8mm 净重重量 约109g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约303张 录制时间 约3.8h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854672 适用相机型号 适用机型：SONY/索尼PXW-Z100 HXR-NX5 HXR-NX100 HXRMC2500NEX-EA50CH NEX-EA50CK HXR-NX3 NEX-FS700RH FDR-AX1E CCD-TR系列 200 215 3 300 3000 3300 416 500 516 517 57 555 67 716 76 818 87 910 917 930 940 97CCD-TRV系列 101 119 15 16 215 25 3000 315 35 36 37 4 41 43 88 90 91 93 95 98 99 68 715 716 72 720 75CCD-SC系列 5 55 65DCR-TR7 系列 7000DCR-TRV系列 103 110 120 130 210 310 315 320 103DCR-TV系列 900 900EDCR-VX系列1000 2000 2100 2200E 700DSC-CD系列 100 250 400 DSC-D系列 700 770DSR系列 200 300 100AGV系列 A500 A500E D200 D800MVC-FD系列 100 200 5 51 7 71 73 75 81 83 85 87 88 90 91 91AOL 92 95 97INFOLITHIUM L系列 BC-V615 DCM-M1 DCR-TRU47E MVC-CD1000 PLM-100 VCL-ES06E HVR-Z1C HDR-FX1E Q002-HDR1 DCR-VX2100E DSR-PD150P DSR-PD190P FDR-AX1ENEX-FS700RH NEX-EA50CH NEXEA50M NEX-EA50CK HXR-NX Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="索尼">
+      <div class="card-head">
+        <span class="brand">索尼</span>
+        <h2>【NP-F550】 (Type-C充电)-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2500mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.4v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_dbb0_5d42_2d84" class="main-img" src="images/0160c845c05229.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/0160c845c05229.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_2d84',this.src,this.alt,this)"><img class="thumb" src="images/aa7b508b2ddb03.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_2d84',this.src,this.alt,this)"><img class="thumb" src="images/1aca0005717b5c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_2d84',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2500mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2370mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064626661</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN095</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN095</b>（2500mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN095<br><span class="vcap">2500mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064626661</td></tr><tr><td>名称</td><td>索尼 NP-F550 Type-C充电 相机电池 2500mAh 极光系列/3C</td></tr><tr><td>型号</td><td>CN095</td></tr><tr><td>电压</td><td>7.4v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2500mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2370mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A</td></tr><tr><td>产品尺寸</td><td>70.6*38.6*22.8mm</td></tr><tr><td>净重重量</td><td>约109g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约303张</td></tr><tr><td>录制时间</td><td>约3.8h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854672</td></tr><tr><td>适用相机型号</td><td>适用机型：SONY/索尼PXW-Z100 HXR-NX5 HXR-NX100 HXRMC2500NEX-EA50CH NEX-EA50CK HXR-NX3 NEX-FS700RH FDR-AX1E CCD-TR系列 200 215 3 300 3000 3300 416 500 516 517 57 555 67 716 76 818 87 910 917 930 940 97CCD-TRV系列 101 119 15 16 215 25 3000 315 35 36 37 4 41 43 88 90 91 93 95 98 99 68 715 716 72 720 75CCD-SC系列 5 55 65DCR-TR7 系列 7000DCR-TRV系列 103 110 120 130 210 310 315 320 103DCR-TV系列 900 900EDCR-VX系列1000 2000 2100 2200E 700DSC-CD系列 100 250 400 DSC-D系列 700 770DSR系列 200 300 100AGV系列 A500 A500E D200 D800MVC-FD系列 100 200 5 51 7 71 73 75 81 83 85 87 88 90 91 91AOL 92 95 97INFOLITHIUM L系列 BC-V615 DCM-M1 DCR-TRU47E MVC-CD1000 PLM-100 VCL-ES06E HVR-Z1C HDR-FX1E Q002-HDR1 DCR-VX2100E DSR-PD150P DSR-PD190P FDR-AX1ENEX-FS700RH NEX-EA50CH NEXEA50M NEX-EA50CK HXR-NX</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_dbb0_5d42_2d84" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_dbb0_5d42_2d84',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_dbb0_5d42_00a0" data-k="索尼 【NP-FZ100】 (Type-C充电)-极光系列 CN090 6933064626616 索尼 NP-FZ100 Type-C充电 2520mAh 相机电池 极光系列/3C CN090 7.2V 8.4v 2520mAh/18.15Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 5.1*3.8*2.2cm 约80g ABS 锂电池 约735张 约4.1h GB31241-2022 是 2026010915854634 A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/FX30/A7R5/A7CR/A7C2/FX3/ZV-E1 69码 6933064626616 名称 索尼 NP-FZ100 Type-C充电 2520mAh 相机电池 极光系列/3C 型号 CN090 电压 7.2V 充电限制电压 8.4v 典型容量/典型瓦时 2520mAh/18.15Wh 额定容量/额定瓦时 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 产品尺寸 5.1*3.8*2.2cm 净重重量 约80g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约735张 录制时间 约4.1h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854634 适用相机型号 A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/FX30/A7R5/A7CR/A7C2/FX3/ZV-E1 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="索尼">
+      <div class="card-head">
+        <span class="brand">索尼</span>
+        <h2>【NP-FZ100】 (Type-C充电)-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_dbb0_5d42_00a0" class="main-img" src="images/4eab18f44158f6.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/4eab18f44158f6.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/f8a218014d5a7f.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/214411f5890f2c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/0dff9375b24c5d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/ef0d1819545f2d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/458e38d6a08e39.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064626616</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN090</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN090</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN090<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064626616</td></tr><tr><td>名称</td><td>索尼 NP-FZ100 Type-C充电 2520mAh 相机电池 极光系列/3C</td></tr><tr><td>型号</td><td>CN090</td></tr><tr><td>电压</td><td>7.2V</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>5.1*3.8*2.2cm</td></tr><tr><td>净重重量</td><td>约80g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约735张</td></tr><tr><td>录制时间</td><td>约4.1h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854634</td></tr><tr><td>适用相机型号</td><td>A9/A7R3 ILCE-9 ,a7r4,a7r3,a7m3,a6600/A7S3/A7C/A9M2/FX30/A7R5/A7CR/A7C2/FX3/ZV-E1</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_dbb0_5d42_00a0" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_dbb0_5d42_00a0',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_6310_63e0" data-k="佳能 【LP-E12】 (Type-C充电) CN019 佳能 LP-E12 Type-C充电 相机电池 750mAh/3C 6933064622526 CN019 7.4v 8.4v 750mAh/5.55Wh 712mAh/5.27Wh 4.8x3.3x1.3cm 约37.1g ABS 锂电池 约530 约90min GB31241-2022 是 2026010915855281 EOS M M2 M10 SX70 100D M200 M100 M50 M50 MarkII 名称 佳能 LP-E12 Type-C充电 相机电池 750mAh/3C 69码 6933064622526 型号 CN019 电压 7.4v 充电限制电压 8.4v 典型容量/典型瓦时 750mAh/5.55Wh 额定容量/额定瓦时 712mAh/5.27Wh 产品尺寸 4.8x3.3x1.3cm 净重重量 约37.1g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约530 录制时间（min） 约90min 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915855281 适用相机型号 EOS M M2 M10 SX70 100D M200 M100 M50 M50 MarkII Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E12】 (Type-C充电)</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 750mAh/5.55Wh</span>
+          <span class="volt-badge">⚡ 7.4v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_6310_63e0" class="main-img" src="images/c9ab0ba90ae35a.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/c9ab0ba90ae35a.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_63e0',this.src,this.alt,this)"><img class="thumb" src="images/3d0d96a43ba37c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_63e0',this.src,this.alt,this)"><img class="thumb" src="images/9c4fc6008aa8f4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_63e0',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">750mAh/5.55Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">712mAh/5.27Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064622526</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN019</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN019</b>（750mAh/5.55Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN019<br><span class="vcap">750mAh/5.55Wh</span></th></tr><tr><td>名称</td><td>佳能 LP-E12 Type-C充电 相机电池 750mAh/3C</td></tr><tr><td>69码</td><td>6933064622526</td></tr><tr><td>型号</td><td>CN019</td></tr><tr><td>电压</td><td>7.4v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>750mAh/5.55Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>712mAh/5.27Wh</td></tr><tr><td>产品尺寸</td><td>4.8x3.3x1.3cm</td></tr><tr><td>净重重量</td><td>约37.1g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约530</td></tr><tr><td>录制时间（min）</td><td>约90min</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915855281</td></tr><tr><td>适用相机型号</td><td>EOS M M2 M10 SX70 100D M200 M100 M50 M50 MarkII</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_6310_63e0" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_6310_63e0',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_6310_e301" data-k="佳能 【LP-E17】（Type-C充电）-半解码 CN021 6933064622540 CN021 7.4V 8.4v 950mAh/7.03Wh 905mAh/6.7Wh 5V⎓1A（MAX） 4.9x3.3x1.6cm 约35.3g ABS 锂电池 约286张 约3.8h 约4.5h GB31241-2022 否 2026010915854676 EOS 750D EOS760D EOS 00D EOS200D EOS770D EOS M3 EOSM5 EOSM6 RP 760D 200DII 77D 800D 850D EOS-X8I M6 R50 R10 69码 6933064622540 型号 CN021 电压 7.4V 充电限制电压 8.4v 典型容量/典型瓦时 950mAh/7.03Wh 额定容量/额定瓦时 905mAh/6.7Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 4.9x3.3x1.6cm 净重重量 约35.3g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约286张 录制时间 约3.8h 充电时间 约4.5h 执行标准 GB31241-2022 是否全解码 否 3C编号 2026010915854676 适用相机型号 EOS 750D EOS760D EOS 00D EOS200D EOS770D EOS M3 EOSM5 EOSM6 RP 760D 200DII 77D 800D 850D EOS-X8I M6 R50 R10 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 无法使用原装充电器，只能搭配我们的充电器 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E17】（Type-C充电）-半解码</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 950mAh/7.03Wh</span>
+          <span class="volt-badge">⚡ 7.4V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_6310_e301" class="main-img" src="images/c5fab90631b372.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/c5fab90631b372.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_e301',this.src,this.alt,this)"><img class="thumb" src="images/4af2431439601e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_e301',this.src,this.alt,this)"><img class="thumb" src="images/65d052718d0db5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_e301',this.src,this.alt,this)"><img class="thumb" src="images/cb9f285a041d52.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_e301',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">950mAh/7.03Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">905mAh/6.7Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064622540</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN021</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN021</b>（950mAh/7.03Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN021<br><span class="vcap">950mAh/7.03Wh</span></th></tr><tr><td>69码</td><td>6933064622540</td></tr><tr><td>型号</td><td>CN021</td></tr><tr><td>电压</td><td>7.4V</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>950mAh/7.03Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>905mAh/6.7Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>4.9x3.3x1.6cm</td></tr><tr><td>净重重量</td><td>约35.3g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约286张</td></tr><tr><td>录制时间</td><td>约3.8h</td></tr><tr><td>充电时间</td><td>约4.5h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>否</td></tr><tr><td>3C编号</td><td>2026010915854676</td></tr><tr><td>适用相机型号</td><td>EOS 750D EOS760D EOS 00D EOS200D EOS770D EOS M3 EOSM5 EOSM6 RP 760D 200DII 77D 800D 850D EOS-X8I M6 R50 R10</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_6310_e301" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li><li>无法使用原装充电器，只能搭配我们的充电器</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_6310_e301',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_6310_1016" data-k="佳能 【LP-E6P】 (Type-C充电) CN105 6933064627163 CN105 7.2 8.4v 2320mAh/16.7Wh 2200mAh/15.84Wh 5.6x3.8x2.1cm 约70g ABS 锂电池 约960张 约3.5h 约5H GB31241-2022 是 2026010915855206 EOS 5D Mark III / 5D Mark II / 6D / 7D / 70D / 60D / 60Da/R6/ R5/ R7/ 80D/ 90D /5D4 /5D3 /5d2 /5DS/ 5DMark4/ 6DMark II/R62 R5M2 69码 6933064627163 型号 CN105 电压 7.2 充电限制电压 8.4v 典型容量/典型瓦时 2320mAh/16.7Wh 额定容量/额定瓦时 2200mAh/15.84Wh 产品尺寸 5.6x3.8x2.1cm 净重重量 约70g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约960张 录制时间 约3.5h 充电时间 约5H 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915855206 适用相机型号 EOS 5D Mark III / 5D Mark II / 6D / 7D / 70D / 60D / 60Da/R6/ R5/ R7/ 80D/ 90D /5D4 /5D3 /5d2 /5DS/ 5DMark4/ 6DMark II/R62 R5M2 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 R5M2只能用E6P 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E6P】 (Type-C充电)</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2320mAh/16.7Wh</span>
+          <span class="volt-badge">⚡ 7.2</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_6310_1016" class="main-img" src="images/c47c1bf367a2b9.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/c47c1bf367a2b9.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_1016',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2320mAh/16.7Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2200mAh/15.84Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064627163</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN105</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN105</b>（2320mAh/16.7Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN105<br><span class="vcap">2320mAh/16.7Wh</span></th></tr><tr><td>69码</td><td>6933064627163</td></tr><tr><td>型号</td><td>CN105</td></tr><tr><td>电压</td><td>7.2</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2320mAh/16.7Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2200mAh/15.84Wh</td></tr><tr><td>产品尺寸</td><td>5.6x3.8x2.1cm</td></tr><tr><td>净重重量</td><td>约70g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约960张</td></tr><tr><td>录制时间</td><td>约3.5h</td></tr><tr><td>充电时间</td><td>约5H</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915855206</td></tr><tr><td>适用相机型号</td><td>EOS 5D Mark III / 5D Mark II / 6D / 7D / 70D / 60D / 60Da/R6/ R5/ R7/ 80D/ 90D /5D4 /5D3 /5d2 /5DS/ 5DMark4/ 6DMark II/R62 R5M2</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_6310_1016" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li><li>R5M2只能用E6P</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_6310_1016',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_6310_ac54" data-k="佳能 【LP-E6NH】 (Type-C充电) CN015 CN077 6933064622472 6933064625374 佳能 LP-E6NH Type-C充电 相机电池 2320mAh/3C 佳能 LP-E6NH Type-C充电 相机电池 2520mAh/3C CN015 CN077 7.2V 7.2V 8.4v 8.4v 2320mAh/16.71Wh 2520mAh/18.15Wh 2200mAh/15.84Wh 2400mAh/17.28Wh 5.6x3.8x2.1cm 5.6x3.8x2.1cm 约78.7g 约81.6g ABS ABS 锂电池 锂电池 约960张 约1042张 约3.5h 约3.8h GB31241-2022 GB31241-2022 是 是 2026010915855207 2026010915854922 D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV 69码 6933064622472 6933064625374 名称 佳能 LP-E6NH Type-C充电 相机电池 2320mAh/3C 佳能 LP-E6NH Type-C充电 相机电池 2520mAh/3C 型号 CN015 CN077 电压 7.2V 7.2V 充电限制电压 8.4v 8.4v 典型容量/典型瓦时 2320mAh/16.71Wh 2520mAh/18.15Wh 额定容量/额定瓦时 2200mAh/15.84Wh 2400mAh/17.28Wh 产品尺寸 5.6x3.8x2.1cm 5.6x3.8x2.1cm 净重重量 约78.7g 约81.6g 材质 ABS ABS 电池类型 锂电池 锂电池 CIPA方式拍照张数 约960张 约1042张 录制时间 约3.5h 约3.8h 执行标准 GB31241-2022 GB31241-2022 是否全解码 是 是 3C编号 2026010915855207 2026010915854922 适用相机型号 D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电亮红灯，充满亮绿灯 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E6NH】 (Type-C充电)</h2>
+        <span class="mv-badge">多容量版本</span>
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2320mAh/16.71Wh / 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2V / 7.2V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_6310_ac54" class="main-img" src="images/639e8b7048c9c1.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/639e8b7048c9c1.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_ac54',this.src,this.alt,this)"><img class="thumb" src="images/fd3b446f782beb.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_ac54',this.src,this.alt,this)"><img class="thumb" src="images/0c90af8bf7265b.jpg" alt="2520mAh" loading="lazy" onclick="setMain('fc99_c201_6310_ac54',this.src,this.alt,this)"><img class="thumb" src="images/a3eb4f5c5d0157.jpg" alt="2320mAh" loading="lazy" onclick="setMain('fc99_c201_6310_ac54',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2320mAh/16.71Wh / 2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2200mAh/15.84Wh / 2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2V / 7.2V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v / 8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064622472 / 6933064625374</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN015 / CN077</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 2 个容量版本 — <b>CN015</b>（2320mAh/16.71Wh） · <b>CN077</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN015<br><span class="vcap">2320mAh/16.71Wh</span></th><th>CN077<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>69码</td><td>6933064622472</td><td>6933064625374</td></tr><tr><td>名称</td><td>佳能 LP-E6NH Type-C充电 相机电池 2320mAh/3C</td><td>佳能 LP-E6NH Type-C充电 相机电池 2520mAh/3C</td></tr><tr><td>型号</td><td>CN015</td><td>CN077</td></tr><tr><td>电压</td><td>7.2V</td><td>7.2V</td></tr><tr><td>充电限制电压</td><td>8.4v</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2320mAh/16.71Wh</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2200mAh/15.84Wh</td><td>2400mAh/17.28Wh</td></tr><tr><td>产品尺寸</td><td>5.6x3.8x2.1cm</td><td>5.6x3.8x2.1cm</td></tr><tr><td>净重重量</td><td>约78.7g</td><td>约81.6g</td></tr><tr><td>材质</td><td>ABS</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约960张</td><td>约1042张</td></tr><tr><td>录制时间</td><td>约3.5h</td><td>约3.8h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915855207</td><td>2026010915854922</td></tr><tr><td>适用相机型号</td><td>D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV</td><td>D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_6310_ac54" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电亮红灯，充满亮绿灯</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_6310_ac54',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_3c80_6bca" data-k="佳能 【LP-E17】 (Type-C充电) -极光系列 CN114 佳能 LP-E17 Type-C充电 相机电池 950mAh 极光系列/3C 6933064630071 CN114 7.4V 8.4v 950mAh/7.03Wh 930mAh/6.89Wh 5V⎓1A（MAX） 49.2*33*14mm 约41.9g ABS 锂电池 约286张 约1.9小时 GB31241-2022 否 2026010915854747 EOS 750D/EOS 760D/EOS 200D/EOS 200D2/EOS 77D/EOS M3/EOS M5/EOS M6/EOS RP/750D/760D/800D/EOS 850D/M6/M6 Mark2 名称 佳能 LP-E17 Type-C充电 相机电池 950mAh 极光系列/3C 69码 6933064630071 型号 CN114 电压 7.4V 充电限制电压 8.4v 典型容量/典型瓦时 950mAh/7.03Wh 额定容量/额定瓦时 930mAh/6.89Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 49.2*33*14mm 净重重量 约41.9g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约286张 录制时间 约1.9小时 执行标准 GB31241-2022 是否全解码 否 3C编号 2026010915854747 适用相机型号 EOS 750D/EOS 760D/EOS 200D/EOS 200D2/EOS 77D/EOS M3/EOS M5/EOS M6/EOS RP/750D/760D/800D/EOS 850D/M6/M6 Mark2 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E17】 (Type-C充电) -极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 950mAh/7.03Wh</span>
+          <span class="volt-badge">⚡ 7.4V</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_3c80_6bca" class="main-img" src="images/246f9276975164.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/246f9276975164.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_6bca',this.src,this.alt,this)"><img class="thumb" src="images/e26207fb71f051.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_6bca',this.src,this.alt,this)"><img class="thumb" src="images/f0a3ade9cb88ab.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_6bca',this.src,this.alt,this)"><img class="thumb" src="images/b7e942e2994971.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_6bca',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">950mAh/7.03Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">930mAh/6.89Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4V</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064630071</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN114</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN114</b>（950mAh/7.03Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN114<br><span class="vcap">950mAh/7.03Wh</span></th></tr><tr><td>名称</td><td>佳能 LP-E17 Type-C充电 相机电池 950mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064630071</td></tr><tr><td>型号</td><td>CN114</td></tr><tr><td>电压</td><td>7.4V</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>950mAh/7.03Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>930mAh/6.89Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>49.2*33*14mm</td></tr><tr><td>净重重量</td><td>约41.9g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约286张</td></tr><tr><td>录制时间</td><td>约1.9小时</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>否</td></tr><tr><td>3C编号</td><td>2026010915854747</td></tr><tr><td>适用相机型号</td><td>EOS 750D/EOS 760D/EOS 200D/EOS 200D2/EOS 77D/EOS M3/EOS M5/EOS M6/EOS RP/750D/760D/800D/EOS 850D/M6/M6 Mark2</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_3c80_6bca" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_3c80_6bca',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_3c80_3725" data-k="佳能 【LP-E10】 (Type-C充电) -极光系列 CN112 佳能 LP-E10 Type-C充电 相机电池 1020mAh 极光系列/3C 6933064629990 CN112 7.4v 8.4v 1020mAh/7.55Wh 950mAh/7.03Wh 5V⎓1A（MAX） 49x35x15mm 约48.2g ABS 锂电池 约414张 约2.4小时 GB31241-2022 是 2026010915854660 EOS 1100D/ X50/ T3 /1200D /HI /KISS X70/REBEL T5/1300D /KISS X80/REBEL T6/1500D/2000D/KISS X90/KISS T7/3000D/4000D 名称 佳能 LP-E10 Type-C充电 相机电池 1020mAh 极光系列/3C 69码 6933064629990 型号 CN112 电压 7.4v 充电限制电压 8.4v 典型容量/典型瓦时 1020mAh/7.55Wh 额定容量/额定瓦时 950mAh/7.03Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 49x35x15mm 净重重量 约48.2g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约414张 录制时间 约2.4小时 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854660 适用相机型号 EOS 1100D/ X50/ T3 /1200D /HI /KISS X70/REBEL T5/1300D /KISS X80/REBEL T6/1500D/2000D/KISS X90/KISS T7/3000D/4000D Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E10】 (Type-C充电) -极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 1020mAh/7.55Wh</span>
+          <span class="volt-badge">⚡ 7.4v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_3c80_3725" class="main-img" src="images/dfee52ca33f855.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/dfee52ca33f855.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_3725',this.src,this.alt,this)"><img class="thumb" src="images/4329b375c5442f.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_3725',this.src,this.alt,this)"><img class="thumb" src="images/9c142fd22fcdb8.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_3725',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">1020mAh/7.55Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">950mAh/7.03Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064629990</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN112</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN112</b>（1020mAh/7.55Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN112<br><span class="vcap">1020mAh/7.55Wh</span></th></tr><tr><td>名称</td><td>佳能 LP-E10 Type-C充电 相机电池 1020mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064629990</td></tr><tr><td>型号</td><td>CN112</td></tr><tr><td>电压</td><td>7.4v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>1020mAh/7.55Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>950mAh/7.03Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>49x35x15mm</td></tr><tr><td>净重重量</td><td>约48.2g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约414张</td></tr><tr><td>录制时间</td><td>约2.4小时</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854660</td></tr><tr><td>适用相机型号</td><td>EOS 1100D/ X50/ T3 /1200D /HI /KISS X70/REBEL T5/1300D /KISS X80/REBEL T6/1500D/2000D/KISS X90/KISS T7/3000D/4000D</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_3c80_3725" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_3c80_3725',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_3c80_0f28" data-k="佳能 【LP-E12】（Type-C充电）-极光系列  佳能 LP-E12 Type-C充电 相机电池 750mAh 极光系列/3C 6933064630064 7.4v 8.4v 750mAh/5.55Wh 712mAh/5.27Wh 4.8x3.3x1.3cm 约37.5g ABS 锂电池 约530张 约90min GB31241-2022 是 2026010915854658 EOS M M2 M10 SX70 100D M200 M100 M50 M50 MarkII 名称 佳能 LP-E12 Type-C充电 相机电池 750mAh 极光系列/3C 69码 6933064630064 电压 7.4v 充电限制电压 8.4v 典型容量/典型瓦时 750mAh/5.55Wh 额定容量/额定瓦时 712mAh/5.27Wh 产品尺寸 4.8x3.3x1.3cm 净重重量 约37.5g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约530张 录制时间（min） 约90min 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854658 适用相机型号 EOS M M2 M10 SX70 100D M200 M100 M50 M50 MarkII Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E12】（Type-C充电）-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 750mAh/5.55Wh</span>
+          <span class="volt-badge">⚡ 7.4v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_3c80_0f28" class="main-img" src="images/5b9f4cc930683f.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/5b9f4cc930683f.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_0f28',this.src,this.alt,this)"><img class="thumb" src="images/c141d173624794.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_0f28',this.src,this.alt,this)"><img class="thumb" src="images/21422371969479.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_0f28',this.src,this.alt,this)"><img class="thumb" src="images/eb7c8ef804378e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_0f28',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">750mAh/5.55Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">712mAh/5.27Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064630064</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="tablewrap"><table class="ptable"><tr><td>名称</td><td>佳能 LP-E12 Type-C充电 相机电池 750mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064630064</td></tr><tr><td>电压</td><td>7.4v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>750mAh/5.55Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>712mAh/5.27Wh</td></tr><tr><td>产品尺寸</td><td>4.8x3.3x1.3cm</td></tr><tr><td>净重重量</td><td>约37.5g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约530张</td></tr><tr><td>录制时间（min）</td><td>约90min</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854658</td></tr><tr><td>适用相机型号</td><td>EOS M M2 M10 SX70 100D M200 M100 M50 M50 MarkII</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_3c80_0f28" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_3c80_0f28',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_3c80_de62" data-k="佳能 【LP-E6NH】（Type-C充电）-极光系列 CN091 佳能 LP-E6NH Type-C充电 2520mAh 相机电池 极光系列/3C 6933064626623 CN091 7.2v 8.4v 2520mAh/18.15Wh 2400mAh/17.28W 5v2a 5.5x3.8x2cm 约82.9g ABS 锂电池 1042 3.8h GB31241-2022 是 2026010915854652 D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV 名称 佳能 LP-E6NH Type-C充电 2520mAh 相机电池 极光系列/3C 69码 6933064626623 型号 CN091 电压 7.2v 充电限制电压 8.4v 典型容量/典型瓦时 2520mAh/18.15Wh 额定容量/额定瓦时 2400mAh/17.28W 输入电压 5v2a 产品尺寸 5.5x3.8x2cm 净重重量 约82.9g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 1042 录制时间 3.8h 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854652 适用相机型号 D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E6NH】（Type-C充电）-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_3c80_de62" class="main-img" src="images/d09c86ea7f0d90.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/d09c86ea7f0d90.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_de62',this.src,this.alt,this)"><img class="thumb" src="images/0e2c93ca5434e1.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_de62',this.src,this.alt,this)"><img class="thumb" src="images/c7b1005af574e4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_de62',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2400mAh/17.28W</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064626623</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN091</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN091</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN091<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>名称</td><td>佳能 LP-E6NH Type-C充电 2520mAh 相机电池 极光系列/3C</td></tr><tr><td>69码</td><td>6933064626623</td></tr><tr><td>型号</td><td>CN091</td></tr><tr><td>电压</td><td>7.2v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2400mAh/17.28W</td></tr><tr><td>输入电压</td><td>5v2a</td></tr><tr><td>产品尺寸</td><td>5.5x3.8x2cm</td></tr><tr><td>净重重量</td><td>约82.9g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>1042</td></tr><tr><td>录制时间</td><td>3.8h</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854652</td></tr><tr><td>适用相机型号</td><td>D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_3c80_de62" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_3c80_de62',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_3c80_cc00" data-k="佳能 【LP-E8】（Type-C充电）-极光系列 CN111 佳能 LP-E8 Type-C充电 相机电池 1020mAh 极光系列/3C 6933064629983 CN111 7.4v 8.4v 1020mAh/7.55Wh 970mAh/7.18Wh 5V⎓1A（MAX） 55.8*37*15.2mm 约50.2g ABS 锂电池 约520张 约1.9小时 GB31241-2022 是 2026010915854744 700D/600D/550D/650D/EOS 700D/X7i /X6 / X5/X4 名称 佳能 LP-E8 Type-C充电 相机电池 1020mAh 极光系列/3C 69码 6933064629983 型号 CN111 电压 7.4v 充电限制电压 8.4v 典型容量/典型瓦时 1020mAh/7.55Wh 额定容量/额定瓦时 970mAh/7.18Wh USB-C输入 5V⎓1A（MAX） 产品尺寸 55.8*37*15.2mm 净重重量 约50.2g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约520张 录制时间 约1.9小时 执行标准 GB31241-2022 是否全解码 是 3C编号 2026010915854744 适用相机型号 700D/600D/550D/650D/EOS 700D/X7i /X6 / X5/X4 Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E8】（Type-C充电）-极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 1020mAh/7.55Wh</span>
+          <span class="volt-badge">⚡ 7.4v</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_3c80_cc00" class="main-img" src="images/0553c8f059b2d5.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/0553c8f059b2d5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"><img class="thumb" src="images/2d4fbb2fc092bf.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"><img class="thumb" src="images/521e297b0c3557.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"><img class="thumb" src="images/e4ca83a43a71f9.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"><img class="thumb" src="images/936e6431fedda3.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">1020mAh/7.55Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">970mAh/7.18Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.4v</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064629983</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN111</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN111</b>（1020mAh/7.55Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN111<br><span class="vcap">1020mAh/7.55Wh</span></th></tr><tr><td>名称</td><td>佳能 LP-E8 Type-C充电 相机电池 1020mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064629983</td></tr><tr><td>型号</td><td>CN111</td></tr><tr><td>电压</td><td>7.4v</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>1020mAh/7.55Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>970mAh/7.18Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓1A（MAX）</td></tr><tr><td>产品尺寸</td><td>55.8*37*15.2mm</td></tr><tr><td>净重重量</td><td>约50.2g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约520张</td></tr><tr><td>录制时间</td><td>约1.9小时</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>2026010915854744</td></tr><tr><td>适用相机型号</td><td>700D/600D/550D/650D/EOS 700D/X7i /X6 / X5/X4</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_3c80_cc00" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_3c80_cc00',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div>
+    <div class="card" id="m_fc99_c201_3c80_b58e" data-k="佳能 【LP-E6P】 (Type-C充电) -极光系列 CN106 佳能 LP-E6P Type-C充电 相机电池 2520mAh 极光系列/3C 6933064627170 CN106 7.2 8.4v 2520mAh/18.15Wh 2400mAh/17.28Wh 5V⎓2A（MAX） 5.6x3.8x2.1cm 约83.7g ABS 锂电池 约1042张 约3.8h 约5H GB31241-2022 是 暂无 D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV/M5 MarkⅡ 名称 佳能 LP-E6P Type-C充电 相机电池 2520mAh 极光系列/3C 69码 6933064627170 型号 CN106 电压 7.2 充电限制电压 8.4v 典型容量/典型瓦时 2520mAh/18.15Wh 额定容量/额定瓦时 2400mAh/17.28Wh USB-C输入 5V⎓2A（MAX） 产品尺寸 5.6x3.8x2.1cm 净重重量 约83.7g 材质 ABS 电池类型 锂电池 CIPA方式拍照张数 约1042张 录制时间 约3.8h 充电时间 约5H 执行标准 GB31241-2022 是否全解码 是 3C编号 暂无 适用相机型号 D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV/M5 MarkⅡ Type-C充电，一根线就能解决 充电宝也能充电 传统的充电器也能充电 便携、小巧、减负出行 注意不要进水、不要金属利物碰触五金，造成电池短路 充电时闪烁，充满常亮满格。 点击跳转-相机直冲电池通用FAQ 点击跳转-相机直冲电池通用FAQ" data-brand="佳能">
+      <div class="card-head">
+        <span class="brand">佳能</span>
+        <h2>【LP-E6P】 (Type-C充电) -极光系列</h2>
+        
+        <span class="type">可直充电池</span>
+        <span class="head-badges">
+          <span class="cap-badge">🔋 2520mAh/18.15Wh</span>
+          <span class="volt-badge">⚡ 7.2</span>
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="left">
+          <div class="mainimg">
+            <img id="MAIN_fc99_c201_3c80_b58e" class="main-img" src="images/8d3273dbe75129.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+          </div>
+          <div class="thumbs"><img class="thumb active" src="images/8d3273dbe75129.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_b58e',this.src,this.alt,this)"><img class="thumb" src="images/2089e6ccb837a3.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_b58e',this.src,this.alt,this)"><img class="thumb" src="images/1f1cc337a96df1.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_b58e',this.src,this.alt,this)"><img class="thumb" src="images/cc2dfefaa3f41e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_b58e',this.src,this.alt,this)"></div>
+        </div>
+        <div class="right">
+          <h3 class="pt">核心参数</h3>
+          <div class="speclist"><div class="spec"><span class="sk">典型容量/典型瓦时</span><span class="sv">2520mAh/18.15Wh</span></div><div class="spec"><span class="sk">额定容量/额定瓦时</span><span class="sv">2400mAh/17.28Wh</span></div><div class="spec"><span class="sk">电压</span><span class="sv">7.2</span></div><div class="spec"><span class="sk">充电限制电压</span><span class="sv">8.4v</span></div><div class="spec"><span class="sk">69码</span><span class="sv">6933064627170</span></div><div class="spec"><span class="sk">型号</span><span class="sv">CN106</span></div></div>
+          <h3 class="pt">完整参数表</h3>
+          <div class="cap-note">⚠️ <b>不同容量区别：</b>本型号含 1 个容量版本 — <b>CN106</b>（2520mAh/18.15Wh）。请根据相机续航/体积需求选择对应容量版本。</div><div class="tablewrap"><table class="ptable"><tr><th>参数</th><th>CN106<br><span class="vcap">2520mAh/18.15Wh</span></th></tr><tr><td>名称</td><td>佳能 LP-E6P Type-C充电 相机电池 2520mAh 极光系列/3C</td></tr><tr><td>69码</td><td>6933064627170</td></tr><tr><td>型号</td><td>CN106</td></tr><tr><td>电压</td><td>7.2</td></tr><tr><td>充电限制电压</td><td>8.4v</td></tr><tr><td>典型容量/典型瓦时</td><td>2520mAh/18.15Wh</td></tr><tr><td>额定容量/额定瓦时</td><td>2400mAh/17.28Wh</td></tr><tr><td>USB-C输入</td><td>5V⎓2A（MAX）</td></tr><tr><td>产品尺寸</td><td>5.6x3.8x2.1cm</td></tr><tr><td>净重重量</td><td>约83.7g</td></tr><tr><td>材质</td><td>ABS</td></tr><tr><td>电池类型</td><td>锂电池</td></tr><tr><td>CIPA方式拍照张数</td><td>约1042张</td></tr><tr><td>录制时间</td><td>约3.8h</td></tr><tr><td>充电时间</td><td>约5H</td></tr><tr><td>执行标准</td><td>GB31241-2022</td></tr><tr><td>是否全解码</td><td>是</td></tr><tr><td>3C编号</td><td>暂无</td></tr><tr><td>适用相机型号</td><td>D5000 /D3000/ D700/ D100 /D60/ D40/ D40X /R5/ R6/ R /90D /80D /70D/ 60D /60Da /7DMark II /7D /6D 6DMark II / 5DS R / 5DMark II/5DMark III/5DS/5DMark IV/M5 MarkⅡ</td></tr></table></div>
+        </div>
+      </div>
+      <div class="details" id="det_fc99_c201_3c80_b58e" hidden><div class="sec"><h3>卖点</h3><ul><li>Type-C充电，一根线就能解决</li><li>充电宝也能充电</li><li>传统的充电器也能充电</li><li>便携、小巧、减负出行</li></ul></div><div class="sec"><h3>注意事项</h3><ul><li>注意不要进水、不要金属利物碰触五金，造成电池短路</li><li>充电时闪烁，充满常亮满格。</li></ul></div><div class="sec"><h3>四、售前FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div><div class="sec"><h3>五、售后FAQ</h3><p>点击跳转-相机直冲电池通用FAQ</p></div></div><button class="toggle" onclick="toggleDet('det_fc99_c201_3c80_b58e',this)">▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）</button>
+      <div class="tutorial">
+        <h3 class="pt">使用教程 / 说明书</h3>
+        <p class="filebox">📄 <a href="pdf/相机电池通用说明书.pdf" target="_blank" rel="noopener">【绿巨能】常规款-相机充电电池_通用说明书 2024.10.29.pdf（PDF）</a></p>
+        <p class="vnote">📹 <b>使用视频：</b>绿巨能该知识库<b>未提供</b>按型号的使用视频；上方为官方《相机电池通用说明书》PDF，含安装与使用方法。如需视频教程请提供链接，我可补充。</p>
+      </div>
+    </div></div>
+  <div class="nomatch" id="nomatch">未找到匹配的型号，请尝试其他关键词。</div>
+</div>
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+<div id="lightbox" onclick="closeLightbox()"><img id="lbImg" src=""></div>
+<script>
+function openLightbox(src,alt){document.getElementById('lbImg').src=src;document.getElementById('lightbox').style.display='flex';}
+function closeLightbox(){document.getElementById('lightbox').style.display='none';}
+function setMain(aid,src,alt,el){var m=document.getElementById('MAIN_'+aid);if(m){m.src=src;m.alt=alt;}document.querySelectorAll('.thumb').forEach(function(t){t.classList.remove('active');});if(el)el.classList.add('active');}
+function toggleDet(id,btn){var d=document.getElementById(id);var open=d.hasAttribute('hidden');if(open){d.removeAttribute('hidden');btn.textContent='▴ 收起详情';}else{d.setAttribute('hidden','');btn.textContent='▾ 展开详情（卖点 / 注意事项 / 说明 / FAQ）';}}
+window.addEventListener('scroll',function(){document.getElementById('backTop').style.display=window.scrollY>400?'block':'none';});
+var brandFilter='__ALL__';
+function norm(s){return (s||'').toLowerCase();}
+function applyFilter(){
+  var q=norm(document.getElementById('q').value.trim());
+  var cards=document.querySelectorAll('.card');
+  var visibleBrands={}; var n=0;
+  cards.forEach(function(c){
+    var k=norm(c.getAttribute('data-k'));
+    var b=c.getAttribute('data-brand');
+    var okB = brandFilter==='__ALL__' || b===brandFilter;
+    var okQ = !q || k.indexOf(q)>=0;
+    var show = okB && okQ;
+    c.style.display = show?'':'none';
+    if(show){ n++; visibleBrands[b]=1; }
+  });
+  document.getElementById('cnt').textContent = (q||brandFilter!=='__ALL__') ? ('匹配 '+n+' 个') : '';
+  document.getElementById('nomatch').style.display = n===0 ? 'block' : 'none';
+  document.querySelectorAll('.idx-brand').forEach(function(ib){
+    ib.style.display = visibleBrands[ib.getAttribute('data-b')] ? '' : 'none';
+  });
+}
+function toggleBrand(el){
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active');
+  brandFilter=el.getAttribute('data-b');
+  applyFilter();
+}
+function clearFilter(){document.getElementById('q').value='';brandFilter='__ALL__';document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('active',c.getAttribute('data-b')==='__ALL__');});applyFilter();}
+</script>
+
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:#fff;border-right:1px solid #e8eaed;box-shadow:2px 0 12px rgba(0,0,0,.06);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#1f2937;}
+.wb-sidebar h2 a{color:#0f3460;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px;padding-left:8px;border-left:4px solid #9ca3af;}
+.wb-brand.ljn .wb-brand-title{border-color:#16a34a;}
+.wb-brand.ys .wb-brand-title{border-color:#2563eb;}
+.wb-brand.mm .wb-brand-title{border-color:#ea580c;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:6px;color:#4b5563;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:#f3f4f6;color:#111827;}
+.wb-sidebar a.active{background:#eef2ff;color:#0f3460;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:8px 10px;background:#f3f4f6;border-radius:6px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;text-align:center;}
+.wb-sidebar .home-link:hover{background:#e5e7eb;}
+.wb-sidebar .note{padding:6px 10px;color:#9ca3af;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:36px;height:36px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);font-size:18px;line-height:34px;text-align:center;cursor:pointer;}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const cur=location.pathname.split('/').pop();
+  const data=[
+    {brand:'绿巨能',cls:'ljn',color:'#16a34a',items:[
+      {n:'单反相机三脚架',f:'../ljn-tripod.html'},{n:'笔记本电池',f:'../ljn-battery.html'},
+      {n:'二合一读卡器',f:'../ljn-reader-2in1.html'},{n:'多合一读卡器',f:'../ljn-reader-multi.html'},
+      {n:'相机电池（汇总）',f:'index.html'},{n:'相机干电池',f:'相机干电池.html'},{n:'相机可直充电池',f:'相机可直充电池.html'}
+    ]},
+    {brand:'影石',cls:'ys',color:'#2563eb',items:[
+      {n:'迷你脚架自拍杆',f:'../ys-mini-stand.html'},{n:'隐形自拍杆',f:'../ys-invisible-rod.html'},{n:'自行车码表支架',f:'../ys-bike-mount.html'}
+    ]},
+    {brand:'猛犸',cls:'mm',color:'#ea580c',items:[
+      {n:'极影S 无线图传',f:'../manta-jiyings.html'},{n:'LARK M3',f:'../manta-lark-m3.html'},{n:'LARK MIX',f:'../manta-lark-mix.html'},
+      {n:'MELO P1',f:'../manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'../manta-melo-p1-faq.html'}
+    ]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="../index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+it.f+'" class="'+(it.f.split('/').pop()===cur?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body></html>
