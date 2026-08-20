@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>印迹 iFootage Pico 双轴电控滑轨 · 全系对比</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--text:#1d1d1f;--muted:#6e6e73;--accent:#0071e3;--accent2:#ff9500;--border:#e5e5ea;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 18px 60px;}
+header{text-align:center;padding:30px 0 18px;}
+header h1{font-size:1.9rem;font-weight:800;letter-spacing:.5px;}
+header .sub{color:var(--muted);margin-top:8px;font-size:.95rem;}
+.note{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 16px;color:var(--muted);font-size:.82rem;margin:14px 0 6px;}
+.section{margin-top:34px;}
+html{scroll-behavior:smooth;}
+.section{scroll-margin-top:66px;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(10px);-webkit-backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border);margin:14px -18px 0;padding:10px 18px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.nav a{color:var(--text);text-decoration:none;font-size:.84rem;font-weight:600;padding:6px 13px;border-radius:20px;background:#f0f0f3;white-space:nowrap;transition:.15s;}
+.nav a:hover{background:var(--accent);color:#fff;}
+.nav a.active{background:var(--accent);color:#fff;}
+
+.section h2{font-size:1.35rem;font-weight:750;margin-bottom:14px;padding-left:12px;border-left:5px solid var(--accent);}
+.section h3{font-size:1.05rem;font-weight:700;margin:18px 0 10px;color:var(--text);}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+.chip{background:#eef5ff;color:var(--accent);border-radius:20px;padding:6px 14px;font-size:.85rem;font-weight:600;}
+.chip.ctrl{background:#fff4e6;color:#c77700;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);}
+.ptitle{font-size:1.15rem;font-weight:750;margin-bottom:10px;}
+.mainimg{width:100%;border-radius:12px;cursor:zoom-in;display:block;background:#f0f0f3;}
+.thumbs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.thumb{width:64px;height:64px;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer;}
+.thumb.on{border-color:var(--accent);}
+.desc{font-size:.9rem;color:#333;margin:12px 0;}
+.spec{width:100%;border-collapse:collapse;font-size:.85rem;}
+.spec th{text-align:left;color:var(--muted);font-weight:600;padding:6px 8px;width:38%;background:#fafafc;}
+.spec td{padding:6px 8px;border-top:1px solid var(--border);}
+.skutag{margin-top:10px;font-size:.78rem;color:var(--muted);background:#f5f5f7;border-radius:8px;padding:5px 10px;display:inline-block;}
+.compare-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.04);font-size:.88rem;}
+.compare-table th,.compare-table td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;}
+.compare-table thead th{background:var(--accent);color:#fff;font-weight:700;}
+.compare-table tbody th{background:#fafafc;color:var(--muted);font-weight:600;width:30%;}
+.compare-table tr.hl td{background:#fff8ef;}
+.compare-table tr.hl th{background:#fff3e0;}
+.listing{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.lbox{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;}
+.lbox h4{font-size:1rem;margin-bottom:10px;}
+.lbox ul{list-style:none;}
+.lbox li{padding:5px 0;border-bottom:1px dashed var(--border);font-size:.88rem;}
+.footer{margin-top:40px;font-size:.8rem;color:var(--muted);text-align:center;line-height:1.8;}
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:99;}
+#lightbox.active{display:flex;}
+#lightbox img{max-width:92vw;max-height:92vh;border-radius:8px;}
+#lightbox{cursor:zoom-out;}
+@media(max-width:720px){.grid,.listing{grid-template-columns:1fr;}header h1{font-size:1.5rem;}}
+/* 左侧固定目录 TOC */
+.toc{position:fixed;top:0;left:0;width:212px;height:100vh;overflow-y:auto;background:rgba(255,255,255,.95);backdrop-filter:saturate(180%) blur(10px);-webkit-backdrop-filter:saturate(180%) blur(10px);border-right:1px solid var(--border);padding:80px 14px 28px;z-index:40;}
+.toc .toc-title{font-size:.72rem;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:0 0 12px 8px;}
+.toc a{display:block;color:var(--muted);text-decoration:none;font-size:.86rem;line-height:1.4;padding:8px 12px;border-radius:8px;margin-bottom:3px;transition:.15s;border-left:3px solid transparent;}
+.toc a:hover{background:#f0f0f3;color:var(--text);}
+.toc a.active{background:#eef5ff;color:var(--accent);border-left-color:var(--accent);font-weight:700;}
+@media(min-width:901px){ body{padding-left:212px;} .nav{display:none;} }
+@media(max-width:900px){ .toc{display:none;} }
+</style>
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#ffeef5 0%,#f5faff 50%,#e0ecff 100%); display:flex; align-items:center; justify-content:center; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.58); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,.78); border-radius:28px; padding:46px 38px; width:400px; max-width:92vw; text-align:center; box-shadow:0 20px 60px rgba(255,182,193,.22),0 8px 24px rgba(160,190,255,.12); }
+#pwd-gate .gate-icon { width:58px; height:58px; margin:0 auto 18px; border-radius:50%; background:linear-gradient(135deg,#ffe4ec,#d4e6ff); display:flex; align-items:center; justify-content:center; font-size:24px; box-shadow:0 6px 18px rgba(255,182,193,.25); }
+#pwd-gate .gate-title { color:#5a5a78; font-size:24px; font-weight:700; letter-spacing:3px; margin-bottom:10px; }
+#pwd-gate .gate-sub { color:#8a8aa8; font-size:13px; margin-bottom:32px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 22px; border-radius:999px; border:1px solid rgba(255,255,255,.85); background:rgba(255,255,255,.72); color:#5a5a78; font-size:15px; outline:none; transition:border-color .2s,box-shadow .2s,background .2s; box-sizing:border-box; text-align:center; box-shadow:0 2px 8px rgba(160,170,200,.08); }
+#pwd-gate .gate-input::placeholder { color:#b0b0c8; }
+#pwd-gate .gate-input:focus { border-color:#ffd1dc; background:rgba(255,255,255,.9); box-shadow:0 0 0 4px rgba(255,209,220,.35); }
+#pwd-gate .gate-btn { width:100%; margin-top:18px; padding:14px; border-radius:999px; border:none; background:linear-gradient(90deg,#ffecd2,#fcb69f); color:#7a4a2f; font-size:16px; font-weight:700; letter-spacing:3px; cursor:pointer; transition:transform .15s,box-shadow .2s; box-shadow:0 6px 18px rgba(252,182,159,.35); }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(252,182,159,.45); }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#e57373; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#a8a8c0; font-size:11px; margin-top:26px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+<!--DETAIL-THEME-START-->
+<style>
+/* 全局柔和渐变背景，与首页呼应但角度/色阶不同 */
+body {
+  background: linear-gradient(135deg,#fff8fb 0%,#fff0f5 45%,#f5faff 100%) !important;
+  background-attachment: fixed !important;
+  color: #4a4a5a !important;
+}
+/* 内容区主容器：毛玻璃卡片 */
+body .container .section,
+body .container .pcard,
+body .container .product-card,
+body .container .content,
+body .container .toc,
+body .container .gallery-item,
+body .container .faq,
+body .container .notice,
+body .container .sell-points,
+body .container blockquote,
+body .container .img-row img,
+body .container .mainimg,
+body .container .thumbs img,
+body .container div[style*="background:linear-gradient(135deg,#fb7299"],
+body .container div[style*="background:linear-gradient(135deg, #fb7299"] {
+  background: rgba(255,255,255,.82) !important;
+  border: 1px solid rgba(255,230,240,.9) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 6px 22px rgba(255,182,193,.1) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+}
+body .container .section:hover,
+body .container .pcard:hover,
+body .container .product-card:hover,
+body .container .content:hover,
+body .container .toc:hover {
+  box-shadow: 0 10px 30px rgba(255,182,193,.16) !important;
+}
+/* 价格/标签 pill 改为 pastel 胶囊 */
+body .container .tagchip,
+body .container .category-label,
+body .container .pricepill {
+  background: linear-gradient(90deg,#ffecd2,#fcb69f) !important;
+  color: #7a4a2f !important;
+  border-radius: 999px !important;
+  border: none !important;
+}
+body .container .tagchip {
+  background: #a0c4ff !important;
+  color: #fff !important;
+}
+/* 表格表头柔和化 */
+body .container table.spec th,
+body .container .compare-table th,
+body .container .spec-table th {
+  background: rgba(255,236,245,.85) !important;
+  color: #5a5a6e !important;
+  font-weight: 600 !important;
+}
+body .container table.spec td,
+body .container .compare-table td,
+body .container .spec-table td {
+  border-bottom: 1px solid rgba(255,209,220,.45) !important;
+}
+/* 标题颜色统一 */
+body .container h1,
+body .container h2,
+body .container h3,
+body .container h4 {
+  color: #5a5a6e !important;
+}
+body .container h2 {
+  border-left-color: #a0c4ff !important;
+}
+body .container a {
+  color: #7a7a9e !important;
+}
+body .container a:hover {
+  color: #a0c4ff !important;
+}
+/* 页脚 */
+body .container footer,
+body .container .footer {
+  background: rgba(255,255,255,.6) !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255,230,240,.8) !important;
+  color: #8a8a9e !important;
+}
+/* 巅峰设计视频卡片保留品牌色但柔化 */
+body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"] {
+  background: linear-gradient(135deg,#f4a4a4 0%,#f8c9c9 55%,#5a5a6e 100%) !important;
+  color: #fff !important;
+}
+</style>
+<!--DETAIL-THEME-END-->
+
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🌸</div>
+    <div class="gate-title">我们的愿望是</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+<nav class="toc">
+  <div class="toc-title">目录</div>
+  <a href="#s1">一、产品介绍</a>
+  <a href="#s2">二、型号参数卡</a>
+  <a href="#s3">三、总体参数对比</a>
+  <a href="#s4">四、核心差异</a>
+  <a href="#s5">五、产品清单</a>
+  <a href="#s6">六、使用教程视频</a>
+</nav>
+<div class="wrap">
+<header>
+  <h1>印迹 iFootage Pico 双轴电控滑轨 · 全系对比</h1>
+  <div class="sub">PICO 电动滑轨 Pro款 / PICO 电控滑轨 基础款 — 京东在售两款规格横向评测</div>
+</header>
+<nav class="nav">
+  <a href="#s1">产品介绍</a>
+  <a href="#s2">型号参数卡</a>
+  <a href="#s3">总体对比</a>
+  <a href="#s4">核心差异</a>
+  <a href="#s5">产品清单</a>
+  <a href="#s6">使用教程</a>
+</nav>
+<div class="note">数据整理自京东商品页（品牌：印迹 IFOOTAGE）与印迹官方规格参数；价格为渠道参考价，<b>实际以京东商品页面为准</b>。图片内嵌 base64，可离线查看，点击可放大。</div>
+
+<!-- 一、产品介绍 -->
+<div class="section" id="s1">
+  <h2>一、产品介绍</h2>
+  <p style="font-size:.95rem">印迹 Pico 是印迹滑轨家族全新发布的<b>双轴电控滑轨</b>，号称全球体积最小、重量最轻的专业级双轴电控滑轨（2026 年 4 月发布）。机身仅 400×91×52mm、收纳可装入 20L 背包，专为 <b>大疆 Pocket 3/4、Action 5/6、影像旗舰手机及小型微单</b> 量身打造，实现随身携带、随手开拍。</p>
+  <div class="chips">
+    <span class="chip">仅 820g 起 · 超轻便携</span>
+    <span class="chip">四轴联动(Pocket 3/4)</span>
+    <span class="chip">7 小时长续航</span>
+    <span class="chip">静音无刷电机</span>
+    <span class="chip">PD 30W 快充</span>
+    <span class="chip">NFC 一碰即连</span>
+  </div>
+  <h3>五大创作模式</h3>
+  <div class="chips"><span class="chip">延时摄影</span><span class="chip">定格动画</span><span class="chip">全景拍摄</span><span class="chip">多点目标</span><span class="chip">视频拍摄</span></div>
+  <h3>三种操控方式</h3>
+  <div class="chips"><span class="chip ctrl">机身按键(波轮打点/实时调速)</span><span class="chip ctrl">手机 APP(NFC 一碰即连)</span><span class="chip ctrl">Apple Watch 无线控制</span></div>
+</div>
+
+<!-- 二、两款型号参数卡 -->
+<div class="section" id="s2">
+  <h2>二、两款型号参数卡</h2>
+  <div class="grid">
+    
+    <div class="pcard">
+      <div class="ptitle">PICO 电动滑轨 Pro款</div>
+      <img loading="lazy" decoding="async" id="m_10223559537166" class="mainimg" src="assets/yj-pico-slider/001_0b103d67.jpg" onclick="zoom('m_10223559537166')">
+      <div class="thumbs"><img loading="lazy" decoding="async" class="thumb on" src="assets/yj-pico-slider/001_0b103d67.jpg" onclick="swapMain('m_10223559537166','assets/yj-pico-slider/001_0b103d67.jpg',this)"><img loading="lazy" decoding="async" class="thumb" src="assets/yj-pico-slider/002_78a8a4cb.jpg" onclick="swapMain('m_10223559537166','assets/yj-pico-slider/002_78a8a4cb.jpg',this)"><img loading="lazy" decoding="async" class="thumb" src="assets/yj-pico-slider/003_7207c8be.jpg" onclick="swapMain('m_10223559537166','assets/yj-pico-slider/003_7207c8be.jpg',this)"><img loading="lazy" decoding="async" class="thumb" src="assets/yj-pico-slider/004_3c28034b.jpg" onclick="swapMain('m_10223559537166','assets/yj-pico-slider/004_3c28034b.jpg',this)"><img loading="lazy" decoding="async" class="thumb" src="assets/yj-pico-slider/005_c6b2aba6.jpg" onclick="swapMain('m_10223559537166','assets/yj-pico-slider/005_c6b2aba6.jpg',this)"></div>
+      <div class="desc">Pro 版在基础版之上全面升级：碳纤维管件更轻更坚固，LCD 彩屏操控更直观，水平承重提升至 1.5kg，并独有第三轴扩展触点与 USB 视频转接/图片传输输出，专业创作一步到位。</div>
+      <table class="spec">
+        <tr><th>机身尺寸</th><td>400×91×52mm</td></tr><tr><th>行程</th><td>255mm</td></tr><tr><th>重量</th><td>0.82kg</td></tr><tr><th>水平承重</th><td>1.5kg</td></tr><tr><th>材质</th><td>铝合金+碳纤维</td></tr><tr><th>屏幕</th><td>LCD 彩屏</td></tr><tr><th>续航</th><td>约 7 小时</td></tr><tr><th>参考价</th><td>约 ¥1499</td></tr>
+      </table>
+      <div class="skutag">京东 SKU：10223559537166</div>
+    </div>
+    
+    <div class="pcard">
+      <div class="ptitle">PICO 电控滑轨 基础款</div>
+      <img loading="lazy" decoding="async" id="m_10223559537167" class="mainimg" src="assets/yj-pico-slider/006_3e1a33c4.jpg" onclick="zoom('m_10223559537167')">
+      <div class="thumbs"><img loading="lazy" decoding="async" class="thumb on" src="assets/yj-pico-slider/006_3e1a33c4.jpg" onclick="swapMain('m_10223559537167','assets/yj-pico-slider/006_3e1a33c4.jpg',this)"><img loading="lazy" decoding="async" class="thumb" src="assets/yj-pico-slider/002_78a8a4cb.jpg" onclick="swapMain('m_10223559537167','assets/yj-pico-slider/002_78a8a4cb.jpg',this)"><img loading="lazy" decoding="async" class="thumb" src="assets/yj-pico-slider/003_7207c8be.jpg" onclick="swapMain('m_10223559537167','assets/yj-pico-slider/003_7207c8be.jpg',this)"><img loading="lazy" decoding="async" class="thumb" src="assets/yj-pico-slider/004_3c28034b.jpg" onclick="swapMain('m_10223559537167','assets/yj-pico-slider/004_3c28034b.jpg',this)"><img loading="lazy" decoding="async" class="thumb" src="assets/yj-pico-slider/005_c6b2aba6.jpg" onclick="swapMain('m_10223559537167','assets/yj-pico-slider/005_c6b2aba6.jpg',this)"></div>
+      <div class="desc">基础版采用航空级铝合金机身与数码屏，水平承重 1.1kg，覆盖全部五大创作模式与三种操控方式，性价比拉满，是新手与轻量创作的入门首选。</div>
+      <table class="spec">
+        <tr><th>机身尺寸</th><td>400×91×52mm</td></tr><tr><th>行程</th><td>255mm</td></tr><tr><th>重量</th><td>0.86kg</td></tr><tr><th>水平承重</th><td>1.1kg</td></tr><tr><th>材质</th><td>航空级铝合金</td></tr><tr><th>屏幕</th><td>数码屏</td></tr><tr><th>续航</th><td>约 7 小时</td></tr><tr><th>参考价</th><td>约 ¥899</td></tr>
+      </table>
+      <div class="skutag">京东 SKU：10223559537167</div>
+    </div>
+  </div>
+</div>
+
+<!-- 三、总体对比 -->
+<div class="section" id="s3">
+  <h2>三、总体参数对比</h2>
+  <table class="compare-table">
+    <thead><tr><th>规格维度</th><th>PICO 电控滑轨 基础款</th><th>PICO 电动滑轨 Pro款</th></tr></thead>
+    <tbody>
+      <tr><th>轨道规格(机身尺寸)</th><td>400×91×52mm</td><td>400×91×52mm</td></tr><tr><th>行程</th><td>255mm</td><td>255mm</td></tr><tr class="hl"><th>重量</th><td>0.86kg</td><td>0.82kg</td></tr><tr><th>支持设备类型</th><td>手机(蓝牙)/Pocket 3·4/Action 5·6(USB线)</td><td>手机(蓝牙)/Pocket 3·4/Action 5·6(USB线)</td></tr><tr><th>无线连接</th><td>NFC / 蓝牙</td><td>NFC / 蓝牙</td></tr><tr><th>续航(水平状态)</th><td>约 7 小时</td><td>约 7 小时</td></tr><tr><th>控制方式</th><td>蓝牙APP / 手动按键 / Apple Watch</td><td>蓝牙APP / 手动按键 / Apple Watch</td></tr><tr class="hl"><th>水平承重</th><td>1.1kg</td><td>1.5kg</td></tr><tr class="hl"><th>垂直承重</th><td>0.5kg</td><td>0.8kg</td></tr><tr class="hl"><th>屏幕显示类型</th><td>数码屏</td><td>LCD 彩屏</td></tr><tr class="hl"><th>第三轴扩展</th><td>—</td><td>配备扩展触点，支持外接第三轴</td></tr><tr class="hl"><th>输出配置</th><td>—</td><td>支持视频转接 + 图片传输(USB 接口)</td></tr><tr class="hl"><th>管件材质</th><td>铝合金</td><td>碳纤维</td></tr><tr class="hl"><th>整体材质</th><td>航空级铝合金</td><td>航空级铝合金 + 碳纤维</td></tr><tr><th>最大功率(整机)</th><td>25W</td><td>25W</td></tr><tr><th>工作温度</th><td>-10℃ ~ 45℃</td><td>-10℃ ~ 45℃</td></tr><tr><th>Pan 轴旋转角度</th><td>360° 无限制</td><td>360° 无限制</td></tr><tr><th>Slider 轴定位精度</th><td>3.3μm</td><td>3.3μm</td></tr><tr><th>Pan 轴最快转速</th><td>360°/S</td><td>360°/S</td></tr><tr><th>Slider 轴最快速度</th><td>250mm/S</td><td>250mm/S</td></tr><tr><th>Pan 轴最慢转速</th><td>0.003°/S</td><td>0.003°/S</td></tr><tr><th>Slider 轴最慢速度</th><td>3.3μm/S</td><td>3.3μm/S</td></tr><tr><th>电池 / 充电</th><td>5000mAh · PD 30W 快充 · 约 2.5h 满电</td><td>5000mAh · PD 30W 快充 · 约 2.5h 满电</td></tr><tr class="hl"><th>参考价</th><td>约 ¥899</td><td>约 ¥1499</td></tr>
+    </tbody>
+  </table>
+  <div class="note">高亮行为两款存在差异的规格；未高亮行为两款一致参数。</div>
+</div>
+
+<!-- 四、同型号不同规格核心差异 -->
+<div class="section" id="s4">
+  <h2>四、同型号不同规格核心差异</h2>
+  <p style="font-size:.9rem;color:var(--muted)">两款同属 "Pico 双轴电控滑轨" 系列，核心运镜能力（行程、速度、精度、模式）完全一致，差异集中在<b>材质、重量、屏幕、承重与扩展能力</b>：</p>
+  <table class="compare-table">
+    <thead><tr><th>差异维度</th><th>基础款</th><th>Pro款</th></tr></thead>
+    <tbody>
+      <tr><th>材质</th><td>航空级铝合金(管件铝合金)</td><td>航空级铝合金 + 碳纤维(管件碳纤维)</td></tr><tr><th>重量</th><td>0.86kg</td><td>0.82kg(更轻)</td></tr><tr><th>屏幕</th><td>数码屏</td><td>LCD 彩屏(更易读)</td></tr><tr><th>水平承重</th><td>1.1kg</td><td>1.5kg</td></tr><tr><th>垂直承重</th><td>0.5kg</td><td>0.8kg</td></tr><tr><th>第三轴扩展</th><td>不支持</td><td>支持(扩展触点外接第三轴)</td></tr><tr><th>视频/图传输出</th><td>不支持</td><td>支持(USB 视频转接 + 图片传输)</td></tr><tr><th>参考价</th><td>约 ¥899</td><td>约 ¥1499</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 五、产品清单 -->
+<div class="section" id="s5">
+  <h2>五、产品清单（包装内容）</h2>
+  <div class="listing">
+    <div class="lbox">
+      <h4>PICO 电控滑轨 基础款</h4>
+      <ul><li>Pico ×1</li><li>快装板 ×1</li><li>手机夹 ×1</li><li>C-C 充电线 ×1</li><li>布袋 ×1</li><li>说明书 ×1</li><li>保修卡 ×1</li><li>合格证 ×1</li></ul>
+    </div>
+    <div class="lbox">
+      <h4>PICO 电动滑轨 Pro款</h4>
+      <ul><li>Pico Pro ×1</li><li>快装板 ×1</li><li>手机夹 ×1</li><li>豌豆荚 ×1</li><li>PD30W 适配器 ×1</li><li>C-C 充电线 ×1</li><li>运动相机转接座 ×1</li><li>布袋 ×1</li><li>说明书 ×1</li><li>保修卡 ×1</li><li>合格证 ×1</li></ul>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <h2>六、使用教程视频</h2>
+  <p style="font-size:.9rem;color:var(--muted)">以下为印迹官方发布的 Pico 双轴电控滑轨使用教程，涵盖极速打点、App 连接、Pocket4 / Action6 联动、手表控制、手机拍摄与选购指南。点击封面可放大。</p>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;margin:16px 0">
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>极速打点</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示 PICO PRO 极速打点操作，体验快捷打点，适用于 Pico 全系列。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2026-04-20 · 时长 55秒 · <a href="https://www.bilibili.com/video/BV1YMoTBJESx/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-pico-slider/007_3097d847.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>Moco App 连接</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示 iFootage Moco App 的连接与配对操作，NFC 一碰即连，适用于 Pico 全系列。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2026-04-30 · 时长 43秒 · <a href="https://www.bilibili.com/video/BV1pf9UB1E7Z/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-pico-slider/008_06eaef5f.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">联动玩法</span>Pocket4 联动</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示 Pico Pro 联动大疆 Pocket 4 的玩法与四轴协同运镜，适用于 Pico 全系列。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2026-04-21 · 时长 37秒 · <a href="https://www.bilibili.com/video/BV1LNoTBpEFe/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-pico-slider/009_401d4b67.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>手表无线控制</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示 PICO PRO 通过 Apple Watch 腕上无线控制滑轨，一人也能拍大片。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2026-04-22 · 时长 48秒 · <a href="https://www.bilibili.com/video/BV1dmd2BwEFa/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-pico-slider/010_fce37371.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>手机拍摄</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示 PICO PRO 手机拍摄教程，一学就会，主打快、准、稳。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2026-04-23 · 时长 1分5秒 · <a href="https://www.bilibili.com/video/BV1K8opBnEQt/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-pico-slider/011_d794c9ad.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>Action6 连接</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示 PICO PRO 连接大疆 Action 6 的设置教学，运动相机即插即用。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2026-04-27 · 时长 23秒 · <a href="https://www.bilibili.com/video/BV1XkoUBTEf1/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-pico-slider/012_a8012666.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">选购指南</span>基础版 vs Pro 版</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">一条视频讲清 Pico 基础版与 Pro 版的全部差异，帮你快速选对型号。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2026-08-07 · 时长 1分32秒 · <a href="https://www.bilibili.com/video/BV1jru46aEhn/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-pico-slider/013_d4425a63.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  </div>
+</div>
+
+<div class="footer">
+  印迹 iFootage Pico 双轴电控滑轨 · 全系对比（Pro款 / 基础款）<br>
+  数据整理日期：2026-08-20 ｜ 来源：京东商品页 + 印迹官方规格 ｜ 价格以京东实际页面为准<br>
+  本页为产品资料整理，非官方销售页面。
+</div>
+</div>
+
+<div id="lightbox" onclick="this.classList.remove('active')"><img loading="lazy" decoding="async" id="lbimg" src=""></div>
+<script>
+const _navLinks=[...document.querySelectorAll('.nav a, .toc a')];
+const _navSecs=_navLinks.map(a=>document.querySelector(a.getAttribute('href')));
+const _navObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id=e.target.id;_navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));}});},{rootMargin:'-40% 0px -55% 0px',threshold:0});
+_navSecs.forEach(s=>s&&_navObs.observe(s));
+</script>
+<script>
+function swapMain(id,src,el){
+  document.getElementById(id).src=src;
+  var p=el.parentNode; var s=p.querySelectorAll('img');
+  for(var i=0;i<s.length;i++) s[i].classList.remove('on');
+  el.classList.add('on');
+}
+function openLB(el){
+  document.getElementById('lbimg').src=el.querySelector('img').src;
+  document.getElementById('lightbox').classList.add('active');
+}
+function zoom(id){
+  document.getElementById('lbimg').src=document.getElementById(id).src;
+  document.getElementById('lightbox').classList.add('active');
+}
+</script>
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:linear-gradient(180deg,rgba(255,250,252,.96) 0%,rgba(255,245,250,.92) 100%);border-right:1px solid rgba(255,209,220,.7);box-shadow:4px 0 28px rgba(255,182,193,.18);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#5a5a6e;}
+.wb-sidebar h2 a{color:#5a5a6e;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#5a5a6e;margin-bottom:8px;padding-left:8px;border-left:4px solid #d1d5db;}
+.wb-brand.ljn .wb-brand-title{border-color:#8fd9a8;}
+.wb-brand.ys .wb-brand-title{border-color:#9ec5fe;}
+.wb-brand.mm .wb-brand-title{border-color:#fbbf95;}
+.wb-brand.da .wb-brand-title{border-color:#a3c9f9;}
+.wb-brand.pd .wb-brand-title{border-color:#f4a4a4;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:999px;color:#6a6a7e;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:rgba(255,236,245,.85);color:#5a5a6e;}
+.wb-sidebar a.active{background:linear-gradient(90deg,#ffe4ec,#fff0f5);color:#7a4a2f;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:9px 10px;background:linear-gradient(90deg,#ffecd2,#fcb69f);border-radius:999px;color:#7a4a2f;font-size:13px;font-weight:700;text-decoration:none;text-align:center;box-shadow:0 4px 12px rgba(252,182,159,.35);transition:transform .15s,box-shadow .2s;}
+.wb-sidebar .home-link:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(252,182,159,.45);}
+.wb-sidebar .note{padding:6px 10px;color:#9a9aaa;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:38px;height:38px;background:rgba(255,255,255,.9);border:1px solid rgba(255,209,220,.7);border-radius:10px;box-shadow:0 4px 14px rgba(255,182,193,.22);font-size:18px;line-height:36px;text-align:center;cursor:pointer;color:#7a4a2f;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const pathParts=location.pathname.split('/').filter(Boolean);
+  const productsIdx=pathParts.indexOf('products');
+  const current=productsIdx>=0?pathParts.slice(productsIdx+1).join('/'):pathParts.pop();
+  const subDepth=productsIdx>=0?Math.max(0,pathParts.length-productsIdx-2):0;
+  const prefix='../'.repeat(subDepth);
+  const homePrefix='../'+prefix;
+  const data=[
+    {brand:'绿巨能',cls:'ljn',color:'#8fd9a8',items:[{n:'单反相机三脚架',f:'ljn-tripod.html'},{n:'笔记本电池',f:'ljn-battery.html'},{n:'相机电池（汇总）',f:'camera-battery/index.html'},{n:'相机干电池',f:'camera-battery/相机干电池.html'},{n:'相机可直充电池',f:'camera-battery/相机可直充电池.html'},{n:'二合一读卡器',f:'ljn-reader-2in1.html'},{n:'多合一读卡器',f:'ljn-reader-multi.html'}]},
+    {brand:'巅峰设计',cls:'pd',color:'#f4a4a4',items:[{n:'相机肩带 全系对比',f:'PeakDesign_相机肩带_全系对比.html'},{n:'相机背包 全系对比',f:'PeakDesign_相机背包_全系对比.html'},{n:'相机快挂与连接件',f:'PeakDesign_相机快挂与连接件_全系对比.html'},{n:'旅行三脚架 双系列',f:'PeakDesign_旅行三脚架_双系列对比.html'},{n:'ProTripod 三系列',f:'PeakDesign_ProTripod_三系列对比.html'},{n:'手机壳与手机支架',f:'PeakDesign_手机壳与手机支架_全系对比.html'}]},
+    {brand:'印迹',cls:'yj',color:'#b8a4e8',items:[{n:'Pico 双轴电控滑轨',f:'印迹Pico双轴电控滑轨_全系对比.html'},{n:'鲨鱼电动滑轨',f:'印迹鲨鱼电动滑轨_全系对比.html'}]},
+    {brand:'影石',cls:'ys',color:'#9ec5fe',items:[{n:'迷你脚架自拍杆',f:'ys-mini-stand.html'},{n:'隐形自拍杆',f:'ys-invisible-rod.html'},{n:'自行车码表支架',f:'ys-bike-mount.html'}]},
+    {brand:'猛犸',cls:'mm',color:'#fbbf95',items:[{n:'极影S 无线图传',f:'manta-jiyings.html'},{n:'LARK M3',f:'manta-lark-m3.html'},{n:'LARK MIX',f:'manta-lark-mix.html'},{n:'MELO P1',f:'manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'manta-melo-p1-faq.html'}]},
+    {brand:'数据分析',cls:'da',color:'#a3c9f9',items:[{n:'绿巨能京东销售数据',f:'data-analysis/绿巨能京东销售数据分析.html'}]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="'+homePrefix+'index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+prefix+it.f+'" class="'+(it.f===current?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body>
+</html>

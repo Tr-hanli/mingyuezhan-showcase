@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>印迹 iFootage 鲨鱼电动滑轨 全系对比</title>
+<style>
+  :root {
+    --bg:#f5f6f8; --card:#fff; --ink:#1d2129; --muted:#6b7280;
+    --brand:#e8470c; --brand2:#ff7a3d; --line:#e8eaed; --accent:#0b6bcb;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif; line-height:1.6; }
+  .wrap { max-width:1080px; margin:0 auto; padding:28px 18px 60px; }
+  header.top { background:linear-gradient(135deg,#e8470c 0%,#ff7a3d 60%,#2b2f3a 100%);
+    border-radius:18px; padding:30px 30px; color:#fff; margin-bottom:26px; }
+  header.top h1 { margin:0 0 6px; font-size:1.7rem; }
+  header.top .sub { opacity:.92; font-size:.95rem; }
+  header.top .meta { margin-top:14px; font-size:.82rem; opacity:.85; }
+  .section { background:var(--card); border-radius:16px; padding:22px 24px; margin-bottom:22px;
+    box-shadow:0 1px 3px rgba(0,0,0,.05); }
+  .section h2 { font-size:1.25rem; margin:0 0 16px; padding-bottom:10px; border-bottom:2px solid var(--brand); }
+  .section h3 { font-size:1.05rem; margin:18px 0 10px; color:var(--brand); }
+  .pcard { display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; margin-bottom:8px; }
+  .pcard .fig { flex:0 0 260px; max-width:260px; }
+  .pcard .fig img.main { width:100%; border-radius:12px; border:1px solid var(--line); display:block; }
+  .thumbs { display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .thumbs img { width:54px; height:54px; object-fit:cover; border-radius:6px; border:1px solid var(--line); cursor:pointer; }
+  .pcard .info { flex:1 1 360px; min-width:280px; }
+  .cnlabel { font-size:1.1rem; font-weight:700; }
+  .cnlabel .en { font-weight:400; color:var(--muted); font-size:.85rem; margin-left:8px; }
+  .pricepill { display:inline-block; background:#fff3ec; color:var(--brand); border:1px solid #ffd2bd;
+    border-radius:20px; padding:2px 12px; font-size:.82rem; font-weight:600; margin-top:4px; }
+  .summary { background:#fafbfc; border-left:3px solid var(--brand); padding:10px 14px; border-radius:8px;
+    font-size:.9rem; color:#374151; margin:10px 0; }
+  .sp-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:12px 0; }
+  .sp-item { background:#fafbfc; border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+  .sp-item strong { display:block; font-size:.92rem; margin-bottom:2px; }
+  .sp-item .sub { font-size:.8rem; color:var(--muted); }
+  table.spec, table.compare-table { width:100%; border-collapse:collapse; font-size:.88rem; margin-top:6px; }
+  table.spec th, table.spec td, table.compare-table th, table.compare-table td {
+    border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  table.spec th { background:#f3f4f6; width:30%; font-weight:600; }
+  table.compare-table th { background:#f3f4f6; font-weight:600; }
+  table.compare-table td.hl { background:#fff7f2; font-weight:600; }
+  .gap { color:#d9480f; font-weight:600; font-size:.82rem; }
+  .note { font-size:.8rem; color:var(--muted); margin-top:8px; }
+  .sku-table img { width:48px; height:48px; object-fit:cover; border-radius:6px; border:1px solid var(--line); }
+  .sku-table .sku-img { width:56px; }
+  .sku-table .sku-name { width:19%; font-weight:600; line-height:1.4; }
+  .sku-table .sku-spec { font-size:.78rem; line-height:1.45; color:#555; }
+  .sku-table td:nth-child(5), .sku-table td:nth-child(6) { white-space:nowrap; }
+  .sku-table td, .sku-table th { font-size:.84rem; }
+  footer { text-align:center; color:var(--muted); font-size:.8rem; margin-top:30px; line-height:1.8; }
+  .model-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .model-tabs span { background:#f3f4f6; border-radius:8px; padding:4px 12px; font-size:.85rem; }
+
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:100}
+#lightbox.active{display:flex}
+#lightbox img{max-width:92vw;max-height:92vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;}
+[id]{scroll-margin-top:72px;}
+/* 左侧固定目录 TOC */
+.toc{position:fixed;top:0;left:0;width:212px;height:100vh;overflow-y:auto;background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(10px);-webkit-backdrop-filter:saturate(180%) blur(10px);border-right:1px solid var(--line);padding:84px 14px 28px;z-index:40;}
+.toc .toc-title{font-size:.72rem;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:0 0 12px 8px;}
+.toc a{display:block;color:var(--muted);text-decoration:none;font-size:.85rem;line-height:1.4;padding:8px 12px;border-radius:8px;margin-bottom:3px;transition:.15s;border-left:3px solid transparent;}
+.toc a:hover{background:#f3f4f6;color:var(--ink);}
+.toc a.active{background:#fff3ec;color:var(--brand);border-left-color:var(--brand);font-weight:700;}
+/* 顶部导航（移动端） */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(8px);-webkit-backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line);margin:0 -18px 18px;padding:10px 18px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.nav a{color:var(--ink);text-decoration:none;font-size:.83rem;font-weight:600;padding:6px 12px;border-radius:20px;background:#f3f4f6;white-space:nowrap;transition:.15s;}
+.nav a:hover,.nav a.active{background:var(--brand);color:#fff;}
+@media(min-width:901px){ body{padding-left:212px;} .nav{display:none;} }
+@media(max-width:900px){ .toc{display:none;} }
+</style>
+<!--PWD-CSS-START-->
+<style>
+#pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#ffeef5 0%,#f5faff 50%,#e0ecff 100%); display:flex; align-items:center; justify-content:center; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
+#pwd-gate .gate-box { background:rgba(255,255,255,.58); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,.78); border-radius:28px; padding:46px 38px; width:400px; max-width:92vw; text-align:center; box-shadow:0 20px 60px rgba(255,182,193,.22),0 8px 24px rgba(160,190,255,.12); }
+#pwd-gate .gate-icon { width:58px; height:58px; margin:0 auto 18px; border-radius:50%; background:linear-gradient(135deg,#ffe4ec,#d4e6ff); display:flex; align-items:center; justify-content:center; font-size:24px; box-shadow:0 6px 18px rgba(255,182,193,.25); }
+#pwd-gate .gate-title { color:#5a5a78; font-size:24px; font-weight:700; letter-spacing:3px; margin-bottom:10px; }
+#pwd-gate .gate-sub { color:#8a8aa8; font-size:13px; margin-bottom:32px; letter-spacing:.5px; }
+#pwd-gate .gate-input { width:100%; padding:14px 22px; border-radius:999px; border:1px solid rgba(255,255,255,.85); background:rgba(255,255,255,.72); color:#5a5a78; font-size:15px; outline:none; transition:border-color .2s,box-shadow .2s,background .2s; box-sizing:border-box; text-align:center; box-shadow:0 2px 8px rgba(160,170,200,.08); }
+#pwd-gate .gate-input::placeholder { color:#b0b0c8; }
+#pwd-gate .gate-input:focus { border-color:#ffd1dc; background:rgba(255,255,255,.9); box-shadow:0 0 0 4px rgba(255,209,220,.35); }
+#pwd-gate .gate-btn { width:100%; margin-top:18px; padding:14px; border-radius:999px; border:none; background:linear-gradient(90deg,#ffecd2,#fcb69f); color:#7a4a2f; font-size:16px; font-weight:700; letter-spacing:3px; cursor:pointer; transition:transform .15s,box-shadow .2s; box-shadow:0 6px 18px rgba(252,182,159,.35); }
+#pwd-gate .gate-btn:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(252,182,159,.45); }
+#pwd-gate .gate-btn:active { transform:translateY(0); }
+#pwd-gate .gate-err { color:#e57373; font-size:13px; margin-top:14px; min-height:20px; opacity:0; transition:opacity .2s; }
+#pwd-gate .gate-err.show { opacity:1; }
+#pwd-gate .gate-hint { color:#a8a8c0; font-size:11px; margin-top:26px; letter-spacing:.5px; }
+@keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+</style>
+<!--PWD-CSS-END-->
+<!--DETAIL-THEME-START-->
+<style>
+/* 全局柔和渐变背景，与首页呼应但角度/色阶不同 */
+body {
+  background: linear-gradient(135deg,#fff8fb 0%,#fff0f5 45%,#f5faff 100%) !important;
+  background-attachment: fixed !important;
+  color: #4a4a5a !important;
+}
+/* 内容区主容器：毛玻璃卡片 */
+body .container .section,
+body .container .pcard,
+body .container .product-card,
+body .container .content,
+body .container .toc,
+body .container .gallery-item,
+body .container .faq,
+body .container .notice,
+body .container .sell-points,
+body .container blockquote,
+body .container .img-row img,
+body .container .mainimg,
+body .container .thumbs img,
+body .container div[style*="background:linear-gradient(135deg,#fb7299"],
+body .container div[style*="background:linear-gradient(135deg, #fb7299"] {
+  background: rgba(255,255,255,.82) !important;
+  border: 1px solid rgba(255,230,240,.9) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 6px 22px rgba(255,182,193,.1) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+}
+body .container .section:hover,
+body .container .pcard:hover,
+body .container .product-card:hover,
+body .container .content:hover,
+body .container .toc:hover {
+  box-shadow: 0 10px 30px rgba(255,182,193,.16) !important;
+}
+/* 价格/标签 pill 改为 pastel 胶囊 */
+body .container .tagchip,
+body .container .category-label,
+body .container .pricepill {
+  background: linear-gradient(90deg,#ffecd2,#fcb69f) !important;
+  color: #7a4a2f !important;
+  border-radius: 999px !important;
+  border: none !important;
+}
+body .container .tagchip {
+  background: #a0c4ff !important;
+  color: #fff !important;
+}
+/* 表格表头柔和化 */
+body .container table.spec th,
+body .container .compare-table th,
+body .container .spec-table th {
+  background: rgba(255,236,245,.85) !important;
+  color: #5a5a6e !important;
+  font-weight: 600 !important;
+}
+body .container table.spec td,
+body .container .compare-table td,
+body .container .spec-table td {
+  border-bottom: 1px solid rgba(255,209,220,.45) !important;
+}
+/* 标题颜色统一 */
+body .container h1,
+body .container h2,
+body .container h3,
+body .container h4 {
+  color: #5a5a6e !important;
+}
+body .container h2 {
+  border-left-color: #a0c4ff !important;
+}
+body .container a {
+  color: #7a7a9e !important;
+}
+body .container a:hover {
+  color: #a0c4ff !important;
+}
+/* 页脚 */
+body .container footer,
+body .container .footer {
+  background: rgba(255,255,255,.6) !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255,230,240,.8) !important;
+  color: #8a8a9e !important;
+}
+/* 巅峰设计视频卡片保留品牌色但柔化 */
+body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"] {
+  background: linear-gradient(135deg,#f4a4a4 0%,#f8c9c9 55%,#5a5a6e 100%) !important;
+  color: #fff !important;
+}
+</style>
+<!--DETAIL-THEME-END-->
+
+</head>
+<body>
+<!--PWD-BODY-START-->
+<div id="pwd-gate">
+  <div class="gate-box">
+    <div class="gate-icon">🌸</div>
+    <div class="gate-title">我们的愿望是</div>
+    <div class="gate-sub">请输入访问密码以查看内容</div>
+    <input type="text" class="gate-input" id="gateInput" placeholder="输入密码…" autocomplete="off" />
+    <button class="gate-btn" id="gateBtn" onclick="_gateSubmit()">进 入</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-hint">© 牛马的自我休养 · 受保护内容</div>
+  </div>
+</div>
+<script>
+(function(){
+  var PWD = '世界和平';
+  var KEY = "mgyl_pwd_ok";
+  var gate = document.getElementById("pwd-gate");
+  var input = document.getElementById("gateInput");
+  var err = document.getElementById("gateErr");
+  try { if (sessionStorage.getItem(KEY) === "1") { gate.remove(); return; } } catch(e){}
+  document.body.style.overflow = "hidden";
+  input.focus();
+  window._gateSubmit = function() {
+    var val = input.value.trim();
+    if (val === PWD) {
+      try { sessionStorage.setItem(KEY, "1"); } catch(e){}
+      gate.style.transition = "opacity .4s";
+      gate.style.opacity = "0";
+      setTimeout(function(){ gate.remove(); document.body.style.overflow = ""; }, 400);
+    } else {
+      err.textContent = "密码错误，请重试";
+      err.classList.add("show");
+      input.value = "";
+      input.focus();
+      gate.querySelector(".gate-box").style.animation = "none";
+      void gate.querySelector(".gate-box").offsetWidth;
+      gate.querySelector(".gate-box").style.animation = "gateShake .4s";
+    }
+  };
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter") _gateSubmit(); });
+})();
+</script>
+<!--PWD-BODY-END-->
+<nav class="toc">
+  <div class="toc-title">目录</div>
+  <a href="#s1">一、两大产品家族</a>
+  <a href="#s2">使用教程视频</a>
+  <a href="#s3">二、总体对比</a>
+  <a href="#s4">三、同型号对比</a>
+  <a href="#s5">四、包装清单</a>
+</nav>
+<div class="wrap">
+
+<header class="top">
+  <h1>印迹 iFootage 鲨鱼电动滑轨 · 全系对比</h1>
+  <div class="sub">Shark Slider Nano 系列 · 京东官方旗舰店「Nano 滑轨」类目在售型号整理</div>
+  <div class="meta">数据来源：京东商品列表接口（逆向 module-jshop）+ iFootage 官方规格 + 第三方测评/经销商资料 · 价格以京东页面实时为准</div>
+</header>
+
+<nav class="nav">
+  <a href="#s1">产品家族</a>
+  <a href="#s2">教程视频</a>
+  <a href="#s3">总体对比</a>
+  <a href="#s4">同型号</a>
+  <a href="#s5">包装清单</a>
+</nav>
+
+<!-- 产品家族卡片 -->
+<div class="section" id="s1">
+  <h2>一、两大产品家族</h2>
+
+  <div class="pcard">
+    <div class="fig">
+      <img loading="lazy" decoding="async" class="main" src="assets/yj-shark-slider/001_388abd25.jpg" alt="Nano II">
+      <div class="thumbs">
+        <img loading="lazy" decoding="async" src="assets/yj-shark-slider/002_1bdfa969.jpg" alt="variant"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/003_931b7170.jpg" alt="variant"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/004_a618fefd.jpg" alt="variant"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/005_ed83673b.jpg" alt="variant">
+      </div>
+    </div>
+    <div class="info">
+      <div class="cnlabel">鲨鱼 Nano II 二代电动滑轨<span class="en">Shark Slider Nano 2</span></div>
+      <div class="pricepill">京东在售 5 个 SKU（长度 460 / 660 / 860mm，部分含大疆底座）</div>
+      <div class="summary">印迹第二代一体化双轴电控滑轨，机身采用铝合金+碳纤维，内置 IPS 触控屏，支持 MOCO App 与蓝牙遥控，可搭配大疆 RS 系列稳定器联动拍摄。主打桌面级电影感运镜、延时与微距。</div>
+      <div class="sp-grid">
+        <div class="sp-item"><strong>⚙️ 双电机双轴</strong><div class="sub">平移 + 滑移同步驱动，360° 无限制平移轴</div></div>
+        <div class="sp-item"><strong>📱 IPS 触控 + App</strong><div class="sub">机身打点 + MOCO App 编程轨迹，最多 8 个关键点</div></div>
+        <div class="sp-item"><strong>🎯 微米级精度</strong><div class="sub">滑移最快 140mm/s，最慢 1µm/s，定位 1µm</div></div>
+        <div class="sp-item"><strong>🔋 PD60W 供电</strong><div class="sub">NPF 电池 + Type-C PD 快充，边充边用</div></div>
+      </div>
+      <table class="spec">
+        <tr><th>材质</th><td>铝合金 + 碳纤维（阳极氧化）</td></tr>
+        <tr><th>可选长度</th><td>460 / 660 / 860 mm（轨道规格见对比表）</td></tr>
+        <tr><th>水平承重</th><td>7 kg（460/660）· 5 kg（860）</td></tr>
+        <tr><th>垂直承重</th><td>3.5 kg（460/660）· 2.5 kg（860）</td></tr>
+        <tr><th>运行噪音</th><td>约 37 dB / 米</td></tr>
+        <tr><th>平移轴速度</th><td>0.1°/s – 180°/s</td></tr>
+        <tr><th>滑移轴速度</th><td>1 µm/s – 140 mm/s</td></tr>
+        <tr><th>供电</th><td>PD60W / NPF 锂电池</td></tr>
+        <tr><th>兼容</th><td>单反/微单/手机；大疆 RS 系列（配转接底座）</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="pcard" style="margin-top:24px">
+    <div class="fig">
+      <img loading="lazy" decoding="async" class="main" src="assets/yj-shark-slider/006_2057c078.jpg" alt="Nano 一代">
+    </div>
+    <div class="info">
+      <div class="cnlabel">鲨鱼 Nano 一代电动滑轨<span class="en">Shark Slider Nano (Gen1)</span></div>
+      <div class="pricepill">京东在售 1 个 SKU</div>
+      <div class="summary">印迹初代便携式一体化两轴电控滑轨，整机仅 2.15 kg，可装进摄影包。无刷电机（BLDC）超静音，IPS 屏直控，自主研发 MOCO App，支持横竖拍、手机支架与智能增稳补偿。</div>
+      <div class="sp-grid">
+        <div class="sp-item"><strong>🪶 仅 2.15 kg</strong><div class="sub">421×108×71mm，轻松入包</div></div>
+        <div class="sp-item"><strong>🔇 BLDC 无刷电机</strong><div class="sub">运行平稳超静音</div></div>
+        <div class="sp-item"><strong>📐 双轴 360°</strong><div class="sub">平移+水平旋转，横竖拍皆可用</div></div>
+        <div class="sp-item"><strong>🔌 多电池适配</strong><div class="sub">F550/F750/F970 + Type-C 不断电</div></div>
+      </div>
+      <table class="spec">
+        <tr><th>重量</th><td>2.15 kg</td></tr>
+        <tr><th>轨道规格</th><td>421 × 108 × 71 mm</td></tr>
+        <tr><th>行程</th><td>桌面约 200mm · 脚架约 400mm</td></tr>
+        <tr><th>水平承重</th><td>3.5 kg（桌面）· 2.5 kg（脚架）</td></tr>
+        <tr><th>垂直承重</th><td>2.0 kg</td></tr>
+        <tr><th>电机</th><td>无刷直流电机（BLDC）</td></tr>
+        <tr><th>电池</th><td>750 锂电 / F550·F750·F970；Type-C 充电</td></tr>
+        <tr><th>控制</th><td>IPS 触控屏 + MOCO App（手机/相机模式）</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="s2" style="display:flex;gap:14px;flex-wrap:wrap;margin:16px 0">
+  <div style="background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;flex:1 1 340px;min-width:280px;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>NANO 二代滑轨快速安装指南</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">详细演示印迹 Nano II 二代电动滑轨的拆箱、快装板安装、大疆稳定器转接、手机夹与快门线连接等快速上手流程，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2025-01-30 · 时长 1分39秒 · <a href="https://www.bilibili.com/video/BV1L5wmedE42/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/007_ecbd86ad.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>稳定器跟焦器 · 希区柯克变焦</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示在印迹 Nano II 二代电动滑轨上搭配稳定器跟焦器，完成希区柯克式（Dolly Zoom）变焦运镜效果，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2024-11-22 · 时长 1分42秒 · <a href="https://www.bilibili.com/video/BV1qnUdYmETb/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/008_aa086bce.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>延时模式使用教程</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示印迹 Nano II 二代电控滑轨的“延时模式”拍摄设置与运镜节奏，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2024-12-26 · 时长 2分26秒 · <a href="https://www.bilibili.com/video/BV1cVCVY9EVb/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/009_8c1951c4.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>定格动画使用教程</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示印迹 Nano II 二代电控滑轨拍摄“定格动画”的关键帧设置与逐帧运镜技巧，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2024-12-27 · 时长 1分11秒 · <a href="https://www.bilibili.com/video/BV1iZCCYNEyu/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/010_088174e8.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>多点目标功能使用教程</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示印迹 Nano II 二代电控滑轨新增的“多点目标”功能设置与运镜路径编辑，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2025-01-27 · 时长 1分21秒 · <a href="https://www.bilibili.com/video/BV1GnwmeQEky/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/011_5f9f1305.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>开机匹配校准操作教程</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示印迹 Nano II 二代电控滑轨首次“开机匹配校准”的完整操作流程与注意事项，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2025-09-19 · 时长 54秒 · <a href="https://www.bilibili.com/video/BV1FFWGzLEdF/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/012_dbe933c1.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">配件联动</span>Pocket3 转接座 · 新品发布</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">印迹发布 Nano II 二代新配件 Pocket3 转接座，联动大疆 Osmo Pocket 3，解锁更多创意运镜与稳定拍摄玩法。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2025-10-03 · 时长 1分28秒 · <a href="https://www.bilibili.com/video/BV17jnRzXEny/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/013_9ed77c5a.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>NANO 二代使用教学 · 新玩法</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">系统讲解印迹 Nano II 二代鲨鱼电动滑轨的完整使用教学与新玩法，从基础运镜到创意拍摄，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2024-10-11 · 时长 4分54秒 · <a href="https://www.bilibili.com/video/BV1Si2CYcErG/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/014_b93c82f8.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">APP 教程</span>iFootage Moco APP 使用教程</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示印迹 Nano II 二代鲨鱼电动滑轨配套 iFootage Moco App 的连接、参数设置与运镜编程，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2025-03-19 · 时长 1分5秒 · <a href="https://www.bilibili.com/video/BV17RXGYuEeV/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/015_ef837201.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+
+  <div style="flex:1 1 340px;min-width:280px;background:linear-gradient(135deg,#fb7299 0%,#f25d8e 45%,#2b2f3a 100%);border-radius:18px;padding:14px 18px;color:#fff;margin:0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+    <div style="flex:1 1 320px;min-width:260px">
+      <div style="font-size:16px;font-weight:700;line-height:1.4;margin-bottom:4px"><span style="background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;vertical-align:2px;margin-right:8px">使用教程</span>L型板配件使用说明</div>
+      <div style="opacity:.9;font-size:13px;line-height:1.6">演示印迹 Nano II 二代电动滑轨拍摄配件“L型板”的安装与使用方法，适用于 Nano II 全系列（460 / 660 / 860）。</div>
+      <div style="margin-top:6px;font-size:12px;opacity:.85">UP 主：iFootage印迹 · 发布：2024-12-05 · 时长 54秒 · <a href="https://www.bilibili.com/video/BV1iBi9YVEMA/" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">在哔哩哔哩打开原视频 ↗</a></div>
+    </div>
+    <div style="flex:0 0 220px;max-width:220px" onclick="openLB(this)"><img loading="lazy" decoding="async" src="assets/yj-shark-slider/016_816be336.jpg" style="width:100%;border-radius:10px;display:block;cursor:pointer"></div>
+  </div>
+</div>
+</div>
+
+<!-- 总体对比 -->
+<div class="section" id="s3">
+  <h2>二、Nano II 二代 vs Nano 一代 总体对比</h2>
+  <table class="compare-table">
+    <tr><th style="width:26%">对比项</th><th class="hl">Nano II 二代</th><th>Nano 一代</th></tr>
+    <tr><td>定位</td><td class="hl">进阶/专业级双轴电控</td><td>入门便携一体化</td></tr>
+    <tr><td>重量</td><td class="hl">2.8 – 3.4 kg（按长度）</td><td>2.15 kg</td></tr>
+    <tr><td>材质</td><td class="hl">铝合金 + 碳纤维</td><td>铝合金主体</td></tr>
+    <tr><td>可选长度</td><td class="hl">460 / 660 / 860 mm</td><td>单一规格（约 421mm）</td></tr>
+    <tr><td>滑移行程</td><td class="hl">233 / 433 / 633 mm</td><td>桌面 200 / 脚架 400 mm</td></tr>
+    <tr><td>水平承重</td><td class="hl">7 kg（460/660）· 5 kg（860）</td><td>3.5 kg（桌面）· 2.5 kg（脚架）</td></tr>
+    <tr><td>垂直承重</td><td class="hl">3.5 kg（460/660）· 2.5 kg（860）</td><td>2.0 kg</td></tr>
+    <tr><td>滑移速度</td><td class="hl">1 µm/s – 140 mm/s</td><td>0.15 mm/s 起（微米级）</td></tr>
+    <tr><td>供电</td><td class="hl">PD60W / NPF 电池</td><td>F 系列锂电 / Type-C</td></tr>
+    <tr><td>大疆联动</td><td class="hl">支持（配转接底座）</td><td>可搭配（重心注意）</td></tr>
+    <tr><td>屏幕</td><td class="hl">IPS 触控屏</td><td>IPS 触控屏</td></tr>
+    <tr><td>软件</td><td class="hl">MOCO App + 蓝牙遥控</td><td>MOCO App</td></tr>
+  </table>
+  <div class="note">小结：Nano II 二代在承重、行程、供电（PD60W）、大疆生态联动上全面升级；Nano 一代更轻（2.15kg）、更便宜，适合轻装入门与单人直播。</div>
+</div>
+
+<!-- 同型号不同规格 -->
+<div class="section" id="s4">
+  <h2>三、同型号不同规格对比 · Nano II 长度规格</h2>
+  <div class="model-tabs">
+    <span>Nano II-460</span><span>Nano II-660</span><span>Nano II-860</span>
+  </div>
+  <table class="compare-table">
+    <tr><th style="width:26%">规格</th><th class="hl">Nano II-460</th><th class="hl">Nano II-660</th><th class="hl">Nano II-860</th></tr>
+    <tr><td>轨道尺寸 (长×宽×高)</td><td class="hl">463.5×133×99 mm</td><td class="hl">663.5×133×99 mm</td><td class="hl">863.5×133×99 mm</td></tr>
+    <tr><td>滑移行程</td><td class="hl">233 mm</td><td class="hl">433 mm</td><td class="hl">633 mm</td></tr>
+    <tr><td>水平承重</td><td class="hl">7 kg</td><td class="hl">7 kg</td><td class="hl">5 kg</td></tr>
+    <tr><td>垂直承重</td><td class="hl">3.5 kg</td><td class="hl">3.5 kg</td><td class="hl">2.5 kg</td></tr>
+    <tr><td>机身重量</td><td class="hl">约 2.8 kg</td><td class="hl">约 3.1 kg</td><td class="hl">约 3.4 kg</td></tr>
+    <tr><td>适用场景</td><td class="hl">桌面/微距/延时</td><td class="hl">常规运镜/访谈</td><td class="hl">大范围横移/单人直播</td></tr>
+  </table>
+  <div class="note">注：京东在售的 5 个 Nano II SKU 对应上述 460/660/860 三种长度，部分版本「含大疆底座」（转接 DJI RS 稳定器专用），部分不含。选购时按拍摄行程需求与是否搭配大疆稳定器决定。</div>
+</div>
+
+<!-- 包装清单 & 快门线兼容性 -->
+<div class="section" id="s5">
+  <h2 style="font-size:1.3rem;margin-bottom:16px">四、包装清单 &amp; 快门线兼容性</h2>
+
+  <!-- Nano II 660 物品清单 -->
+  <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:14px;padding:20px 24px;color:#fff;margin-bottom:20px">
+    <div style="text-align:center;font-size:1.2rem;font-weight:700;letter-spacing:4px;margin-bottom:10px;border:2px solid rgba(255,255,255,.3);border-radius:10px;padding:8px 0">物 品 清 单 <span style="font-size:.85rem;font-weight:400;opacity:.75;margin-left:8px">Nano II-660 长款（含大疆底座）</span></div>
+    <div style="text-align:center;font-size:13px;opacity:.8;margin-bottom:16px">包装尺寸：710×190×110MM</div>
+    <table style="width:100%;border-collapse:collapse;font-size:14px">
+      <tbody>
+        <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12)">🎬 滑轨主体</td><td style="text-align:right;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);opacity:.85">*1 pcs</td></tr>
+        <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12)">🎒 包包</td><td style="text-align:right;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);opacity:.85">*1 pcs</td></tr>
+        <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12)">🔌 Nano II-RS 转换座</td><td style="text-align:right;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);opacity:.85">*1 pcs</td></tr>
+        <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12)">⚡ 快装板</td><td style="text-align:right;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);opacity:.85">*1 pcs</td></tr>
+        <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12)">📡 信号连接座</td><td style="text-align:right;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);opacity:.85">*1 pcs</td></tr>
+        <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12)">🔋 PD 60W 充电器</td><td style="text-align:right;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);opacity:.85">*1 pcs</td></tr>
+        <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12)">📱 冷靴座手机夹</td><td style="text-align:right;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);opacity:.85">*1 pcs</td></tr>
+        <tr><td style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12)">🔗 快门线</td><td style="text-align:right;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);opacity:.85">*6 pcs</td></tr>
+        <tr><td colspan="2" style="padding:10px 12px;text-align:right;font-size:12px;opacity:.65">*附赠 1 个六角小扳手</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 快门线兼容性 -->
+  <div style="background:#fefefe;border:1px solid #e0e0e0;border-radius:14px;padding:20px 24px;margin-bottom:20px">
+    <div style="text-align:center;font-size:1.15rem;font-weight:700;color:#222;letter-spacing:3px;margin-bottom:6px">快门线支持的相机型号列表</div>
+    <div style="text-align:center;margin-bottom:16px"><span style="background:#333;color:#fff;padding:3px 14px;border-radius:20px;font-size:12px">以下相机型号数据仅供参考</span></div>
+    <table class="compare-table" style="font-size:12.5px">
+      <thead><tr><th style="width:70px">接口</th><th style="width:90px">品牌</th><th>支持型号</th></tr></thead>
+      <tbody>
+        <tr><td><strong>N3</strong></td><td>Canon（佳能）</td><td>R5、7D、7D II、6D、6D II、5D、5D MARK II、5D MARK III、5D MARK IV、5DS、5D0、40D、30D、20D、10D、1D、1DX、1DX MARK II/III/IV、EOS-1V</td></tr>
+        <tr><td><strong>S2</strong></td><td>Sony（索尼）</td><td>a7、a7 II、a7 III、a7s、a7s II、a7s III、a7R、a7R II、a7R III、a7R IV、a9、a9 II、a6600、a6500、a6400、a6300、a6000、a5100、a5000、a3000、HX300/HX400/HX50/HX60、RX100 II/III、a58、NEX-3NL</td></tr>
+        <tr><td><strong>L1</strong></td><td>Panasonic（松下）<br>Leica（徕卡）</td><td><b>松下：</b>DMC-FZ250/FZ50K/S、DMC-FZ30/K/S、DMC-FZ20/K/S、DMC-FZ200、DMC-FZ100、FZ1000、L1/L10/LC1、G10/G9/G9L/G9S/G85/G3/G2/G1/GF1/GH5/GH4/GH3/GH2/GH1/GX1/G5/G8X/GX7<br><b>徕卡：</b>DIGILUX2、DIGILUX3</td></tr>
+        <tr><td><strong>DC2</strong></td><td>Nikon（尼康）</td><td>D750、D780、D7200、D7100、D7000、D610、D600、D5600、D5500、D5300、D5200、D5100、D5000、D3300、D3200、D3100、D90、DF、P7700、Z5、Z6、Z6 II、Z7、Z7 II</td></tr>
+        <tr><td><strong>E2</strong></td><td>Fujifilm（富士）</td><td>X-T1、X-E3、X-E2、X-E25、X-A10、X-A7、X-A3、X-A2、X-A1、X-M1、X02、XQ1、X-T20、X-T10、X-T200、X-T100、X70、X30、X100F、X100T、FINEPIX S1、X-PRO2、GFX50S</td></tr>
+        <tr><td><strong>DC0</strong></td><td>Nikon（尼康）</td><td>D850、D810、D810A、D800、D800E、D700、D500、D6、D5、D4、D45、D300、D300S、D3、D3S、D3X、D2、D2H、D2X、D200、D100、D1、D1H、D1X、F100、F90、F90X、N90S、F6、F5<br><b>FUJIFILM：</b>S5 PRO、S3 PRO<br><b>KODAK：</b>DCS-14N</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Nano II 860 物品清单 -->
+  <div style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);border-radius:14px;padding:20px 24px;color:#fff;margin-bottom:16px">
+    <div style="text-align:center;font-size:1.15rem;font-weight:700;margin-bottom:4px">Nano 2 - 860（加长款）</div>
+    <div style="text-align:center;font-size:13px;opacity:.8;margin-bottom:16px">滑轨尺寸：863.5×133×99MM &nbsp; 实际行程：633MM &nbsp; 重量：3.47KG</div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center">
+      <div style="flex:0 0 auto;text-align:center;min-width:100px">
+        <div style="width:80px;height:56px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px">🎒</div>
+        <div style="font-size:12.5px">手提包</div>
+      </div>
+      <div style="flex:0 0 auto;text-align:center;min-width:100px">
+        <div style="width:80px;height:56px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px">🔌</div>
+        <div style="font-size:12.5px">电源适配器</div>
+      </div>
+      <div style="flex:0 0 auto;text-align:center;min-width:100px">
+        <div style="width:80px;height:56px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px">🚁</div>
+        <div style="font-size:12.5px">DJI 稳定器转接座</div>
+      </div>
+      <div style="flex:0 0 auto;text-align:center;min-width:100px">
+        <div style="width:80px;height:56px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px">📡</div>
+        <div style="font-size:12.5px">DJI 稳定器信号连接线</div>
+      </div>
+      <div style="flex:0 0 auto;text-align:center;min-width:100px">
+        <div style="width:80px;height:56px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px">⚡</div>
+        <div style="font-size:12.5px">快装板</div>
+      </div>
+      <div style="flex:0 0 auto;text-align:center;min-width:100px">
+        <div style="width:80px;height:56px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px">📱</div>
+        <div style="font-size:12.5px">手机夹</div>
+      </div>
+      <div style="flex:0 0 auto;text-align:center;min-width:100px">
+        <div style="width:80px;height:56px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px">🔗</div>
+        <div style="font-size:12.5px">快门线 ×6 条</div>
+      </div>
+    </div>
+    <div style="text-align:right;font-size:11.5px;opacity:.6;margin-top:12px">*包装及配件可能会随时变更，请以实际收到为准</div>
+  </div>
+
+  <!-- 适配三脚架 -->
+  <div style="background:#fefefe;border:1px solid #e0e0e0;border-radius:14px;padding:20px 24px;margin-bottom:16px">
+    <div style="text-align:center;font-size:1.15rem;font-weight:700;color:#222;letter-spacing:3px;margin-bottom:6px">Nano II 滑轨适配三脚架</div>
+    <div style="text-align:center;margin-bottom:14px"><span style="background:#333;color:#fff;padding:3px 14px;border-radius:20px;font-size:12px">TA 为铝合金材质，TC 为碳纤维材质</span></div>
+    <table class="compare-table" style="font-size:13px">
+      <thead><tr><th style="width:110px">产品型号</th><th>TC5S</th><th>TA6S</th><th>TC6S</th><th>TC7</th><th>TC9</th></tr></thead>
+      <tbody>
+        <tr><td>自重</td><td>1.94 kg</td><td>2.34 kg</td><td>1.91 kg</td><td>1.86 kg</td><td>2.36 kg</td></tr>
+        <tr><td>材质</td><td>碳纤维</td><td>航空铝合金</td><td>碳纤维</td><td>碳纤维</td><td>碳纤维</td></tr>
+        <tr><td>节数</td><td>4</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+        <tr><td>收拢高度</td><td>525 mm</td><td>635 mm</td><td>635 mm</td><td>670 mm</td><td>710 mm</td></tr>
+        <tr><td>最高工作高度</td><td>1500 mm</td><td>1650 mm</td><td>1650 mm</td><td>1550 mm</td><td>1650 mm</td></tr>
+        <tr><td>最低工作高度</td><td>175 mm</td><td>195 mm</td><td>195 mm</td><td>180 mm</td><td>195 mm</td></tr>
+        <tr><td>最大承重</td><td>6 kg</td><td>6 kg</td><td>8 kg</td><td>9 kg</td><td>12 kg</td></tr>
+        <tr><td>脚管角度</td><td>22°/55°/80°</td><td>22°/55°/80°</td><td>22°/55°/80°</td><td>22°/55°/77°</td><td>22°/55°/77°</td></tr>
+        <tr><td>最大管径</td><td>30.2 mm</td><td>30.2 mm</td><td>30.2 mm</td><td>30.2 mm</td><td>34 mm</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;padding:12px 16px;background:#f7f9fc;border-radius:10px;font-size:12.5px;line-height:1.8;color:#444">
+      <strong>主要区别：</strong><br>
+      • <strong>结构（节数）：</strong>5 系（TC5S）为四节；6、7、9 系（TA6S/TC6S/TC7/TC9）为三节<br>
+      • <strong>中轴设计：</strong>5、6 系有中轴设计，可微调高度且中轴可倒置；7、9 系无中轴设计，更稳、承重更大<br>
+      • <strong>承重排序：</strong>TC9（12kg）＞ TC7（9kg）＞ TC6S（8kg）＞ TA6S/TC5S（6kg）<br>
+      • <strong>推荐搭配：</strong>Nano II-460/660 建议配 TC5S 或 TA6S（轻便）；Nano II-860 建议配 TC7 或 TC9（高承重更稳）
+    </div>
+  </div>
+
+  <div class="note">注：Nano II 不同长度规格（460/660/860）的包装内容基本一致，主要差异为滑轨主体长度与行程；860 加长款额外标注了具体尺寸和重量。快门线共 6 条，覆盖 Canon N3 / Sony S2 / Panasonic L1 / Leica L1 / Nikon DC2 / Fujifilm E2 / Nikon DC0 七种接口。三脚架参数来源于印迹官方规格表，TA 为铝合金、TC 为碳纤维。
+</div>
+
+<footer>
+  印迹 iFootage 鲨鱼电动滑轨全系对比 · 明月策整理<br>
+  数据来源：京东官方旗舰店商品列表 + iFootage 官网规格 + 第三方测评/经销商资料<br>
+  价格为京东实时售价（接口需签名，未抓取），规格以官方公布为准
+</footer>
+
+</div>
+</div>
+<div id="lightbox" onclick="this.classList.remove('active')"><img loading="lazy" decoding="async" src="" id="lbimg"></div>
+<script>
+function openLB(el){var img=el.querySelector('img');var lb=document.getElementById('lightbox');document.getElementById('lbimg').src=img.src;lb.classList.add('active');}
+</script>
+<script>
+const _navLinks=[...document.querySelectorAll('.nav a, .toc a')];
+const _navSecs=_navLinks.map(a=>document.querySelector(a.getAttribute('href')));
+const _navObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id=e.target.id;_navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));}});},{rootMargin:'-40% 0px -55% 0px',threshold:0});
+_navSecs.forEach(s=>s&&_navObs.observe(s));
+</script>
+<!-- WB-SIDEBAR-START -->
+<style>
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:linear-gradient(180deg,rgba(255,250,252,.96) 0%,rgba(255,245,250,.92) 100%);border-right:1px solid rgba(255,209,220,.7);box-shadow:4px 0 28px rgba(255,182,193,.18);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#5a5a6e;}
+.wb-sidebar h2 a{color:#5a5a6e;text-decoration:none;}
+.wb-brand{margin-bottom:18px;}
+.wb-brand-title{font-size:14px;font-weight:700;color:#5a5a6e;margin-bottom:8px;padding-left:8px;border-left:4px solid #d1d5db;}
+.wb-brand.ljn .wb-brand-title{border-color:#8fd9a8;}
+.wb-brand.ys .wb-brand-title{border-color:#9ec5fe;}
+.wb-brand.mm .wb-brand-title{border-color:#fbbf95;}
+.wb-brand.da .wb-brand-title{border-color:#a3c9f9;}
+.wb-brand.pd .wb-brand-title{border-color:#f4a4a4;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:999px;color:#6a6a7e;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:rgba(255,236,245,.85);color:#5a5a6e;}
+.wb-sidebar a.active{background:linear-gradient(90deg,#ffe4ec,#fff0f5);color:#7a4a2f;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:9px 10px;background:linear-gradient(90deg,#ffecd2,#fcb69f);border-radius:999px;color:#7a4a2f;font-size:13px;font-weight:700;text-decoration:none;text-align:center;box-shadow:0 4px 12px rgba(252,182,159,.35);transition:transform .15s,box-shadow .2s;}
+.wb-sidebar .home-link:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(252,182,159,.45);}
+.wb-sidebar .note{padding:6px 10px;color:#9a9aaa;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:38px;height:38px;background:rgba(255,255,255,.9);border:1px solid rgba(255,209,220,.7);border-radius:10px;box-shadow:0 4px 14px rgba(255,182,193,.22);font-size:18px;line-height:36px;text-align:center;cursor:pointer;color:#7a4a2f;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+@media(min-width:769px){body{padding-left:230px!important;}}
+@media(max-width:768px){
+  .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .wb-sidebar.open{transform:translateX(0);}
+  .wb-sidebar-toggle{display:block;}
+}
+</style>
+<button class="wb-sidebar-toggle" id="wbToggle">☰</button>
+<script>
+(function(){
+  const pathParts=location.pathname.split('/').filter(Boolean);
+  const productsIdx=pathParts.indexOf('products');
+  const current=productsIdx>=0?pathParts.slice(productsIdx+1).join('/'):pathParts.pop();
+  const subDepth=productsIdx>=0?Math.max(0,pathParts.length-productsIdx-2):0;
+  const prefix='../'.repeat(subDepth);
+  const homePrefix='../'+prefix;
+  const data=[
+    {brand:'绿巨能',cls:'ljn',color:'#8fd9a8',items:[{n:'单反相机三脚架',f:'ljn-tripod.html'},{n:'笔记本电池',f:'ljn-battery.html'},{n:'相机电池（汇总）',f:'camera-battery/index.html'},{n:'相机干电池',f:'camera-battery/相机干电池.html'},{n:'相机可直充电池',f:'camera-battery/相机可直充电池.html'},{n:'二合一读卡器',f:'ljn-reader-2in1.html'},{n:'多合一读卡器',f:'ljn-reader-multi.html'}]},
+    {brand:'巅峰设计',cls:'pd',color:'#f4a4a4',items:[{n:'相机肩带 全系对比',f:'PeakDesign_相机肩带_全系对比.html'},{n:'相机背包 全系对比',f:'PeakDesign_相机背包_全系对比.html'},{n:'相机快挂与连接件',f:'PeakDesign_相机快挂与连接件_全系对比.html'},{n:'旅行三脚架 双系列',f:'PeakDesign_旅行三脚架_双系列对比.html'},{n:'ProTripod 三系列',f:'PeakDesign_ProTripod_三系列对比.html'},{n:'手机壳与手机支架',f:'PeakDesign_手机壳与手机支架_全系对比.html'}]},
+    {brand:'印迹',cls:'yj',color:'#b8a4e8',items:[{n:'Pico 双轴电控滑轨',f:'印迹Pico双轴电控滑轨_全系对比.html'},{n:'鲨鱼电动滑轨',f:'印迹鲨鱼电动滑轨_全系对比.html'}]},
+    {brand:'影石',cls:'ys',color:'#9ec5fe',items:[{n:'迷你脚架自拍杆',f:'ys-mini-stand.html'},{n:'隐形自拍杆',f:'ys-invisible-rod.html'},{n:'自行车码表支架',f:'ys-bike-mount.html'}]},
+    {brand:'猛犸',cls:'mm',color:'#fbbf95',items:[{n:'极影S 无线图传',f:'manta-jiyings.html'},{n:'LARK M3',f:'manta-lark-m3.html'},{n:'LARK MIX',f:'manta-lark-mix.html'},{n:'MELO P1',f:'manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'manta-melo-p1-faq.html'}]},
+    {brand:'数据分析',cls:'da',color:'#a3c9f9',items:[{n:'绿巨能京东销售数据',f:'data-analysis/绿巨能京东销售数据分析.html'}]}
+  ];
+  const sb=document.createElement('div');sb.className='wb-sidebar';
+  let html='<a class="home-link" href="'+homePrefix+'index.html">← 返回 明月策</a>';
+  data.forEach(g=>{
+    html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+prefix+it.f+'" class="'+(it.f===current?'active':'')+'">'+it.n+'</a>';});}
+    if(g.note){html+='<div class="note">'+g.note+'</div>';}
+    html+='</div>';
+  });
+  sb.innerHTML=html;
+  document.body.appendChild(sb);
+  const toggle=document.getElementById('wbToggle');
+  toggle.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(window.innerWidth<=768 && sb.classList.contains('open') && !sb.contains(e.target) && e.target!==toggle)sb.classList.remove('open');});
+})();
+</script>
+<!-- WB-SIDEBAR-END -->
+</body>
+</html>
