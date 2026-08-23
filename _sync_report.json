@@ -1,6 +1,5 @@
 {
-  "synced": [],
-  "unchanged": [
+  "synced": [
     "ljn-tripod.html",
     "ljn-battery.html",
     "ljn-reader-2in1.html",
@@ -16,8 +15,23 @@
     "camera-battery/index.html",
     "camera-battery/相机可直充电池.html",
     "camera-battery/相机干电池.html",
-    "data-analysis/绿巨能京东销售数据分析.html"
+    "data-analysis/绿巨能京东销售数据分析.html",
+    "PeakDesign_ProTripod_三系列对比.html",
+    "PeakDesign_手机壳与手机支架_全系对比.html",
+    "PeakDesign_旅行三脚架_双系列对比.html",
+    "PeakDesign_相机快挂与连接件_全系对比.html",
+    "PeakDesign_相机肩带_全系对比.html",
+    "PeakDesign_相机背包_全系对比.html",
+    "印迹Pico双轴电控滑轨_全系对比.html",
+    "印迹鲨鱼电动滑轨_全系对比.html",
+    "热门镜头参数速查.html",
+    "企业文化/企业文化手册初3.0版本(1).pdf"
   ],
+  "unchanged": [],
   "missing_src": [],
-  "assets": []
+  "assets": [
+    "videos/一体把_安装视频.mp4",
+    "videos/分体把_安装视频.mp4",
+    "images/e302d2e88128ee.jpg"
+  ]
 }

@@ -75,20 +75,7 @@ body {margin:0; font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-seri
 #lightbox img {max-width:92%; max-height:92%; border-radius:6px;}
 .nomatch {display:none; text-align:center; color:#64748b; padding:40px; font-size:15px;}
 @media (max-width:680px){ .left{flex:1 1 100%;max-width:100%;} .speclist{grid-template-columns:1fr;} .head-badges{margin-left:0;width:100%;} }
-</style>
-
-
-
-
-
-
-
-
-
-
-
-
-<!--PWD-CSS-START-->
+</style><!--PWD-CSS-START-->
 <style>
 #pwd-gate { position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg,#ffeef5 0%,#f5faff 50%,#e0ecff 100%); display:flex; align-items:center; justify-content:center; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
 #pwd-gate .gate-box { background:rgba(255,255,255,.58); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,.78); border-radius:28px; padding:46px 38px; width:400px; max-width:92vw; text-align:center; box-shadow:0 20px 60px rgba(255,182,193,.22),0 8px 24px rgba(160,190,255,.12); }
@@ -107,102 +94,6 @@ body {margin:0; font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-seri
 @keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
 </style>
 <!--PWD-CSS-END-->
-<!--DETAIL-THEME-START-->
-<style>
-/* 全局柔和渐变背景，与首页呼应但角度/色阶不同 */
-body {
-  background: linear-gradient(135deg,#fff8fb 0%,#fff0f5 45%,#f5faff 100%) !important;
-  background-attachment: fixed !important;
-  color: #4a4a5a !important;
-}
-/* 内容区主容器：毛玻璃卡片 */
-body .container .section,
-body .container .pcard,
-body .container .product-card,
-body .container .content,
-body .container .toc,
-body .container .gallery-item,
-body .container .faq,
-body .container .notice,
-body .container .sell-points,
-body .container blockquote,
-body .container .img-row img,
-body .container .mainimg,
-body .container .thumbs img,
-body .container div[style*="background:linear-gradient(135deg,#fb7299"],
-body .container div[style*="background:linear-gradient(135deg, #fb7299"] {
-  background: rgba(255,255,255,.82) !important;
-  border: 1px solid rgba(255,230,240,.9) !important;
-  border-radius: 18px !important;
-  box-shadow: 0 6px 22px rgba(255,182,193,.1) !important;
-  backdrop-filter: blur(6px) !important;
-  -webkit-backdrop-filter: blur(6px) !important;
-}
-body .container .section:hover,
-body .container .pcard:hover,
-body .container .product-card:hover,
-body .container .content:hover,
-body .container .toc:hover {
-  box-shadow: 0 10px 30px rgba(255,182,193,.16) !important;
-}
-/* 价格/标签 pill 改为 pastel 胶囊 */
-body .container .tagchip,
-body .container .category-label,
-body .container .pricepill {
-  background: linear-gradient(90deg,#ffecd2,#fcb69f) !important;
-  color: #7a4a2f !important;
-  border-radius: 999px !important;
-  border: none !important;
-}
-body .container .tagchip {
-  background: #a0c4ff !important;
-  color: #fff !important;
-}
-/* 表格表头柔和化 */
-body .container table.spec th,
-body .container .compare-table th,
-body .container .spec-table th {
-  background: rgba(255,236,245,.85) !important;
-  color: #5a5a6e !important;
-  font-weight: 600 !important;
-}
-body .container table.spec td,
-body .container .compare-table td,
-body .container .spec-table td {
-  border-bottom: 1px solid rgba(255,209,220,.45) !important;
-}
-/* 标题颜色统一 */
-body .container h1,
-body .container h2,
-body .container h3,
-body .container h4 {
-  color: #5a5a6e !important;
-}
-body .container h2 {
-  border-left-color: #a0c4ff !important;
-}
-body .container a {
-  color: #7a7a9e !important;
-}
-body .container a:hover {
-  color: #a0c4ff !important;
-}
-/* 页脚 */
-body .container footer,
-body .container .footer {
-  background: rgba(255,255,255,.6) !important;
-  border-radius: 14px !important;
-  border: 1px solid rgba(255,230,240,.8) !important;
-  color: #8a8a9e !important;
-}
-/* 巅峰设计视频卡片保留品牌色但柔化 */
-body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"] {
-  background: linear-gradient(135deg,#f4a4a4 0%,#f8c9c9 55%,#5a5a6e 100%) !important;
-  color: #fff !important;
-}
-</style>
-<!--DETAIL-THEME-END-->
-
 </head>
 <body>
 <!--PWD-BODY-START-->
@@ -248,13 +139,6 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
 })();
 </script>
 <!--PWD-BODY-END-->
-
-
-
-
-
-
-
 <div class="topbar">
   <div class="tb-title">
     <h1>绿巨能 相机可直充电池</h1>
@@ -287,7 +171,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_a652_d478" class="main-img" src="images/2742d6ab4fa267.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_a652_d478" class="main-img" src="images/2742d6ab4fa267.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/2742d6ab4fa267.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"><img class="thumb" src="images/e4ea6a8d2a1541.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"><img class="thumb" src="images/25da075f2541d7.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"><img class="thumb" src="images/2bd5c8a0d08975.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"><img class="thumb" src="images/84e1b981510051.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_d478',this.src,this.alt,this)"></div>
         </div>
@@ -319,7 +203,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_a652_95cc" class="main-img" src="images/b0f1fee4c3ac3c.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_a652_95cc" class="main-img" src="images/b0f1fee4c3ac3c.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/b0f1fee4c3ac3c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/4af7c6e116e72c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/9069a7e3dc8100.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/fc23cf1778c096.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/e6af80e88ad4bb.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/ae3738d5ee82db.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"><img class="thumb" src="images/03f3c1abe737e6.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_95cc',this.src,this.alt,this)"></div>
         </div>
@@ -351,7 +235,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_a652_aca0" class="main-img" src="images/aa8a98f3658bd7.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_a652_aca0" class="main-img" src="images/aa8a98f3658bd7.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/aa8a98f3658bd7.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_aca0',this.src,this.alt,this)"><img class="thumb" src="images/64abaf7d82e169.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_aca0',this.src,this.alt,this)"><img class="thumb" src="images/b80e9c6bdc7ee6.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_aca0',this.src,this.alt,this)"><img class="thumb" src="images/8a0040641f1a5c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_aca0',this.src,this.alt,this)"></div>
         </div>
@@ -383,7 +267,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_a652_64ec" class="main-img" src="images/22f42e6862745e.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_a652_64ec" class="main-img" src="images/22f42e6862745e.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/22f42e6862745e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_64ec',this.src,this.alt,this)"><img class="thumb" src="images/7ee4aed463f5f2.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_64ec',this.src,this.alt,this)"><img class="thumb" src="images/360cdb2d6434ed.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_64ec',this.src,this.alt,this)"><img class="thumb" src="images/76fc85b8736f48.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_a652_64ec',this.src,this.alt,this)"></div>
         </div>
@@ -415,7 +299,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_af82_c24b" class="main-img" src="images/572b39997278c5.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_af82_c24b" class="main-img" src="images/572b39997278c5.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/572b39997278c5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"><img class="thumb" src="images/e0ad9d8f86f837.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"><img class="thumb" src="images/cbb002666cf872.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"><img class="thumb" src="images/da1d4032161ae1.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"><img class="thumb" src="images/2910c68e341bad.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_c24b',this.src,this.alt,this)"></div>
         </div>
@@ -447,7 +331,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_af82_a9a4" class="main-img" src="images/31ec0e12208b88.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_af82_a9a4" class="main-img" src="images/31ec0e12208b88.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/31ec0e12208b88.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_a9a4',this.src,this.alt,this)"><img class="thumb" src="images/02d555384617be.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_a9a4',this.src,this.alt,this)"><img class="thumb" src="images/6bef16690316be.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_a9a4',this.src,this.alt,this)"><img class="thumb" src="images/c2253e531b4530.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_af82_a9a4',this.src,this.alt,this)"></div>
         </div>
@@ -479,7 +363,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_9a44_c32c" class="main-img" src="images/38b1cd0902a042.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_9a44_c32c" class="main-img" src="images/38b1cd0902a042.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/38b1cd0902a042.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"><img class="thumb" src="images/5a56e6e107b504.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"><img class="thumb" src="images/fc98de399d3cf4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"><img class="thumb" src="images/946d9202cddc7d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"><img class="thumb" src="images/3c0be6d1173e8e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_c32c',this.src,this.alt,this)"></div>
         </div>
@@ -511,7 +395,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_9a44_47a1" class="main-img" src="images/711fe824d6063d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_9a44_47a1" class="main-img" src="images/711fe824d6063d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/711fe824d6063d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/19aec51fcd23ab.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/9e9b481c096de1.jpg" alt="EN-EL15C 2520mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/d90c98f86542a7.jpg" alt="EN-EL15C 2520mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/138b747f344d5b.jpg" alt="EN-EL15C 2320mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/64b7fda16273d7.jpg" alt="EN-EL15C 2320mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/720acd992b8fed.jpg" alt="EN-EL15C 2320mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"><img class="thumb" src="images/0ebb009f7704d5.jpg" alt="EN-EL15C 2320mAh TypeC直充电池" loading="lazy" onclick="setMain('fc99_9a44_47a1',this.src,this.alt,this)"></div>
         </div>
@@ -543,7 +427,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_9a44_24c5" class="main-img" src="images/aeda2a99f39030.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_9a44_24c5" class="main-img" src="images/aeda2a99f39030.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/aeda2a99f39030.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_24c5',this.src,this.alt,this)"><img class="thumb" src="images/1e7bdd9f0d0cff.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_24c5',this.src,this.alt,this)"><img class="thumb" src="images/05b926a46609a5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_24c5',this.src,this.alt,this)"><img class="thumb" src="images/356de77e69912b.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_24c5',this.src,this.alt,this)"></div>
         </div>
@@ -575,7 +459,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_9a44_b23c" class="main-img" src="images/16fb42f5d505e0.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_9a44_b23c" class="main-img" src="images/16fb42f5d505e0.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/16fb42f5d505e0.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_b23c',this.src,this.alt,this)"><img class="thumb" src="images/73bd3365e86567.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_b23c',this.src,this.alt,this)"><img class="thumb" src="images/7abac93448456c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_b23c',this.src,this.alt,this)"></div>
         </div>
@@ -607,7 +491,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_9a44_ce2c" class="main-img" src="images/a2411b8b66cf61.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_9a44_ce2c" class="main-img" src="images/a2411b8b66cf61.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/a2411b8b66cf61.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_ce2c',this.src,this.alt,this)"><img class="thumb" src="images/abcd1d9475e114.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_ce2c',this.src,this.alt,this)"></div>
         </div>
@@ -639,7 +523,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_9a44_8d48" class="main-img" src="images/9fb6588035718d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_9a44_8d48" class="main-img" src="images/9fb6588035718d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/9fb6588035718d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_8d48',this.src,this.alt,this)"><img class="thumb" src="images/00a98c9ae78bbf.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_8d48',this.src,this.alt,this)"><img class="thumb" src="images/58e8f100246511.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_8d48',this.src,this.alt,this)"><img class="thumb" src="images/233db327cd4b87.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_9a44_8d48',this.src,this.alt,this)"></div>
         </div>
@@ -671,7 +555,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_dbb0_d38f_87de" class="main-img" src="images/c9edf77bc1b480.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_dbb0_d38f_87de" class="main-img" src="images/c9edf77bc1b480.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/c9edf77bc1b480.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_d38f_87de',this.src,this.alt,this)"><img class="thumb" src="images/86fd0ed196ecb4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_d38f_87de',this.src,this.alt,this)"></div>
         </div>
@@ -703,7 +587,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_dbb0_d38f_0c1e" class="main-img" src="images/c9edf77bc1b480.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_dbb0_d38f_0c1e" class="main-img" src="images/c9edf77bc1b480.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/c9edf77bc1b480.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_d38f_0c1e',this.src,this.alt,this)"><img class="thumb" src="images/25c847947e78a4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_d38f_0c1e',this.src,this.alt,this)"></div>
         </div>
@@ -735,7 +619,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_dbb0_d38f_8f7e" class="main-img" src="images/4b779564b419e8.jpg" alt="NP-F970 6600mAh TypeC 直充电池" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_dbb0_d38f_8f7e" class="main-img" src="images/4b779564b419e8.jpg" alt="NP-F970 6600mAh TypeC 直充电池" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/4b779564b419e8.jpg" alt="NP-F970 6600mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/591434a1005e5d.jpg" alt="NP-F970 6600mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/a3637990c650c8.jpg" alt="NP-F970 6600mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/5589ae4126ef26.jpg" alt="NP-F970 6600mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/07c0a97a9fb692.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/582e21deac91c2.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/d9052f5a9ae07e.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/d0e7ed9f7948df.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"><img class="thumb" src="images/f67e13cb472977.jpg" alt="NP-F970 10500mAh TypeC 直充电池" loading="lazy" onclick="setMain('fc99_dbb0_d38f_8f7e',this.src,this.alt,this)"></div>
         </div>
@@ -767,7 +651,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_dbb0_fb41_f7e4" class="main-img" src="images/ae94af6ef2c5f4.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_dbb0_fb41_f7e4" class="main-img" src="images/ae94af6ef2c5f4.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/ae94af6ef2c5f4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"><img class="thumb" src="images/6ad21b5f168355.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"><img class="thumb" src="images/d0d4add1e0b64e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"><img class="thumb" src="images/d6102e8b65fc11.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"><img class="thumb" src="images/dfc19873b412d5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_f7e4',this.src,this.alt,this)"></div>
         </div>
@@ -799,7 +683,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_dbb0_fb41_6a79" class="main-img" src="images/bf2011c313e883.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_dbb0_fb41_6a79" class="main-img" src="images/bf2011c313e883.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/bf2011c313e883.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/dc82d0f4184483.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/5b620da986b563.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/e9d12945394623.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/be13987c5e5886.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/f87c3a3058674c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/650c8883e7616b.jpg" alt="2320mAh" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/4ddc2f3b3c0bf0.jpg" alt="2520mAh" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"><img class="thumb" src="images/4216d2c7608671.jpg" alt="2520mAh" loading="lazy" onclick="setMain('fc99_dbb0_fb41_6a79',this.src,this.alt,this)"></div>
         </div>
@@ -831,7 +715,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_dbb0_5d42_8070" class="main-img" src="images/05786165d22e9d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_dbb0_5d42_8070" class="main-img" src="images/05786165d22e9d.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/05786165d22e9d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_8070',this.src,this.alt,this)"><img class="thumb" src="images/4ba1a32a3315af.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_8070',this.src,this.alt,this)"><img class="thumb" src="images/a3ddcaf0997cbf.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_8070',this.src,this.alt,this)"><img class="thumb" src="images/4d793c20c403c2.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_8070',this.src,this.alt,this)"></div>
         </div>
@@ -863,7 +747,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_dbb0_5d42_2d84" class="main-img" src="images/0160c845c05229.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_dbb0_5d42_2d84" class="main-img" src="images/0160c845c05229.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/0160c845c05229.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_2d84',this.src,this.alt,this)"><img class="thumb" src="images/aa7b508b2ddb03.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_2d84',this.src,this.alt,this)"><img class="thumb" src="images/1aca0005717b5c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_2d84',this.src,this.alt,this)"></div>
         </div>
@@ -895,7 +779,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_dbb0_5d42_00a0" class="main-img" src="images/4eab18f44158f6.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_dbb0_5d42_00a0" class="main-img" src="images/4eab18f44158f6.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/4eab18f44158f6.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/f8a218014d5a7f.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/214411f5890f2c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/0dff9375b24c5d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/ef0d1819545f2d.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"><img class="thumb" src="images/458e38d6a08e39.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_dbb0_5d42_00a0',this.src,this.alt,this)"></div>
         </div>
@@ -927,7 +811,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_6310_63e0" class="main-img" src="images/c9ab0ba90ae35a.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_6310_63e0" class="main-img" src="images/c9ab0ba90ae35a.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/c9ab0ba90ae35a.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_63e0',this.src,this.alt,this)"><img class="thumb" src="images/3d0d96a43ba37c.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_63e0',this.src,this.alt,this)"><img class="thumb" src="images/9c4fc6008aa8f4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_63e0',this.src,this.alt,this)"></div>
         </div>
@@ -959,7 +843,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_6310_e301" class="main-img" src="images/c5fab90631b372.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_6310_e301" class="main-img" src="images/c5fab90631b372.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/c5fab90631b372.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_e301',this.src,this.alt,this)"><img class="thumb" src="images/4af2431439601e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_e301',this.src,this.alt,this)"><img class="thumb" src="images/65d052718d0db5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_e301',this.src,this.alt,this)"><img class="thumb" src="images/cb9f285a041d52.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_e301',this.src,this.alt,this)"></div>
         </div>
@@ -991,7 +875,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_6310_1016" class="main-img" src="images/c47c1bf367a2b9.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_6310_1016" class="main-img" src="images/c47c1bf367a2b9.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/c47c1bf367a2b9.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_1016',this.src,this.alt,this)"></div>
         </div>
@@ -1023,7 +907,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_6310_ac54" class="main-img" src="images/639e8b7048c9c1.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_6310_ac54" class="main-img" src="images/639e8b7048c9c1.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/639e8b7048c9c1.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_ac54',this.src,this.alt,this)"><img class="thumb" src="images/fd3b446f782beb.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_6310_ac54',this.src,this.alt,this)"><img class="thumb" src="images/0c90af8bf7265b.jpg" alt="2520mAh" loading="lazy" onclick="setMain('fc99_c201_6310_ac54',this.src,this.alt,this)"><img class="thumb" src="images/a3eb4f5c5d0157.jpg" alt="2320mAh" loading="lazy" onclick="setMain('fc99_c201_6310_ac54',this.src,this.alt,this)"></div>
         </div>
@@ -1055,7 +939,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_3c80_6bca" class="main-img" src="images/246f9276975164.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_3c80_6bca" class="main-img" src="images/246f9276975164.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/246f9276975164.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_6bca',this.src,this.alt,this)"><img class="thumb" src="images/e26207fb71f051.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_6bca',this.src,this.alt,this)"><img class="thumb" src="images/f0a3ade9cb88ab.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_6bca',this.src,this.alt,this)"><img class="thumb" src="images/b7e942e2994971.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_6bca',this.src,this.alt,this)"></div>
         </div>
@@ -1087,7 +971,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_3c80_3725" class="main-img" src="images/dfee52ca33f855.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_3c80_3725" class="main-img" src="images/dfee52ca33f855.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/dfee52ca33f855.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_3725',this.src,this.alt,this)"><img class="thumb" src="images/4329b375c5442f.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_3725',this.src,this.alt,this)"><img class="thumb" src="images/9c142fd22fcdb8.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_3725',this.src,this.alt,this)"></div>
         </div>
@@ -1119,7 +1003,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_3c80_0f28" class="main-img" src="images/5b9f4cc930683f.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_3c80_0f28" class="main-img" src="images/5b9f4cc930683f.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/5b9f4cc930683f.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_0f28',this.src,this.alt,this)"><img class="thumb" src="images/c141d173624794.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_0f28',this.src,this.alt,this)"><img class="thumb" src="images/21422371969479.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_0f28',this.src,this.alt,this)"><img class="thumb" src="images/eb7c8ef804378e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_0f28',this.src,this.alt,this)"></div>
         </div>
@@ -1151,7 +1035,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_3c80_de62" class="main-img" src="images/d09c86ea7f0d90.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_3c80_de62" class="main-img" src="images/d09c86ea7f0d90.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/d09c86ea7f0d90.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_de62',this.src,this.alt,this)"><img class="thumb" src="images/0e2c93ca5434e1.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_de62',this.src,this.alt,this)"><img class="thumb" src="images/c7b1005af574e4.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_de62',this.src,this.alt,this)"></div>
         </div>
@@ -1183,7 +1067,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_3c80_cc00" class="main-img" src="images/0553c8f059b2d5.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_3c80_cc00" class="main-img" src="images/0553c8f059b2d5.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/0553c8f059b2d5.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"><img class="thumb" src="images/2d4fbb2fc092bf.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"><img class="thumb" src="images/521e297b0c3557.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"><img class="thumb" src="images/e4ca83a43a71f9.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"><img class="thumb" src="images/936e6431fedda3.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_cc00',this.src,this.alt,this)"></div>
         </div>
@@ -1215,7 +1099,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
       <div class="card-body">
         <div class="left">
           <div class="mainimg">
-            <img loading="lazy" decoding="async" id="MAIN_fc99_c201_3c80_b58e" class="main-img" src="images/8d3273dbe75129.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
+            <img id="MAIN_fc99_c201_3c80_b58e" class="main-img" src="images/8d3273dbe75129.jpg" alt="电池图片" onclick="openLightbox(this.src,this.alt)">
           </div>
           <div class="thumbs"><img class="thumb active" src="images/8d3273dbe75129.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_b58e',this.src,this.alt,this)"><img class="thumb" src="images/2089e6ccb837a3.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_b58e',this.src,this.alt,this)"><img class="thumb" src="images/1f1cc337a96df1.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_b58e',this.src,this.alt,this)"><img class="thumb" src="images/cc2dfefaa3f41e.jpg" alt="电池图片" loading="lazy" onclick="setMain('fc99_c201_3c80_b58e',this.src,this.alt,this)"></div>
         </div>
@@ -1236,7 +1120,7 @@ body.theme-pd .container div[style*="background:linear-gradient(135deg,#fb7299"]
   <div class="nomatch" id="nomatch">未找到匹配的型号，请尝试其他关键词。</div>
 </div>
 <button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
-<div id="lightbox" onclick="closeLightbox()"><img loading="lazy" decoding="async" id="lbImg" src=""></div>
+<div id="lightbox" onclick="closeLightbox()"><img id="lbImg" src=""></div>
 <script>
 function openLightbox(src,alt){document.getElementById('lbImg').src=src;document.getElementById('lightbox').style.display='flex';}
 function closeLightbox(){document.getElementById('lightbox').style.display='none';}
@@ -1273,31 +1157,23 @@ function toggleBrand(el){
 function clearFilter(){document.getElementById('q').value='';brandFilter='__ALL__';document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('active',c.getAttribute('data-b')==='__ALL__');});applyFilter();}
 </script>
 
-
-
-
-
-
-
 <!-- WB-SIDEBAR-START -->
 <style>
-.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:linear-gradient(180deg,rgba(255,250,252,.96) 0%,rgba(255,245,250,.92) 100%);border-right:1px solid rgba(255,209,220,.7);box-shadow:4px 0 28px rgba(255,182,193,.18);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
-.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#5a5a6e;}
-.wb-sidebar h2 a{color:#5a5a6e;text-decoration:none;}
+.wb-sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:#fff;border-right:1px solid #e8eaed;box-shadow:2px 0 12px rgba(0,0,0,.06);padding:18px 14px;overflow-y:auto;z-index:10000;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;}
+.wb-sidebar h2{margin:0 0 16px;font-size:18px;font-weight:700;color:#1f2937;}
+.wb-sidebar h2 a{color:#0f3460;text-decoration:none;}
 .wb-brand{margin-bottom:18px;}
-.wb-brand-title{font-size:14px;font-weight:700;color:#5a5a6e;margin-bottom:8px;padding-left:8px;border-left:4px solid #d1d5db;}
-.wb-brand.ljn .wb-brand-title{border-color:#8fd9a8;}
-.wb-brand.ys .wb-brand-title{border-color:#9ec5fe;}
-.wb-brand.mm .wb-brand-title{border-color:#fbbf95;}
-.wb-brand.da .wb-brand-title{border-color:#a3c9f9;}
-.wb-brand.pd .wb-brand-title{border-color:#f4a4a4;}
-.wb-sidebar a{display:block;padding:7px 10px;border-radius:999px;color:#6a6a7e;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
-.wb-sidebar a:hover{background:rgba(255,236,245,.85);color:#5a5a6e;}
-.wb-sidebar a.active{background:linear-gradient(90deg,#ffe4ec,#fff0f5);color:#7a4a2f;font-weight:600;}
-.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:9px 10px;background:linear-gradient(90deg,#ffecd2,#fcb69f);border-radius:999px;color:#7a4a2f;font-size:13px;font-weight:700;text-decoration:none;text-align:center;box-shadow:0 4px 12px rgba(252,182,159,.35);transition:transform .15s,box-shadow .2s;}
-.wb-sidebar .home-link:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(252,182,159,.45);}
-.wb-sidebar .note{padding:6px 10px;color:#9a9aaa;font-size:12px;}
-.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:38px;height:38px;background:rgba(255,255,255,.9);border:1px solid rgba(255,209,220,.7);border-radius:10px;box-shadow:0 4px 14px rgba(255,182,193,.22);font-size:18px;line-height:36px;text-align:center;cursor:pointer;color:#7a4a2f;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.wb-brand-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px;padding-left:8px;border-left:4px solid #9ca3af;}
+.wb-brand.ljn .wb-brand-title{border-color:#16a34a;}
+.wb-brand.ys .wb-brand-title{border-color:#2563eb;}
+.wb-brand.mm .wb-brand-title{border-color:#ea580c;}
+.wb-sidebar a{display:block;padding:7px 10px;border-radius:6px;color:#4b5563;text-decoration:none;font-size:13px;line-height:1.4;transition:background .15s,color .15s;}
+.wb-sidebar a:hover{background:#f3f4f6;color:#111827;}
+.wb-sidebar a.active{background:#eef2ff;color:#0f3460;font-weight:600;}
+.wb-sidebar .home-link{display:block;margin-bottom:20px;padding:8px 10px;background:#f3f4f6;border-radius:6px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;text-align:center;}
+.wb-sidebar .home-link:hover{background:#e5e7eb;}
+.wb-sidebar .note{padding:6px 10px;color:#9ca3af;font-size:12px;}
+.wb-sidebar-toggle{display:none;position:fixed;top:10px;left:10px;z-index:10001;width:36px;height:36px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);font-size:18px;line-height:34px;text-align:center;cursor:pointer;}
 @media(min-width:769px){body{padding-left:230px!important;}}
 @media(max-width:768px){
   .wb-sidebar{transform:translateX(-100%);transition:transform .2s;}
@@ -1308,25 +1184,26 @@ function clearFilter(){document.getElementById('q').value='';brandFilter='__ALL_
 <button class="wb-sidebar-toggle" id="wbToggle">☰</button>
 <script>
 (function(){
-  const pathParts=location.pathname.split('/').filter(Boolean);
-  const productsIdx=pathParts.indexOf('products');
-  const current=productsIdx>=0?pathParts.slice(productsIdx+1).join('/'):pathParts.pop();
-  const subDepth=productsIdx>=0?Math.max(0,pathParts.length-productsIdx-2):0;
-  const prefix='../'.repeat(subDepth);
-  const homePrefix='../'+prefix;
+  const cur=location.pathname.split('/').pop();
   const data=[
-    {brand:'绿巨能',cls:'ljn',color:'#8fd9a8',items:[{n:'单反相机三脚架',f:'ljn-tripod.html'},{n:'笔记本电池',f:'ljn-battery.html'},{n:'相机电池（汇总）',f:'camera-battery/index.html'},{n:'相机干电池',f:'camera-battery/相机干电池.html'},{n:'相机可直充电池',f:'camera-battery/相机可直充电池.html'},{n:'二合一读卡器',f:'ljn-reader-2in1.html'},{n:'多合一读卡器',f:'ljn-reader-multi.html'}]},
-    {brand:'巅峰设计',cls:'pd',color:'#f4a4a4',items:[{n:'相机肩带 全系对比',f:'PeakDesign_相机肩带_全系对比.html'},{n:'相机背包 全系对比',f:'PeakDesign_相机背包_全系对比.html'},{n:'相机快挂与连接件',f:'PeakDesign_相机快挂与连接件_全系对比.html'},{n:'旅行三脚架 双系列',f:'PeakDesign_旅行三脚架_双系列对比.html'},{n:'ProTripod 三系列',f:'PeakDesign_ProTripod_三系列对比.html'},{n:'手机壳与手机支架',f:'PeakDesign_手机壳与手机支架_全系对比.html'}]},
-    {brand:'印迹',cls:'yj',color:'#b8a4e8',items:[{n:'Pico 双轴电控滑轨',f:'印迹Pico双轴电控滑轨_全系对比.html'},{n:'鲨鱼电动滑轨',f:'印迹鲨鱼电动滑轨_全系对比.html'}]},
-    {brand:'影石',cls:'ys',color:'#9ec5fe',items:[{n:'迷你脚架自拍杆',f:'ys-mini-stand.html'},{n:'隐形自拍杆',f:'ys-invisible-rod.html'},{n:'自行车码表支架',f:'ys-bike-mount.html'}]},
-    {brand:'猛犸',cls:'mm',color:'#fbbf95',items:[{n:'极影S 无线图传',f:'manta-jiyings.html'},{n:'LARK M3',f:'manta-lark-m3.html'},{n:'LARK MIX',f:'manta-lark-mix.html'},{n:'MELO P1',f:'manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'manta-melo-p1-faq.html'}]},
-    {brand:'数据分析',cls:'da',color:'#a3c9f9',items:[{n:'绿巨能京东销售数据',f:'data-analysis/绿巨能京东销售数据分析.html'}]}
+    {brand:'绿巨能',cls:'ljn',color:'#16a34a',items:[
+      {n:'单反相机三脚架',f:'../ljn-tripod.html'},{n:'笔记本电池',f:'../ljn-battery.html'},
+      {n:'二合一读卡器',f:'../ljn-reader-2in1.html'},{n:'多合一读卡器',f:'../ljn-reader-multi.html'},
+      {n:'相机电池（汇总）',f:'index.html'},{n:'相机干电池',f:'相机干电池.html'},{n:'相机可直充电池',f:'相机可直充电池.html'}
+    ]},
+    {brand:'影石',cls:'ys',color:'#2563eb',items:[
+      {n:'迷你脚架自拍杆',f:'../ys-mini-stand.html'},{n:'隐形自拍杆',f:'../ys-invisible-rod.html'},{n:'自行车码表支架',f:'../ys-bike-mount.html'}
+    ]},
+    {brand:'猛犸',cls:'mm',color:'#ea580c',items:[
+      {n:'极影S 无线图传',f:'../manta-jiyings.html'},{n:'LARK M3',f:'../manta-lark-m3.html'},{n:'LARK MIX',f:'../manta-lark-mix.html'},
+      {n:'MELO P1',f:'../manta-melo-p1.html'},{n:'MELO P1 问题总结',f:'../manta-melo-p1-faq.html'}
+    ]}
   ];
   const sb=document.createElement('div');sb.className='wb-sidebar';
-  let html='<a class="home-link" href="'+homePrefix+'index.html">← 返回 明月策</a>';
+  let html='<a class="home-link" href="../index.html">← 返回 明月策</a>';
   data.forEach(g=>{
     html+='<div class="wb-brand '+g.cls+'"><div class="wb-brand-title" style="border-color:'+g.color+'">'+g.brand+'</div>';
-    if(g.items){g.items.forEach(it=>{html+='<a href="'+prefix+it.f+'" class="'+(it.f===current?'active':'')+'">'+it.n+'</a>';});}
+    if(g.items){g.items.forEach(it=>{html+='<a href="'+it.f+'" class="'+(it.f.split('/').pop()===cur?'active':'')+'">'+it.n+'</a>';});}
     if(g.note){html+='<div class="note">'+g.note+'</div>';}
     html+='</div>';
   });
