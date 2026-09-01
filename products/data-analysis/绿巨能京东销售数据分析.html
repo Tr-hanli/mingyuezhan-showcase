@@ -35,7 +35,6 @@
   .price{color:#e53935;font-weight:600}
   .sales{color:#0d8a4f;font-weight:600}
   .revenue{color:#7b1fa2;font-weight:600}
-  .sku{color:#3949ab;font-weight:600}
   .rank-badge{display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;font-size:12px;font-weight:700;color:#fff}
   .rank-1{background:#ff6b6b}.rank-2{background:#ffa726}.rank-3{background:#66bb6a}
   .rank-other{background:#bdbdbd}
@@ -43,13 +42,6 @@
   .refresh-info{background:#fff3cd;border:1px solid #ffe08a;border-radius:8px;padding:12px 16px;margin-bottom:24px;font-size:13px;color:#856404}
   #backTop{position:fixed;right:24px;bottom:60px;width:44px;height:44px;border-radius:50%;background:#1a73e8;color:#fff;border:none;font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);display:none;z-index:999;transition:opacity .3s}
   #backTop:hover{background:#0d47a1}
-  /* 更新倒计时 */
-  .countdown{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#0d47a1,#1a73e8);color:#fff;border-radius:12px;padding:16px 22px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-  .countdown .cd-icon{font-size:26px}
-  .countdown .cd-text{font-size:14px;opacity:.9;line-height:1.4}
-  .countdown .cd-timer{margin-left:auto;font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:1px}
-  .countdown .cd-timer small{font-size:13px;font-weight:600;opacity:.85;margin-right:6px}
-  @media(max-width:600px){.countdown{flex-wrap:wrap}.countdown .cd-timer{margin-left:0;width:100%}}
 </style>
 <!--PWD-CSS-START-->
 <style>
@@ -120,32 +112,25 @@
   <h1>🔋 绿巨能京东旗舰店 · 销售数据分析</h1>
   <div class="meta">
     数据来源：<a href="https://mall.jd.com/index-13790262.html?from=pc" target="_blank">京东店铺热销榜</a> ｜
-    最后更新：<span id="mUpdate">—</span> ｜
-    自动更新：每日 12:00 ｜
-    商品数：<span id="mCount">—</span>
+    最后更新：2026-09-01 09:10 ｜
+    自动更新：每日执行 ｜
+    商品数：12
   </div>
 </div>
 
 <div class="container">
 
   <div class="refresh-info">
-    ⏰ 本报告每日 12:00 自动更新。数据采集自京东店铺公开热销榜单（"X万人买过"作为销量近似值），非京东商家后台真实订单数据。
-  </div>
-
-  <!-- 更新倒计时 -->
-  <div class="countdown">
-    <div class="cd-icon">⏳</div>
-    <div class="cd-text">距下次自动更新（每日 12:00）<br>数据刷新后本页将自动反映最新销量 / 价格</div>
-    <div class="cd-timer"><small>剩余</small><span id="cd">--:--:--</span></div>
+    ⏰ 本报告每日自动更新。数据采集自京东店铺公开热销榜单（"X万人买过"作为销量近似值），非京东商家后台真实订单数据。
   </div>
 
   <!-- KPI -->
-  <div class="kpi-row" id="kpiRow">
-    <div class="kpi"><div class="val" id="kpiCount">—</div><div class="lbl">热销商品数</div></div>
-    <div class="kpi green"><div class="val" id="kpiSales">—</div><div class="lbl">总销量（件）</div></div>
-    <div class="kpi orange"><div class="val" id="kpiRevenue">—</div><div class="lbl">预估总销售额</div></div>
-    <div class="kpi purple"><div class="val" id="kpiAvg">—</div><div class="lbl">件均价</div></div>
-    <div class="kpi"><div class="val" id="kpiRange">—</div><div class="lbl">价格区间</div></div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="val">12</div><div class="lbl">热销商品数</div></div>
+    <div class="kpi green"><div class="val">164,000</div><div class="lbl">总销量（件）</div></div>
+    <div class="kpi orange"><div class="val">¥26,924,500</div><div class="lbl">预估总销售额</div></div>
+    <div class="kpi purple"><div class="val">¥164.2</div><div class="lbl">件均价</div></div>
+    <div class="kpi"><div class="val">¥98~357</div><div class="lbl">价格区间</div></div>
   </div>
 
   <!-- 热销排行 -->
@@ -181,220 +166,242 @@
   </div>
 
   <!-- 历史趋势 -->
-  <div class="card" id="trendCard">
-    <h2>📈 历史趋势（总销量）</h2>
-    <div class="chart-box"><canvas id="trendChart" height="120"></canvas></div>
-  </div>
+  
+        <div class="card">
+            <h2>📈 历史趋势</h2>
+            <div class="chart-box"><canvas id="trendChart" height="100"></canvas></div>
+        </div>
 
   <!-- 品类汇总表 -->
   <div class="card">
     <h2>📋 品类汇总</h2>
     <table>
       <thead><tr><th>品类</th><th>商品数</th><th>销量</th><th>预估销售额</th><th>平均价格</th></tr></thead>
-      <tbody id="catBody"></tbody>
+      <tbody><tr>
+            <td>相机电池</td>
+            <td>12</td>
+            <td>164,000</td>
+            <td>¥26,924,500</td>
+            <td>¥174.7</td>
+        </tr></tbody>
     </table>
   </div>
 
-  <!-- 商品明细表（每个 SKU 的型号 / 销量 / 价格） -->
+  <!-- 商品明细表 -->
   <div class="card">
-    <h2>📑 商品明细 · 每个 SKU 的型号 / 销量 / 价格（按销量降序）</h2>
+    <h2>📑 商品明细（按销量降序）</h2>
     <table>
-      <thead><tr><th>#</th><th>商品名称</th><th>SKU</th><th>型号</th><th>品类</th><th>价格</th><th>销量</th><th>预估销售额</th></tr></thead>
-      <tbody id="detailBody"></tbody>
+      <thead><tr><th>#</th><th>商品名称</th><th>型号</th><th>品类</th><th>价格</th><th>销量</th><th>预估销售额</th></tr></thead>
+      <tbody><tr>
+            <td>1</td>
+            <td class="pname">【3C认证】适用佳能E17相机电池</td>
+            <td>3C认证</td>
+            <td>相机电池</td>
+            <td class="price">¥129.0</td>
+            <td class="sales">50,000</td>
+            <td class="revenue">¥6,450,000</td>
+        </tr><tr>
+            <td>2</td>
+            <td class="pname">**标题**: 绿巨能旗舰店 - 京东
+
+![logo](https://img13.360buyimg.com/cms/jfs/t1/399236/7/13194/182099/69aa9b62F2b372e6c/00834656a405b49b.jpg.avif)![banner](https://img13.360buyimg.com/cms/jfs/t1/399236/7/13194/182099/69aa9b62F2b372e6c/00834656a405b49b.jpg.avif)![banner](blob:https://mall.jd.com/c910127e-ad69-48b7-b5a6-9cf9ad5c1240)![banner](blob:https://mall.jd.com/c7f70033-0bf8-4a10-9785-fa1f9d4104b2)![banner](blob:https://mall.jd.com/91524da6-70bb-4ef7-9e03-3e5f47dd0083)![banner](blob:https://mall.jd.com/703a9c3b-d1c5-4651-a8c3-a522e96365bf)![banner](https://img13.360buyimg.com/cms/jfs/t1/399236/7/13194/182099/69aa9b62F2b372e6c/00834656a405b49b.jpg.avif)![banner](https://img12.360buyimg.com/cms/jfs/t1/396690/6/17221/279427/69aa9b64Fb7a73a77/00834656a486849a.jpg.avif)![banner](https://img12.360buyimg.com/cms/jfs/t1/396690/6/17221/279427/69aa9b64Fb7a73a77/00834656a486849a.jpg.avif)
+
+热销榜单电池榜本店热卖【3C认证】适用富士W126S电池</td>
+            <td>W126S</td>
+            <td>相机电池</td>
+            <td class="price">¥99.0</td>
+            <td class="sales">20,000</td>
+            <td class="revenue">¥1,980,000</td>
+        </tr><tr>
+            <td>3</td>
+            <td class="pname">【品类热卖】索尼FZ100相机电池</td>
+            <td>FZ100</td>
+            <td>相机电池</td>
+            <td class="price">¥310.0</td>
+            <td class="sales">20,000</td>
+            <td class="revenue">¥6,200,000</td>
+        </tr><tr>
+            <td>4</td>
+            <td class="pname">【3C认证】适用佳能E6NH相机电池</td>
+            <td>3C认证</td>
+            <td>相机电池</td>
+            <td class="price">¥149.0</td>
+            <td class="sales">20,000</td>
+            <td class="revenue">¥2,980,000</td>
+        </tr><tr>
+            <td>5</td>
+            <td class="pname">【3C认证】适用尼康EL25相机电池</td>
+            <td>EL25相机电池</td>
+            <td>相机电池</td>
+            <td class="price">¥199.0</td>
+            <td class="sales">10,000</td>
+            <td class="revenue">¥1,990,000</td>
+        </tr><tr>
+            <td>6</td>
+            <td class="pname">【3C认证】尼康EL15C相机电池</td>
+            <td>EL15C相机电池</td>
+            <td>相机电池</td>
+            <td class="price">¥159.0</td>
+            <td class="sales">10,000</td>
+            <td class="revenue">¥1,590,000</td>
+        </tr><tr>
+            <td>7</td>
+            <td class="pname">【3C认证】适用富士W235相机电池</td>
+            <td>W235</td>
+            <td>相机电池</td>
+            <td class="price">¥159.0</td>
+            <td class="sales">10,000</td>
+            <td class="revenue">¥1,590,000</td>
+        </tr><tr>
+            <td>8</td>
+            <td class="pname">【3C认证】松下BLG10相机电池</td>
+            <td>BLG10相机电池</td>
+            <td>相机电池</td>
+            <td class="price">¥109.0</td>
+            <td class="sales">10,000</td>
+            <td class="revenue">¥1,090,000</td>
+        </tr><tr>
+            <td>9</td>
+            <td class="pname">【3C认证】适用松下BLK22电池</td>
+            <td>BLK22电池</td>
+            <td>相机电池</td>
+            <td class="price">¥139.0</td>
+            <td class="sales">5,000</td>
+            <td class="revenue">¥695,000</td>
+        </tr><tr>
+            <td>10</td>
+            <td class="pname">【快充+收纳】适用索尼FZ100电池</td>
+            <td>FZ100</td>
+            <td>相机电池</td>
+            <td class="price">¥357.1</td>
+            <td class="sales">5,000</td>
+            <td class="revenue">¥1,785,500</td>
+        </tr><tr>
+            <td>11</td>
+            <td class="pname">【3C认证】索尼NP-FZ100模拟电池</td>
+            <td>NP-FZ100模拟电池</td>
+            <td>相机电池</td>
+            <td class="price">¥189.0</td>
+            <td class="sales">2,000</td>
+            <td class="revenue">¥378,000</td>
+        </tr><tr>
+            <td>12</td>
+            <td class="pname">【3C认证】索尼bx1相机电池</td>
+            <td>3C认证</td>
+            <td>相机电池</td>
+            <td class="price">¥98.0</td>
+            <td class="sales">2,000</td>
+            <td class="revenue">¥196,000</td>
+        </tr></tbody>
     </table>
-    <p style="margin-top:12px;font-size:12px;color:#888;">注：SKU 为京东商品纯数字编号。若显示“—”，表示当前数据源 history.json 中该商品缺少 <code>sku</code> 字段，补充后将自动显示。</p>
   </div>
 
 </div>
 
 <button id="backTop" onclick="scrollTo(0,0)">↑</button>
 <div class="footer">
-  绿巨能京东旗舰店销售数据分析 · 自动生成<br>
+  绿巨能京东旗舰店销售数据分析 · 自动生成 · 2026-09-01 09:10<br>
   数据来源：京东公开热销榜单（https://mall.jd.com/index-13790262.html?from=pc）
 </div>
 
 <script>
-// ===== 兜底数据（fetch 失败时仍可用）=====
-const EMBEDDED_DATA = [
-  {
-    "date":"2026-08-17","timestamp":"2026-08-17 23:13","product_count":12,"total_sales":167000,"avg_price":196.2,
-    "products":[
-      {"name":"【3C认证】适用佳能E17相机电池","sku":"","price":129.0,"sales":50000,"category":"相机电池","model":"E17"},
-      {"name":"【3C认证】适用富士W126S电池","sku":"","price":89.0,"sales":12000,"category":"相机电池","model":"W126S"},
-      {"name":"【品类热卖】索尼FZ100相机电池","sku":"","price":310.0,"sales":20000,"category":"相机电池","model":"FZ100"},
-      {"name":"【3C认证】适用佳能E6NH相机电池","sku":"","price":149.0,"sales":20000,"category":"相机电池","model":"E6NH"},
-      {"name":"【3C认证】适用尼康EL25相机电池","sku":"","price":199.0,"sales":10000,"category":"相机电池","model":"EL25"},
-      {"name":"【3C认证】尼康EL15C相机电池","sku":"","price":159.0,"sales":10000,"category":"相机电池","model":"EL15C"},
-      {"name":"绿巨能V12压风式散热器","sku":"","price":369.0,"sales":5000,"category":"散热器","model":"V12"},
-      {"name":"【3C认证】松下BLG10相机电池","sku":"","price":109.0,"sales":10000,"category":"相机电池","model":"BLG10"},
-      {"name":"惠普暗影精灵SR03XL电池","sku":"","price":209.0,"sales":10000,"category":"笔记本电池","model":"SR03XL"},
-      {"name":"绿巨能轻翼V球形云台三脚架","sku":"","price":229.0,"sales":5000,"category":"摄影配件","model":"轻翼V球形云台三脚架"},
-      {"name":"联想拯救者Y7000P笔记本电池","sku":"","price":264.0,"sales":10000,"category":"笔记本电池","model":"Y7000P"},
-      {"name":"【3C认证】适用松下BLK22电池","sku":"","price":139.0,"sales":5000,"category":"相机电池","model":"BLK22"}
-    ]
-  }
-];
-
-const C = {blue:'#1a73e8',green:'#0d8a4f',orange:'#e8740d',purple:'#7b1fa2',red:'#e53935',teal:'#00897b',amber:'#f9a825',indigo:'#3949ab',pink:'#d81b60',cyan:'#00acc1',lime:'#7cb342',brown:'#6d4c41'};
+const C = {
+  blue:'#1a73e8',green:'#0d8a4f',orange:'#e8740d',purple:'#7b1fa2',
+  red:'#e53935',teal:'#00897b',amber:'#f9a825',indigo:'#3949ab',
+  pink:'#d81b60',cyan:'#00acc1',lime:'#7cb342',brown:'#6d4c41'
+};
 const palette = [C.blue,C.green,C.orange,C.purple,C.red,C.teal,C.amber,C.indigo,C.pink,C.cyan];
-const charts = {};
 
-function fmt(n){return n.toLocaleString('en-US');}
-function fmtMoney(n){return '¥'+Math.round(n).toLocaleString('en-US');}
-
-function renderEntry(entry){
-  const products = entry.products.slice().sort((a,b)=>b.sales-a.sales);
-  const totalSales = products.reduce((s,p)=>s+p.sales,0);
-  const totalRevenue = products.reduce((s,p)=>s+p.price*p.sales,0);
-  const avgPrice = totalSales? totalRevenue/totalSales : 0;
-  const prices = products.map(p=>p.price);
-  const minP = Math.min(...prices), maxP = Math.max(...prices);
-
-  document.getElementById('mUpdate').textContent = entry.timestamp || entry.date || '—';
-  document.getElementById('mCount').textContent = products.length;
-  document.getElementById('kpiCount').textContent = products.length;
-  document.getElementById('kpiSales').textContent = fmt(totalSales);
-  document.getElementById('kpiRevenue').textContent = fmtMoney(totalRevenue);
-  document.getElementById('kpiAvg').textContent = '¥'+avgPrice.toFixed(1);
-  document.getElementById('kpiRange').textContent = '¥'+minP+'~'+maxP;
-
-  // 销毁旧图
-  Object.keys(charts).forEach(k=>{ if(charts[k]) charts[k].destroy(); });
-
-  // 1. 热销排行
-  charts.rank = new Chart(document.getElementById('rankChart'),{
-    type:'bar',
-    data:{
-      labels: products.map(p=>p.name),
-      datasets:[{label:'销量(件)',data:products.map(p=>p.sales),backgroundColor:C.blue,borderRadius:4}]
-    },
-    options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'销量(件)'}}}}
-  });
-
-  // 2. 品类销量饼图
-  const catMap = {};
-  products.forEach(p=>{ catMap[p.category]=(catMap[p.category]||0)+p.sales; });
-  const catNames = Object.keys(catMap);
-  charts.catPie = new Chart(document.getElementById('catPieChart'),{
-    type:'doughnut',
-    data:{labels:catNames,datasets:[{data:catNames.map(c=>catMap[c]),backgroundColor:palette}]},
-    options:{plugins:{legend:{position:'bottom'}}}
-  });
-
-  // 3. 价格区间
-  const bins = {'0-50元':0,'50-100元':0,'100-150元':0,'150-200元':0,'200-250元':0,'250-300元':0,'300-500元':0};
-  products.forEach(p=>{
-    const v=p.price;
-    if(v<50)bins['0-50元']++;else if(v<100)bins['50-100元']++;
-    else if(v<150)bins['100-150元']++;else if(v<200)bins['150-200元']++;
-    else if(v<250)bins['200-250元']++;else if(v<300)bins['250-300元']++;
-    else bins['300-500元']++;
-  });
-  charts.priceBin = new Chart(document.getElementById('priceBinChart'),{
-    type:'bar',
-    data:{labels:Object.keys(bins),datasets:[{label:'商品数',data:Object.values(bins),backgroundColor:C.teal,borderRadius:4}]},
-    options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}
-  });
-
-  // 4. 品类销售额对比
-  const revMap={};
-  products.forEach(p=>{ revMap[p.category]=(revMap[p.category]||0)+p.price*p.sales; });
-  charts.catRev = new Chart(document.getElementById('catRevenueChart'),{
-    type:'bar',
-    data:{labels:catNames,datasets:[{label:'预估销售额(元)',data:catNames.map(c=>revMap[c]),backgroundColor:palette,borderRadius:4}]},
-    options:{plugins:{legend:{display:false}},scales:{y:{title:{display:true,text:'元'}}}}
-  });
-
-  // 5. 价格 vs 销量散点
-  charts.scatter = new Chart(document.getElementById('scatterChart'),{
-    type:'scatter',
-    data:{datasets:[{label:'商品',data:products.map(p=>({x:p.price,y:p.sales})),backgroundColor:C.purple,pointRadius:6,pointHoverRadius:9}]},
-    options:{plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'价格(元)'}},y:{title:{display:true,text:'销量(件)'}}}}
-  });
-
-  // 6. 历史趋势（多日）
-  if(window.HISTORY && window.HISTORY.length>1){
-    const dh = window.HISTORY.slice().sort((a,b)=>a.date<b.date?-1:1);
-    document.getElementById('trendCard').querySelector('h2').textContent='📈 历史趋势（每日总销量）';
-    charts.trend = new Chart(document.getElementById('trendChart'),{
-      type:'line',
-      data:{labels:dh.map(e=>e.date),datasets:[{label:'总销量',data:dh.map(e=>e.total_sales||e.products.reduce((s,p)=>s+p.sales,0)),borderColor:C.blue,backgroundColor:'rgba(26,115,232,.12)',fill:true,tension:.3,pointRadius:4}]},
-      options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
-    });
-  } else {
-    document.getElementById('trendCard').querySelector('h2').textContent='📈 历史趋势';
-    document.getElementById('trendChart').parentElement.innerHTML='<p class="card note" style="margin:0">首次生成，暂无历史对比。每日自动更新后将出现趋势曲线。</p><canvas id="trendChart" height="120"></canvas>';
+// 1. 热销排行横向条形图
+new Chart(document.getElementById('rankChart'),{
+  type:'bar',
+  data:{
+    labels:["【3C认证】适用佳能E17相机电池", "**标题**: 绿巨能旗舰店 - 京", "【品类热卖】索尼FZ100相机电池", "【3C认证】适用佳能E6NH相机电池", "【3C认证】适用尼康EL25相机电池", "【3C认证】尼康EL15C相机电池", "【3C认证】适用富士W235相机电池", "【3C认证】松下BLG10相机电池", "【3C认证】适用松下BLK22电池", "【快充+收纳】适用索尼FZ100电池", "【3C认证】索尼NP-FZ100模拟", "【3C认证】索尼bx1相机电池"],
+    datasets:[{
+      label:'销量(件)',data:[50000, 20000, 20000, 20000, 10000, 10000, 10000, 10000, 5000, 5000, 2000, 2000],backgroundColor:C.blue,borderRadius:4
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    plugins:{legend:{display:false}},
+    scales:{x:{title:{display:true,text:'销量(件)'}}}
   }
+});
 
-  // 品类汇总表
-  const catBody = document.getElementById('catBody'); catBody.innerHTML='';
-  catNames.sort((a,b)=>catMap[b]-catMap[a]).forEach(c=>{
-    const cnt = products.filter(p=>p.category===c).length;
-    const rev = revMap[c];
-    const avg = rev/ (products.filter(p=>p.category===c).reduce((s,p)=>s+p.sales,0)||1);
-    catBody.innerHTML += '<tr><td>'+c+'</td><td>'+cnt+'</td><td>'+fmt(catMap[c])+'</td><td>'+fmtMoney(rev)+'</td><td>¥'+avg.toFixed(1)+'</td></tr>';
-  });
+// 2. 品类销量饼图
+new Chart(document.getElementById('catPieChart'),{
+  type:'doughnut',
+  data:{
+    labels:["相机电池"],
+    datasets:[{data:[164000],backgroundColor:palette}]
+  },
+  options:{plugins:{legend:{position:'bottom'}}}
+});
 
-  // 商品明细表（每个 SKU 的型号/销量/价格）
-  const detailBody = document.getElementById('detailBody'); detailBody.innerHTML='';
-  products.forEach((p,i)=>{
-    const rank = i+1;
-    const rcls = rank===1?'rank-1':rank===2?'rank-2':rank===3?'rank-3':'rank-other';
-    const sku = (p.sku && String(p.sku).trim()) || '—';
-    const model = (p.model && String(p.model).trim()) || '—';
-    detailBody.innerHTML += '<tr>'+
-      '<td><span class="rank-badge '+rcls+'">'+(rank<=3?rank:'·')+'</span></td>'+
-      '<td class="pname" title="'+p.name+'">'+p.name+'</td>'+
-      '<td class="sku">'+ sku +'</td>'+
-      '<td>'+ model +'</td>'+
-      '<td>'+p.category+'</td>'+
-      '<td class="price">'+fmtMoney(p.price)+'</td>'+
-      '<td class="sales">'+fmt(p.sales)+'</td>'+
-      '<td class="revenue">'+fmtMoney(p.price*p.sales)+'</td>'+
-    '</tr>';
-  });
-}
+// 3. 价格区间柱状图
+new Chart(document.getElementById('priceBinChart'),{
+  type:'bar',
+  data:{
+    labels:["0-50元", "50-100元", "100-150元", "200-250元", "200-300元", "300-500元"],
+    datasets:[{label:'商品数',data:[0, 2, 4, 4, 0, 2],backgroundColor:C.teal,borderRadius:4}]
+  },
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}
+});
 
-// ===== 数据加载：优先读 history.json（每日自动更新），失败用内嵌兜底 =====
-function boot(){
-  fetch('history.json',{cache:'no-store'}).then(r=>{ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
-    .then(j=>{
-      if(Array.isArray(j) && j.length){
-        window.HISTORY = j.slice().sort((a,b)=>a.date<b.date?-1:1);
-        renderEntry(window.HISTORY[window.HISTORY.length-1]);
-      } else { throw new Error('empty'); }
-    })
-    .catch(err=>{
-      console.warn('读取 history.json 失败，使用内置兜底数据：', err);
-      window.HISTORY = EMBEDDED_DATA;
-      renderEntry(EMBEDDED_DATA[EMBEDDED_DATA.length-1]);
-    });
-}
-if(document.readyState!=='loading') boot(); else document.addEventListener('DOMContentLoaded', boot);
+// 4. 品类销售额对比
+new Chart(document.getElementById('catRevenueChart'),{
+  type:'bar',
+  data:{
+    labels:["相机电池"],
+    datasets:[{label:'预估销售额(元)',data:[26924500],backgroundColor:palette,borderRadius:4}]
+  },
+  options:{plugins:{legend:{display:false}},scales:{y:{title:{display:true,text:'元'}}}}
+});
 
-// ===== 更新倒计时（每日 12:00）=====
-function nextUpdate(){
-  const now = new Date();
-  const t = new Date(now);
-  t.setHours(12,0,0,0);
-  if(now >= t) t.setDate(t.getDate()+1);
-  return t;
-}
-function tick(){
-  const diff = nextUpdate() - new Date();
-  const s = Math.floor(diff/1000);
-  const d = Math.floor(s/86400);
-  const h = Math.floor((s%86400)/3600);
-  const m = Math.floor((s%3600)/60);
-  const sec = s%60;
-  const pad = n=>String(n).padStart(2,'0');
-  document.getElementById('cd').textContent =
-    (d>0 ? d+'天 ' : '') + pad(h)+':'+pad(m)+':'+pad(sec);
-}
-tick(); setInterval(tick,1000);
+// 5. 价格vs销量散点
+new Chart(document.getElementById('scatterChart'),{
+  type:'scatter',
+  data:{
+    datasets:[{
+      label:'商品',
+      data:[{"x": 129.0, "y": 50000}, {"x": 99.0, "y": 20000}, {"x": 310.0, "y": 20000}, {"x": 149.0, "y": 20000}, {"x": 199.0, "y": 10000}, {"x": 159.0, "y": 10000}, {"x": 159.0, "y": 10000}, {"x": 109.0, "y": 10000}, {"x": 139.0, "y": 5000}, {"x": 357.1, "y": 5000}, {"x": 189.0, "y": 2000}, {"x": 98.0, "y": 2000}],
+      backgroundColor:C.purple,pointRadius:6,pointHoverRadius:9
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{title:{display:true,text:'价格(元)'}},
+      y:{title:{display:true,text:'销量(件)'}}
+    }
+  }
+});
+
+// 6. 历史趋势（如有）
+
+new Chart(document.getElementById('trendChart'),{
+  type:'line',
+  data:{
+    labels:["2026-08-17", "2026-09-01"],
+    datasets:[
+      {label:'总销量',data:[167000, 164000],borderColor:C.blue,backgroundColor:C.blue+'20',fill:true,tension:.3},
+      {label:'商品数',data:[12, 12],borderColor:C.green,yAxisID:'y1',tension:.3},
+      {label:'均价',data:[196.2, 174.7],borderColor:C.orange,yAxisID:'y2',tension:.3}
+    ]
+  },
+  options:{
+    plugins:{legend:{position:'bottom'}},
+    scales:{
+      y:{title:{display:true,text:'总销量'},position:'left'},
+      y1:{title:{display:true,text:'商品数'},position:'right',grid:{display:false}},
+      y2:{display:false}
+    }
+  }
+});
+
 
 // 回到顶部
-window.onscroll = function(){
+window.onscroll = function() {
   var b = document.getElementById('backTop');
   b.style.display = window.scrollY > 400 ? 'block' : 'none';
 };

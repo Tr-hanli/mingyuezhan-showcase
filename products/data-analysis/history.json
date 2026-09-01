@@ -103,5 +103,98 @@
         "model": "BLK22"
       }
     ]
+  },
+  {
+    "date": "2026-09-01",
+    "timestamp": "2026-09-01 09:10",
+    "product_count": 12,
+    "total_sales": 164000,
+    "avg_price": 174.7,
+    "products": [
+      {
+        "name": "**标题**: 绿巨能旗舰店 - 京东\n\n![logo](https://img13.360buyimg.com/cms/jfs/t1/399236/7/13194/182099/69aa9b62F2b372e6c/00834656a405b49b.jpg.avif)![banner](https://img13.360buyimg.com/cms/jfs/t1/399236/7/13194/182099/69aa9b62F2b372e6c/00834656a405b49b.jpg.avif)![banner](blob:https://mall.jd.com/c910127e-ad69-48b7-b5a6-9cf9ad5c1240)![banner](blob:https://mall.jd.com/c7f70033-0bf8-4a10-9785-fa1f9d4104b2)![banner](blob:https://mall.jd.com/91524da6-70bb-4ef7-9e03-3e5f47dd0083)![banner](blob:https://mall.jd.com/703a9c3b-d1c5-4651-a8c3-a522e96365bf)![banner](https://img13.360buyimg.com/cms/jfs/t1/399236/7/13194/182099/69aa9b62F2b372e6c/00834656a405b49b.jpg.avif)![banner](https://img12.360buyimg.com/cms/jfs/t1/396690/6/17221/279427/69aa9b64Fb7a73a77/00834656a486849a.jpg.avif)![banner](https://img12.360buyimg.com/cms/jfs/t1/396690/6/17221/279427/69aa9b64Fb7a73a77/00834656a486849a.jpg.avif)\n\n热销榜单电池榜本店热卖【3C认证】适用富士W126S电池",
+        "price": 99.0,
+        "sales": 20000,
+        "category": "相机电池",
+        "model": "W126S"
+      },
+      {
+        "name": "【3C认证】适用佳能E17相机电池",
+        "price": 129.0,
+        "sales": 50000,
+        "category": "相机电池",
+        "model": "3C认证"
+      },
+      {
+        "name": "【品类热卖】索尼FZ100相机电池",
+        "price": 310.0,
+        "sales": 20000,
+        "category": "相机电池",
+        "model": "FZ100"
+      },
+      {
+        "name": "【3C认证】适用佳能E6NH相机电池",
+        "price": 149.0,
+        "sales": 20000,
+        "category": "相机电池",
+        "model": "3C认证"
+      },
+      {
+        "name": "【3C认证】适用尼康EL25相机电池",
+        "price": 199.0,
+        "sales": 10000,
+        "category": "相机电池",
+        "model": "EL25相机电池"
+      },
+      {
+        "name": "【3C认证】尼康EL15C相机电池",
+        "price": 159.0,
+        "sales": 10000,
+        "category": "相机电池",
+        "model": "EL15C相机电池"
+      },
+      {
+        "name": "【3C认证】适用富士W235相机电池",
+        "price": 159.0,
+        "sales": 10000,
+        "category": "相机电池",
+        "model": "W235"
+      },
+      {
+        "name": "【3C认证】索尼NP-FZ100模拟电池",
+        "price": 189.0,
+        "sales": 2000,
+        "category": "相机电池",
+        "model": "NP-FZ100模拟电池"
+      },
+      {
+        "name": "【3C认证】松下BLG10相机电池",
+        "price": 109.0,
+        "sales": 10000,
+        "category": "相机电池",
+        "model": "BLG10相机电池"
+      },
+      {
+        "name": "【3C认证】适用松下BLK22电池",
+        "price": 139.0,
+        "sales": 5000,
+        "category": "相机电池",
+        "model": "BLK22电池"
+      },
+      {
+        "name": "【快充+收纳】适用索尼FZ100电池",
+        "price": 357.1,
+        "sales": 5000,
+        "category": "相机电池",
+        "model": "FZ100"
+      },
+      {
+        "name": "【3C认证】索尼bx1相机电池",
+        "price": 98.0,
+        "sales": 2000,
+        "category": "相机电池",
+        "model": "3C认证"
+      }
+    ]
   }
 ]
