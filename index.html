@@ -13,16 +13,28 @@
   .hero h1 { font-size: 44px; letter-spacing: 8px; margin-bottom: 16px; color: #5a5a6e; font-weight: 800; }
   .hero h1::after { content: ''; display: block; width: 72px; height: 4px; background: linear-gradient(90deg, #ffb6c1, #a0c4ff); margin: 18px 0 0 auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(255,182,193,.35); }
   .hero p { color: #8a8a9e; font-size: 15px; letter-spacing: 1px; }
-  .hero-person { position: absolute; left: 0%; bottom: -22px; height: 420px; width: auto; pointer-events: auto; cursor: pointer; z-index: 1; opacity: .95; filter: drop-shadow(0 6px 20px rgba(255,182,193,.18)); transition: transform .35s ease; border: none !important; outline: none !important; box-shadow: none !important; background: transparent !important; }
-  .hero-person:hover { transform: translateY(-14px); }
+  .hero-person { display: none !important; }
+  .cyber-moon { position: absolute; left: 6%; top: 16%; width: 110px; height: 110px; border-radius: 50%; background: transparent; box-shadow: inset -18px -18px 0 6px rgba(3,233,244,.85), 0 0 25px rgba(3,233,244,.45), 0 0 55px rgba(3,233,244,.18); z-index: 2; animation: moonPulse 4s ease-in-out infinite; }
+  @keyframes moonPulse { 0%,100%{ box-shadow: inset -18px -18px 0 6px rgba(3,233,244,.85), 0 0 25px rgba(3,233,244,.45), 0 0 55px rgba(3,233,244,.18); transform: scale(1); } 50%{ box-shadow: inset -18px -18px 0 6px rgba(3,233,244,1), 0 0 40px rgba(3,233,244,.7), 0 0 80px rgba(3,233,244,.3); transform: scale(1.06); } }
+  .cyber-blocks { position: absolute; inset: 0; overflow: hidden; z-index: 5; pointer-events: none; }
+  .cblock { position: absolute; top: 0; left: 0; width: 22px; height: 22px; border-radius: 4px; opacity: 0; pointer-events: none; will-change: transform; }
+  .cblock:nth-child(1){ background: #03e9f4; box-shadow: 0 0 12px #03e9f4, 0 0 24px rgba(3,233,244,.55); animation-delay: 0s; }
+  .cblock:nth-child(2){ background: #ff4cc0; box-shadow: 0 0 12px #ff4cc0, 0 0 24px rgba(255,76,192,.55); animation-delay: -1.18s; }
+  .cblock:nth-child(3){ background: #ffd166; box-shadow: 0 0 12px #ffd166, 0 0 24px rgba(255,209,102,.55); animation-delay: -2.36s; }
+  .cblock:nth-child(4){ background: #8a5cff; box-shadow: 0 0 12px #8a5cff, 0 0 24px rgba(138,92,255,.55); animation-delay: -3.54s; }
+  .cblock:nth-child(5){ background: #4cffb0; box-shadow: 0 0 12px #4cffb0, 0 0 24px rgba(76,255,176,.55); animation-delay: -4.72s; }
+  .cblock:nth-child(6){ background: #ff6b6b; box-shadow: 0 0 12px #ff6b6b, 0 0 24px rgba(255,107,107,.55); animation-delay: -5.9s; }
+  /* blockArc 动画已改为 JS 物理驱动，保留选择器占位避免旧缓存报错 */
   @media (max-width: 860px) {
     .hero { min-height: 340px; padding: 60px 20px 56px; }
     .hero-content { padding-right: 3%; }
-    .hero-person { height: 300px; bottom: -16px; left: 0%; }
+    .cyber-moon { width: 80px; height: 80px; left: 4%; top: 14%; box-shadow: inset -13px -13px 0 4px rgba(3,233,244,.85), 0 0 18px rgba(3,233,244,.45), 0 0 40px rgba(3,233,244,.18); }
+    .cblock { width: 16px; height: 16px; }
     .hero h1 { font-size: 34px; letter-spacing: 5px; }
   }
   @media (max-width: 560px) {
-    .hero-person { display: none; }
+    .cyber-moon { width: 52px; height: 52px; left: 5%; top: 10%; box-shadow: inset -9px -9px 0 3px rgba(3,233,244,.85), 0 0 12px rgba(3,233,244,.45); }
+    .cyber-blocks { display: none; }
     .hero { min-height: 240px; padding: 50px 20px 45px; }
     .hero h1 { font-size: 28px; letter-spacing: 3px; }
   }
@@ -90,6 +102,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .empty{background:rgba(14,18,28,.7)!important;border:1px dashed rgba(3,233,244,.4)!important;color:#7fb8c0!important;}
 .empty b{color:#eafcff!important;}
 </style>
+
 
 
 
@@ -183,13 +196,23 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 
 
 
+
   <header class="hero">
+    <div class="cyber-moon"></div>
     <img class="hero-person" src="hero-person.png" alt="">
     <div class="hero-content">
       <div class="hero-sys">MINGYUE CE // SYSTEM</div>
       <h1>牛马的自我休养</h1>
       <p class="hero-sub">产品资料库 · 赛博</p>
       <p class="hero-desc">绿巨能 / 巅峰设计 / 猛犸 / 影石 — 产品参数、使用指南与销售数据一站式查阅</p>
+    </div>
+    <div class="cyber-blocks">
+      <div class="cblock"></div>
+      <div class="cblock"></div>
+      <div class="cblock"></div>
+      <div class="cblock"></div>
+      <div class="cblock"></div>
+      <div class="cblock"></div>
     </div>
   </header>
 
@@ -422,5 +445,155 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 
 
   </main>
+
+
+<!--PARTICLE-TRAIL-START-->
+<canvas id="particleTrail" style="position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:999998;"></canvas>
+<script>
+(function(){
+  var c=document.getElementById('particleTrail');
+  if(!c) return;
+  var ctx=c.getContext('2d');
+  var W,H;
+  function resize(){
+    W=window.innerWidth; H=window.innerHeight;
+    c.width=W; c.height=H;
+    c.style.width=W+'px'; c.style.height=H+'px';
+  }
+  resize();
+  window.addEventListener('resize',resize);
+  var ps=[];
+  var colors=['#03e9f4','#ff4cc0','#ffd166','#8a5cff','#4cffb0','#ff6b6b'];
+  function spawn(x,y){
+    for(var i=0;i<3;i++){
+      ps.push({x:x,y:y,vx:(Math.random()-.5)*1.6,vy:(Math.random()-.5)*1.6-0.6,r:Math.random()*2.6+1.4,life:1,color:colors[(Math.random()*colors.length)|0]});
+    }
+    if(ps.length>360) ps.splice(0,ps.length-360);
+  }
+  window.addEventListener('mousemove',function(e){ spawn(e.clientX,e.clientY); });
+  window.addEventListener('touchmove',function(e){ var t=e.touches[0]; if(t) spawn(t.clientX,t.clientY); },{passive:true});
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=ps.length-1;i>=0;i--){
+      var p=ps[i];
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.04; p.life-=0.02;
+      if(p.life<=0){ ps.splice(i,1); continue; }
+      ctx.globalAlpha=p.life;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.2832); ctx.fillStyle=p.color; ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+<!--PARTICLE-TRAIL-END-->
+<script>
+(function(){
+  var hero = document.querySelector('.hero');
+  var blocks = document.querySelectorAll('.cblock');
+  if(!hero || !blocks.length) return;
+
+  var BLOCK_SIZE = 22;
+  var GRAVITY = 0.28;
+  var BOUNCE = 0.72;
+  var VX_BASE = -3.2;
+  var VX_RANDOM = 1.6;
+  var HERO_H = 0;
+
+  // 用右侧真实文字行的位置作为楼梯台阶：
+  // 方块落到某行上向左弹跳；越过该行左边界后失去支撑自然下落；
+  // 最终落到底部横线（地面）后向左弹跳并消失，然后不断循环。
+  // 为避免长文字行（如大标题）上弹跳过久，单个台阶最大宽度受限。
+  var TEXT_SELS = ['.hero-sys', '.hero-content h1', '.hero-sub', '.hero-desc'];
+  var STEP_W_RATIO = 0.22; // 单个台阶最大宽度（相对 hero 宽度）
+  var steps = [];
+  function buildSteps(){
+    var r = hero.getBoundingClientRect();
+    HERO_H = r.height;
+    var W = r.width;
+    var list = [];
+    TEXT_SELS.forEach(function(sel){
+      var el = hero.querySelector(sel);
+      if(!el) return;
+      var er = el.getBoundingClientRect();
+      if(er.width === 0 || er.height === 0) return;
+      var realLeft = er.left - r.left;
+      var realRight = er.right - r.left;
+      var left = Math.max(realLeft, realRight - W * STEP_W_RATIO);
+      list.push({ y: (er.top - r.top) + er.height * 0.5, left: left, right: realRight });
+    });
+    list.sort(function(a,b){ return a.y - b.y; }); // 高 -> 低
+    steps = list;
+    steps.push({ y: HERO_H * 0.9, left: -Infinity, right: Infinity, ground: true });
+  }
+  buildSteps();
+  window.addEventListener('resize', buildSteps);
+
+  blocks.forEach(function(b, i){
+    var s = { x:0, y:-9999, vx:0, vy:0, started:false, t0:Date.now(), delay:i*1500 };
+
+    function reset(){
+      var r = hero.getBoundingClientRect();
+      s.x = r.width * (0.92 + Math.random()*0.18);
+      s.y = -BLOCK_SIZE - Math.random()*90;
+      s.vx = VX_BASE - Math.random()*VX_RANDOM;
+      s.vy = 0;
+      s.started = true;
+      b.style.opacity = '1';
+    }
+
+    function tick(){
+      var now = Date.now();
+      if(!s.started){
+        if(now - s.t0 >= s.delay) reset();
+        requestAnimationFrame(tick);
+        return;
+      }
+
+      s.vy += GRAVITY;
+      s.x += s.vx;
+      s.y += s.vy;
+
+      // 碰撞检测：从高到低遍历，只有 x 落在台阶[left,right]内才被接住
+      for(var j=0; j<steps.length; j++){
+        var step = steps[j];
+        if(s.vy <= 0) continue;
+        var nextY = s.y + BLOCK_SIZE;
+        var prevY = nextY - s.vy;
+        if(nextY >= step.y && prevY <= step.y && s.x + BLOCK_SIZE > step.left && s.x < step.right){
+          s.y = step.y - BLOCK_SIZE;
+          if(step.ground){
+            // 地面：持续弹跳并向左移出（保证循环，不贴地滞留）
+            s.vy = -Math.abs(s.vy) * BOUNCE;
+            if(s.vx > -3.0) s.vx = -3.0;
+            s.vx *= 0.992;
+          } else {
+            s.vy = -Math.abs(s.vy) * BOUNCE;
+          }
+          break;
+        }
+      }
+
+      // 最左端逐渐消失
+      var opacity = 1;
+      if(s.x < 100) opacity = Math.max(0, s.x / 100);
+      b.style.opacity = opacity;
+      b.style.transform = 'translate(' + s.x + 'px, ' + s.y + 'px) rotate(' + (s.x * 0.25) + 'deg)';
+
+      // 出界（滑出左/底部）后重置并循环
+      if(s.x < -BLOCK_SIZE*3 || s.y > HERO_H + BLOCK_SIZE*2){
+        s.started = false;
+        s.t0 = Date.now();
+        s.delay = 400 + Math.random()*700;
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  });
+})();
+</script>
 </body>
 </html>
